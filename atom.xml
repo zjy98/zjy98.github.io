@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>给敦敦买炸猪排</title>
-    <updated>2020-05-08T00:08:49.800Z</updated>
+    <updated>2020-05-08T04:07:43.132Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -10,6 +10,120 @@
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 给敦敦买炸猪排</rights>
+    <entry>
+        <title type="html"><![CDATA[Clustering 聚类]]></title>
+        <id>https://zjy98.github.io/post/clustering-ju-lei/</id>
+        <link href="https://zjy98.github.io/post/clustering-ju-lei/">
+        </link>
+        <updated>2020-05-08T00:06:06.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="有监督学习和无监督学习">有监督学习和无监督学习</h1>
+<p>给定训练集<br>
+学习一个函数f:x-&gt;y</p>
+<h1 id="应用">应用</h1>
+<p>图像分割Images Segmentation，文档分类<br>
+market Segmentation<br>
+Social Network Analysis</p>
+<h1 id="聚类问题描述">聚类问题描述</h1>
+<p>聚类分析：发现不同的数据类簇/群组，使得组内的数据具有较高的相似性或相关性，而组间的数据具有较低的相似性或相关性。<br>
+<img src="https://zjy98.github.io/post-images/1588896918272.png" alt="" loading="lazy"><br>
+无监督，没有正确的标准<br>
+类簇划分可以有多个角度：well-sparated clusters  contiguous cluster(有邻接关系)<br>
+density-based(基于密度的) center-based(靠距离中心) shared property or conceptual clusters</p>
+<h1 id="聚类方法的划分">聚类方法的划分</h1>
+<ul>
+<li>
+<p>划分聚类 partitional clstering<br>
+<img src="https://zjy98.github.io/post-images/1588897606556.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>层次聚类 hierarchical clustering<br>
+<img src="https://zjy98.github.io/post-images/1588897639361.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Exclusive &amp; non-exclusive 排他和非排他</p>
+</li>
+<li>
+<p>Fuzzy &amp; non-fuzzy 模糊和非模糊<br>
+weights must sum to 1</p>
+</li>
+<li>
+<p>Partial &amp; complete<br>
+In some cases,we only want to cluster some of the data</p>
+</li>
+<li>
+<p>Heterogeneous &amp; homogeneous 异构<br>
+Cluster of widely different sizes,shapes,and densities</p>
+<h1 id="常用的聚类算法">常用的聚类算法</h1>
+<h2 id="k-means">K-means</h2>
+<p>1.先确定簇的个数，k<br>
+2.假设每个簇都有一个中心点centroid<br>
+3.将每个样本点划分到距离它最近的中心点所属的簇中<br>
+select K points as the initial centroids<br>
+repeat<br>
+From K clusters by assigning all points to the closets centroid<br>
+Recompute the centroid of each cluster<br>
+Until the centroids don't change<br>
+<img src="https://zjy98.github.io/post-images/1588898467845.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588898867084.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588898914327.png" alt="" loading="lazy"><br>
+如何选取比较好的初始中心点？<br>
+1.凭经验选择代表点<br>
+2.全部数据随机分成c类，计算每类重心作为初始点<br>
+3.用密度法选择代表点<br>
+4.将样本随机排序后使用前c个点作为代表点<br>
+5.从c-1聚类划分问题的解中产生c聚类划分问题的代表点<br>
+对数据没有特别了解，可直接选择2和4方法</p>
+</li>
+<li>
+<p>如何选取K<br>
+SSE一般随着k的增大而减小<br>
+Limitations of K-means<br>
+<img src="https://zjy98.github.io/post-images/1588899870211.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="hierarchical-clustering">Hierarchical clustering</h2>
+<p>为数据集输出一个嵌套的、层次化的类别树：dendrogram<br>
+树结构记录了簇的合并或拆分<br>
+自底向上 agglomerative<br>
+自顶向下 divisive<br>
+层次凝聚聚类：一种很常用的聚类模型<br>
+<img src="https://zjy98.github.io/post-images/1588900023583.png" alt="" loading="lazy"><br>
+关键步骤：计算两个簇的相似度<br>
+不同的度量两个簇的相似度方法，区分了不同的聚类算法<br>
+初始状态：每个点代表一个簇以及一个相似度矩阵proximity matrix<br>
+<img src="https://zjy98.github.io/post-images/1588900656204.png" alt="" loading="lazy"><br>
+中间状态：经过几次合并操作，得到一些簇以及一个相似度矩阵<br>
+<img src="https://zjy98.github.io/post-images/1588900661590.png" alt="" loading="lazy"><br>
+合并操作：合并最近的两个簇（c2 and c5)，同事更新相似度矩阵<br>
+<img src="https://zjy98.github.io/post-images/1588900667232.png" alt="" loading="lazy"><br>
+如何更新相似度矩阵？<br>
+Inter-cluster similarity<br>
+两个不相交的簇G和H，其间的相似度D（G,H)可以通过点点间的相似度(pairwise similarities) D(i,j),i∈G，j∈H，计算得到<br>
+MIN(single linkage)<br>
+MAX(complete linkage)<br>
+Group Average<br>
+<img src="https://zjy98.github.io/post-images/1588900681725.png" alt="" loading="lazy"><br>
+single linkage:优势：单链技术可以处理非椭圆形状的簇。不足：对噪音和离群点很敏感<br>
+complete linkage:优势：对噪音和离群不敏感 不足：可能使大的簇破裂，偏好球形簇<br>
+Group Average:优势：对噪音和极端值影响小 不足：偏好球形簇</p>
+<p>** summary **<br>
+优点：对类别个数不做假设<br>
+通过在不同层的分析，可以获得任意数目的类别<br>
+所获得类别可能对应一个有意义的分类体系taxonomies<br>
+缺点：缺少目标函数，对噪声和离群点敏感，计算、存储量大</p>
+<h2 id="gaussian-mixture-model">Gaussian Mixture Model</h2>
+<p>概率聚类模型<br>
+将训练数据的概率分布描述为一个混合模型<br>
+建模数据的分布<br>
+建模类簇划分时的不确定性<br>
+一个常用的混合模型：mixtures of Gaussians<br>
+<img src="https://zjy98.github.io/post-images/1588900687922.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900693511.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900698295.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900703815.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900708906.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[函数]]></title>
         <id>https://zjy98.github.io/post/han-shu/</id>
@@ -726,213 +840,6 @@ ls -F -w80 /home/jiang -has 可以把选项放在后面<br>
 </li>
 </ul>
 <p>尽量采取ls风格</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[文件管理和目录管理]]></title>
-        <id>https://zjy98.github.io/post/wen-jian-guan-li-he-mu-lu-guan-li/</id>
-        <link href="https://zjy98.github.io/post/wen-jian-guan-li-he-mu-lu-guan-li/">
-        </link>
-        <updated>2020-03-29T12:16:13.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文件管理">文件管理</h1>
-<h2 id="列出文件目录">列出文件目录</h2>
-<p>ls:文件名列表<br>
-基本功能：在同一命令行中可以指定0~n个实参<br>
-不给出实参：列出当前目录下所有文件和目录<br>
-实参为文件时：列出文件项<br>
-实参为目录时：列出目录下的所有文件</p>
-<p>-F：<br>
-若列出目录，就在名字后面缀以斜线/<br>
-若列出的是可执行文件，就在文字后面缀以星号<br>
-若列出的是符号连接文件，就在名字后面缀以@<br>
-若列出的是普通文件，则什么也不加</p>
-<p>-l：长格式列表<br>
-<img src="https://zjy98.github.io/post-images/1585485377239.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1585485436119.png" alt="" loading="lazy"><br>
-有权限显示字母，没权限显示-<br>
-<img src="https://zjy98.github.io/post-images/1585485608422.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1585485613419.png" alt="" loading="lazy"></p>
-<p>-h选项<br>
-便于人阅读的方式打印数值（1K 2G..)<br>
--d选项<br>
-当ls的参数是目录时，不像默认的情况那样列出目录下的文件而是列出目录详细信息<br>
-<img src="https://zjy98.github.io/post-images/1585491509157.png" alt="" loading="lazy"></p>
-<p>-a选项<br>
-列出文件名首字符为圆点的文件（默认情况下不显示，一般存偏好设置信息）<br>
--A选项（功能与-a相同，除了不列出..和.)</p>
-<p>-s：列出文件占用的磁盘大小<br>
--i：列出文件的i节点号</p>
-<h2 id="文件的复制和删除">文件的复制和删除</h2>
-<p>cp:复制<br>
-两种格式和功能：<br>
-cp file1 file2: file2不存在，则创建，存在且是文件则覆盖<br>
-cp file1 file2 ...filen dir ：file2存在且是目录。dir必须存在且是目录<br>
-拷贝文件举例：<br>
-<img src="https://zjy98.github.io/post-images/1585566055032.png" alt="" loading="lazy"><br>
-把备份目录下的文件拷贝回来：cp backup.d/p*.c<br>
-实际执行：cp backup.d/p1.c backup.d/p2.c<br>
-结果：backup.d目录下文件p1.c将覆盖掉p2.c<br>
-（与windows的执行结果不同 ，windows的命令会将这两个备份文件拷贝回当前目录）<br>
-将两个文件拷贝回当前目录的正确用法：cp backup.d/p*.c .</p>
-<p>mv:移动文件<br>
-mv file1 file2<br>
-mv file1 file2...filen dir<br>
-mv dir1 dir2<br>
-功能：使用mv命令可以将文件和目录改名。可以将文件和子目录从一个目录移动到另一个目录<br>
-mv dir1 dir2两种执行情况</p>
-<p>rm：删除文件<br>
-rm file1 file2...<br>
--r 递归地删除实录表中的目录，删除一整颗目录树<br>
--i:每删除一个文件需要操作员确认<br>
--f:强迫删除，如果是只读文件，可以删不能改。只读文件被删除也没有提示<br>
-正在运行的可执行文件不可以删除</p>
-<p>命令行选项：<br>
-例如 当前目录下有abc三个文件<br>
-rm -i：只提供选项没有指定任何文件，命令格式错误<br>
-ls&gt;-i：生成文件-i（符合文件的命名规则）<br>
-rm -i：不能删除文件-i<br>
-rm *：相当于rm -i a b c 也不能删除-i这个文件<br>
-cat *<br>
-ls * 同理展开<br>
-因为命令在执行过程中要显式区分命令选项和处理对象<br>
-解决方法：用--显式标志命令行选项的结束，识别以-开头的处理对象<br>
-例如：rm -- -i（删除文件-i)<br>
-grep -- --help *.c</p>
-<h1 id="目录管理">目录管理</h1>
-<h2 id="路径名">路径名</h2>
-<p>文件.与..<br>
-在目录表中确实有两个文件，这两个目录项由系统创建和删除<br>
-主目录Home Directory<br>
-每个用户都有自己独立的主目录<br>
-用env查环境变量</p>
-<p>绝对路径名和相对路径名<br>
-路径分量分隔符用/<br>
-例如/home/stud/liu<br>
-test/case1/conf 相对当前目录<br>
-当前工作目录时进程属性的一部分，每个进程一个</p>
-<h2 id="打印-改变当前目录">打印、改变当前目录</h2>
-<p>pwd:打印当前工作目录<br>
-cd命令：改变当前目录<br>
-cd /user/include<br>
-cd ..返回上一级目录<br>
-cd 无实参，一般返回用户的主目录<br>
-cd是shell的一个内部命令（内部：文件名通配符的展开工作处理完后最左边的单词是shell的自己决定的是内部命令，磁盘上没有一个叫cd的可执行命令）</p>
-<p>创建目录mkdir<br>
-mkdir sun/work.d<br>
-除了创建目录外，系统自动建立文件.与..<br>
-选项-p，自动创建路径中不存在的目录，例如<br>
-mkdir database/2019/09/04/log</p>
-<p>删除目录rmdir<br>
-rmdir sun/work.d<br>
-要求被删除的目录除了.与..外无其他文件或目录<br>
-其他命令：rm -r sun/work.d（递归的删除，如果有文件连带文件删除，如果有子目录连带子目录删除）</p>
-<p>复制目录cp<br>
-cp -r 递归地复制一个目录<br>
-cp -r dir1 dir2<br>
-根据dir2是否存在，执行结果有差异<br>
-若dir2不存在，则新建子目录dir2，把dir1下的内容拷贝在dir2下<br>
-若dir2已经存在，则在dir2下新建子目录dir1，把dir1内容拷贝在新的dir1下</p>
-<p>选项-v 冗长verbose方式<br>
-复制目录时实时列出正在复制的文件的名字</p>
-<p>-u增量拷贝 便于备份目录<br>
-根据文件的时戳，不拷贝相同的或者过时的版本的文件，以提高速度<br>
-dir1和dir2不慎颠倒位置也不会出现灾难性后果</p>
-<p>命令touch<br>
-将文件的最后一次修改时间设置为当前时间，但不修改文件内容。例如：touch *.[ch]</p>
-<p>rsync：数据备份工具（增量拷贝工具）<br>
-远程同步remote sync 可以镜像整个目录树，使得网络只传输文件的增删改的部分</p>
-<h2 id="目录遍历">目录遍历</h2>
-<p>find：遍历目录树<br>
-三个基本功能：从指定的查找范围开始，遍历地查找子目录，凡满足条件的文件或目录，执行规定的动作。<br>
-举例：find ver1.d ver2.d -name '<em>.c' -print<br>
-范围：当前目录的子目录ver1.d和ver2.d<br>
-条件：名字和</em>.c匹配，要用引号扩起<br>
-动作：把查找到的文件的路径名打印出来</p>
-<p>特点：功能强，选项多，递归式查找，可以指定任何命令（awk类似）<br>
--name wildcard 文件名与wildcard匹配（必须的引号，对通配符的解释由find完成,这里的“文件名”仅指路径名的最后一部分<br>
--regex pattern<br>
-整个路径名与正则表达式pattern<br>
--type<br>
-f:普通文件 d:目录 l:符号连接文件 c:字符设备文件 b:块设备文件 p:管道文件<br>
--size:±n单位<br>
-指定文件大小（+大于 等于 小于-）<br>
-单位有c字符 b块512字节 k1024 M兆 G<br>
--mtime ±ndays 文件最近修改时间<br>
--newer file 文件最近修改时间比file的还晚<br>
-其他条件选项：<br>
-文件属性字段可用来对遍历到的目标进行筛选<br>
-指定i节点号 -inum<br>
-其他的具体查询手册</p>
-<p>复合条件：<br>
-可以用() -o ！等表示多条件的与或非</p>
-<p>关于动作的选项：<br>
--print 打印查找的文件的路径名<br>
--exec 对查找到的目标执行某一命令<br>
-在-exec及随后的分号之间的内容作为一条命令<br>
-在这命令的命令参数中，{}代表遍历到的目标文件的路径名<br>
--ok 与-exec类似，只是对查找到的复合条件的目标执行一个命令前需要经过操作员确认</p>
-<h3 id="目录遍历的应用">目录遍历的应用</h3>
-<p>find . -type d -print<br>
-从当前目录开始查找，寻找所有目录，打印路径名<br>
-结果：按层次列出当前的目录结构<br>
-find / -name 'stud*' -type d -print<br>
-指定了两个条件，名字与stud<em>匹配，类型为目录两个条件逻辑“与”（两个条件连在一起），必须同时符合这两个条件<br>
-find  / -type f -mtime -10 -print<br>
-从根目录开始检索最近10天之内曾经修改过的普通磁盘文件（目录不算）<br>
-find , ! -type d -links +2 -print<br>
-从当前目录开始检索link数大于2的非目录文件条件非用！注意！与-type之间有空格<br>
-find ~-size+100k( -name core -o -name'</em>.cmp') -print<br>
-从主目录开始寻找大于100KB的名叫core或有.tmp后缀<br>
-使用了两条件“或”（-o)及组合（圆括号）<br>
-不要遗漏了所必需的引号，反斜线和空格，尤其是圆括号前后，圆括号是shell的特殊字符<br>
-其他写法；<br>
-find / -size+100k'(' -name core -o -name *.tmp ')' -print<br>
-find / -size+100k( -name core -o -name *.tmp ')' -print</p>
-<p>find /lib/usr -name 'lib*c.so' -exec ls -lh {} ;<br>
--exec及随后的分号之间的内容作为一条命令执行<br>
-shell中分号有特殊意义，前面加反斜线<br>
-{}代表遍历时所查到的符合条件的路径名，注意两个花括号间无空格，之后的空格不可省略</p>
-<p>利用find的递归式遍历目录的功能在文件中搜寻字符串<br>
-find src -name *.c -exec grep -n -- --help {} /dev/null ;<br>
-grep特点：查找对象只有1个文件时，只列出行号。<br>
-在目录src中所有.c文件中查找--help字符串，grep的-n选项，--选项,/dev/null的作用<br>
-既打印了文件名也打印了行号</p>
-<h2 id="批量处理文件">批量处理文件</h2>
-<p>grep -r 递归的搜索子目录下的文件<br>
-但 grep -nr -- --help <em>.c 这样无法检索，因为那些子目录名字不能被</em>.c匹配<br>
-grep -nr -- --help * 这样可以检索但检索了太多非C源程序，输出结果被无用的信息淹没，应该使用find精确筛选的功能<br>
-应利用find和xargs的结合<br>
-能把find src -name *.c -print<br>
-生成的文件名列表追加在下列命令后面就可以了<br>
-grep -n -- --help filelist<br>
-改造成：find src -name *.c -print | xargs grep -n -- -- help</p>
-<p>xargs命令把标准输入追加到它的参数列表后面，也就是上述grep...的后面，再作为一个命令来执行，这样利用find精确筛选，利用grep批量处理文件，提高效率。<br>
-可以使用xargs的-n选项决定每次批处理多少个<br>
-<img src="https://zjy98.github.io/post-images/1585633150148.png" alt="" loading="lazy"></p>
-<h1 id="打包和压缩">打包和压缩</h1>
-<p>tar:文件归档<br>
-用于保留和恢复磁带上的文件<br>
-语法：<br>
-tar ctxv[f device] file-list<br>
-第一字母指定要执行的操作<br>
-c:Create创建新磁带，从头开始写，以前存于磁带上的数据会被覆盖掉<br>
-t:Table列表，磁带上的文件名列表，当不指定文件名时，列出所有的文件<br>
-x:extract抽取。从磁带中抽取指定的文件，当不指定文件名时，抽取所有文件<br>
-v:verbose冗长。每处理一个文件就打印出文件的文件名，并在该名前冠以功能字母<br>
-f:file 指定设备文件名<br>
-z:采用压缩格式gzip算法<br>
-j:采用压缩格式bzip2算法</p>
-<p>tar cvf /dev/rct0 .<br>
-将当前目录树备份到设备/dev/rct0中，圆点目是当前目录<br>
-tar tvf /dev/rct0<br>
-查看磁带设备/dev/rct0上的文件目录<br>
-tar xvf /dev/rct0<br>
-将磁带设备/dev/rct0上的文件恢复到文件系统中<br>
-tar cvf my.tar *.[ch] makefile<br>
-指定普通文件代替设备文件，将多个文件或目录存储成一个文件<br>
-一个危险操作是tar cvf *.[ch] makefile<br>
-漏写了功能字母f必须的“设备文件名”，按照shell的展开规则会覆盖掉现存排位第一的文件<br>
-展开成 tar cvf a1.c a2.c ab.h makefile（a1.c被覆盖掉 后面两个打包放在第一个文件）</p>
 ]]></content>
     </entry>
 </feed>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Clustering 聚类 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588905257813">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588905257813" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Clustering 聚类</h2>
+            <div class="post-date">2020-05-08</div>
+            
+            <div class="post-content">
+              <h1 id="有监督学习和无监督学习">有监督学习和无监督学习</h1>
+<p>给定训练集<br>
+学习一个函数f:x-&gt;y</p>
+<h1 id="应用">应用</h1>
+<p>图像分割Images Segmentation，文档分类<br>
+market Segmentation<br>
+Social Network Analysis</p>
+<h1 id="聚类问题描述">聚类问题描述</h1>
+<p>聚类分析：发现不同的数据类簇/群组，使得组内的数据具有较高的相似性或相关性，而组间的数据具有较低的相似性或相关性。<br>
+<img src="https://zjy98.github.io/post-images/1588896918272.png" alt="" loading="lazy"><br>
+无监督，没有正确的标准<br>
+类簇划分可以有多个角度：well-sparated clusters  contiguous cluster(有邻接关系)<br>
+density-based(基于密度的) center-based(靠距离中心) shared property or conceptual clusters</p>
+<h1 id="聚类方法的划分">聚类方法的划分</h1>
+<ul>
+<li>
+<p>划分聚类 partitional clstering<br>
+<img src="https://zjy98.github.io/post-images/1588897606556.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>层次聚类 hierarchical clustering<br>
+<img src="https://zjy98.github.io/post-images/1588897639361.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Exclusive &amp; non-exclusive 排他和非排他</p>
+</li>
+<li>
+<p>Fuzzy &amp; non-fuzzy 模糊和非模糊<br>
+weights must sum to 1</p>
+</li>
+<li>
+<p>Partial &amp; complete<br>
+In some cases,we only want to cluster some of the data</p>
+</li>
+<li>
+<p>Heterogeneous &amp; homogeneous 异构<br>
+Cluster of widely different sizes,shapes,and densities</p>
+<h1 id="常用的聚类算法">常用的聚类算法</h1>
+<h2 id="k-means">K-means</h2>
+<p>1.先确定簇的个数，k<br>
+2.假设每个簇都有一个中心点centroid<br>
+3.将每个样本点划分到距离它最近的中心点所属的簇中<br>
+select K points as the initial centroids<br>
+repeat<br>
+From K clusters by assigning all points to the closets centroid<br>
+Recompute the centroid of each cluster<br>
+Until the centroids don't change<br>
+<img src="https://zjy98.github.io/post-images/1588898467845.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588898867084.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588898914327.png" alt="" loading="lazy"><br>
+如何选取比较好的初始中心点？<br>
+1.凭经验选择代表点<br>
+2.全部数据随机分成c类，计算每类重心作为初始点<br>
+3.用密度法选择代表点<br>
+4.将样本随机排序后使用前c个点作为代表点<br>
+5.从c-1聚类划分问题的解中产生c聚类划分问题的代表点<br>
+对数据没有特别了解，可直接选择2和4方法</p>
+</li>
+<li>
+<p>如何选取K<br>
+SSE一般随着k的增大而减小<br>
+Limitations of K-means<br>
+<img src="https://zjy98.github.io/post-images/1588899870211.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="hierarchical-clustering">Hierarchical clustering</h2>
+<p>为数据集输出一个嵌套的、层次化的类别树：dendrogram<br>
+树结构记录了簇的合并或拆分<br>
+自底向上 agglomerative<br>
+自顶向下 divisive<br>
+层次凝聚聚类：一种很常用的聚类模型<br>
+<img src="https://zjy98.github.io/post-images/1588900023583.png" alt="" loading="lazy"><br>
+关键步骤：计算两个簇的相似度<br>
+不同的度量两个簇的相似度方法，区分了不同的聚类算法<br>
+初始状态：每个点代表一个簇以及一个相似度矩阵proximity matrix<br>
+<img src="https://zjy98.github.io/post-images/1588900656204.png" alt="" loading="lazy"><br>
+中间状态：经过几次合并操作，得到一些簇以及一个相似度矩阵<br>
+<img src="https://zjy98.github.io/post-images/1588900661590.png" alt="" loading="lazy"><br>
+合并操作：合并最近的两个簇（c2 and c5)，同事更新相似度矩阵<br>
+<img src="https://zjy98.github.io/post-images/1588900667232.png" alt="" loading="lazy"><br>
+如何更新相似度矩阵？<br>
+Inter-cluster similarity<br>
+两个不相交的簇G和H，其间的相似度D（G,H)可以通过点点间的相似度(pairwise similarities) D(i,j),i∈G，j∈H，计算得到<br>
+MIN(single linkage)<br>
+MAX(complete linkage)<br>
+Group Average<br>
+<img src="https://zjy98.github.io/post-images/1588900681725.png" alt="" loading="lazy"><br>
+single linkage:优势：单链技术可以处理非椭圆形状的簇。不足：对噪音和离群点很敏感<br>
+complete linkage:优势：对噪音和离群不敏感 不足：可能使大的簇破裂，偏好球形簇<br>
+Group Average:优势：对噪音和极端值影响小 不足：偏好球形簇</p>
+<p>** summary **<br>
+优点：对类别个数不做假设<br>
+通过在不同层的分析，可以获得任意数目的类别<br>
+所获得类别可能对应一个有意义的分类体系taxonomies<br>
+缺点：缺少目标函数，对噪声和离群点敏感，计算、存储量大</p>
+<h2 id="gaussian-mixture-model">Gaussian Mixture Model</h2>
+<p>概率聚类模型<br>
+将训练数据的概率分布描述为一个混合模型<br>
+建模数据的分布<br>
+建模类簇划分时的不确定性<br>
+一个常用的混合模型：mixtures of Gaussians<br>
+<img src="https://zjy98.github.io/post-images/1588900687922.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900693511.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900698295.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900703815.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1588900708906.png" alt="" loading="lazy"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/6VMQnRNce/" class="tag">
+                    机器学习
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/han-shu/">
+                  <h3 class="post-title">
+                    函数
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
