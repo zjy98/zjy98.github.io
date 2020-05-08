@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文本文件的编辑 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文本文件的编辑</h2>
+            <div class="post-date">2020-03-24</div>
+            
+            <div class="post-content">
+              <h1 id="vi命令">vi命令</h1>
+<p>用户HOME目录下的文件.exrc，记作$HOME/.exrc(每用户一份，用户独立设置)<br>
+set number 每行左边显示行号<br>
+set tabstop=4 制表符位置为4格对齐<br>
+用运行时偏好设置<br>
+:set<br>
+<img src="https://zjy98.github.io/post-images/1585038575081.png" alt="" loading="lazy"></p>
+<p>正文插入：<br>
+命令i：在当前字符前插入正文段，直至按Esc键（insert)<br>
+命令a：在当前字符后插入正文段，直至按Esc键(append)</p>
+<p>光标单字符移动：<br>
+h：光标左移一列<br>
+j：光标下移一行<br>
+k：光标上移一行<br>
+l：光标右移一列<br>
+一般可以直接使用键盘上的方向键代替这四个字母<br>
+命令前加一整数，表示这个命令连续执行多少遍。<br>
+5h：左移5列<br>
+6j：下移6行。<br>
+注意：在vi命令状态下的按键命令没有回显。</p>
+<p>翻页：行尾行首：crtl-b向后翻页（backward)。crtl-f向前翻页（forward)<br>
+一般可以用pgdn和pgup来代替。</p>
+<p>光标行内快速移动：行尾^行首$<br>
+移动到右一个单词w 移动到左一个单词b 也可以使用6w 5b命令</p>
+<p>移动到指定行<br>
+:476<br>
+:1<br>
+表示行号可以使用圆点.表示当前行号。$表示最后一行的行号。<br>
+括号配对%。把光标移到一个括号上，按%键，则把光标自动定位到与它配对的那一个括号。</p>
+<p>删除命令<br>
+删除字符：删除当前字符的命令 x<br>
+删除行：删除当前行的命令dd<br>
+字符替换：替换光标处字符r<br>
+ra命令将光标处字符替换为a<br>
+取消上一次的操作u<br>
+重复上一次的动作.</p>
+<p>存盘退出ZZ<br>
+:wq回车<br>
+存盘不退出<br>
+:w<br>
+不存盘对出:q!</p>
+<p>读入文件xyz.c插入到当前行之下<br>
+:r xyz.c<br>
+写文件，把第50行至文件尾的内容写到文件file1中<br>
+:50,$w file</p>
+<p>剪贴板<br>
+删除，并拷贝到剪贴板<br>
+:10,50d 删除10-50行<br>
+:1,.d 删除文件首至尾的部分<br>
+:.,$d 删除当前行到文件尾<br>
+不删除，拷贝到剪贴板yank<br>
+:10,50y<br>
+粘贴剪贴板信息paste<br>
+p</p>
+<p>复制与山存储<br>
+复制:5,10co56 复制5-10行到第56行之下<br>
+复制:8,34m78  移动8-34行到第78行之下</p>
+<p>两行合并:当前行下面的行合并到当前行k<br>
+刷新屏幕显示 crtl-l<br>
+状态显示：crtl-g（在屏幕最下面一行列出正在编辑的文件的名字，总行数，当前行号，文件是否被修改过等信息。）<br>
+查找命令：<br>
+格式/pattern<br>
+例：/[0-9][0-9]* 使用正则表达式</p>
+<p>n向下查找下一个nexr<br>
+N向上查找下一个<br>
+是循环式的搜索</p>
+<p>替换命令s<br>
+:n1,n2s/pattern/string/g<br>
+例 :1,50s/abc/xyz 一行替换一次<br>
+:1,50s/abc/xyz/g 一行所有的abc都替换<br>
+:50,80s/^/    / 第50-80行右移4列<br>
+:50,80s/^    //第50-80行左移4列<br>
+:1,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi mathvariant="normal">/</mi><mo>∗</mo></mrow><annotation encoding="application/x-tex">s/ *</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord">/</span><span class="mord">∗</span></span></span></span>//  消除尾部多余的空格<br>
+:1,$s/a[i]/b[j]/g  小心陷阱：不能把a[i]替换为b[j]（只代表ai）</p>
+<figure data-type="image" tabindex="1"><img src="https://zjy98.github.io/post-images/1585039967646.png" alt="" loading="lazy"></figure>
+<h1 id="几个问题">几个问题</h1>
+<h2 id="死机问题">死机问题</h2>
+<p>vi编辑结束后按下crtl-s，因为windows编辑器一般设置crtl-s为保存，但Linux却进入流量控制状态<br>
+解决方法：crtl-q</p>
+<p>RS232接口连接主机和终端时的流量控制方案：<br>
+必要性：<br>
+终端的显示速度跟不上主机的发送速度<br>
+主机送来数据终端需要打印出来，但打印速度慢<br>
+主机送来的显示内容，需要暂停显示，仔细分析<br>
+需要一种机制，终端可以控制主机方向来的数据流量。</p>
+<p>两种流控方法：<br>
+硬件方式：RS232接口的CTS信号线。缺点：电缆中要增加一条通信线。<br>
+软件方式：利用流控字符Xon和Xoff。ASCII码表中的控制字符，值为17和19<br>
+终端希望主机暂停发送数据时，发Xoff字符，继续发送发Xon<br>
+手动流控：按crtl-s暂停显示crtl-q继续显示。</p>
+<p>网络虚拟终端的流控<br>
+网络虚拟终端在主机和终端之间用TCP协议，TCP有流量控制功能，终端显示速度落后于数据生成速度，也无需Xon/Xoff机制，TCP可以自己解决。</p>
+<h2 id="意外中止问题">意外中止问题</h2>
+<p>vi编辑结束后存盘，程序意外中止，编辑成功丢失，文件内容未发生变化。<br>
+原因：vi存盘命令shift-ZZ误操作为crtl-ZZ，而crtl-Z按键导致当前运行进程被挂起suspend，而暂停运行，但进程尚在，处于stopped状态。</p>
+<p>解决方法：<br>
+调用bash的作业管理机制，恢复运行被stopped的进程<br>
+jobs 列表当前被stopped的进程有哪些<br>
+%1 将1号作业恢复到前台foreground运行。<br>
+fg %1 将1号作业恢复到前台运行。</p>
+<h2 id="退格键backspace无法使用">退格键backspace无法使用</h2>
+<p>bash命令输入时，backspace可用但是运行自己写的程序时无法正常使用<br>
+原因：当前终端的行律设置不正确。</p>
+<p>解决方法：bacespace对应的字符crtl-h<br>
+作为删除<br>
+执行stty erase ^h 设定行律模块crtl-h为删除符，以后crtl-h和backspace都可以删除，如果需要，把命令放到$HOME/.bash_profil中<br>
+类似的 stty erase ^A可以设置crtl-a做删除操作）</p>
+<h2 id="显示乱码问题">显示乱码问题</h2>
+<p>cat /bin/bash或head -n 1 /bin/bash<br>
+导致屏幕乱码，键盘输入也只能看到画表用的框框符</p>
+<p>原因：/bin/bash文件不是文本文件，这些二进制内容逐字节送到终端，凑巧一个序列被终端理解为一个转义序列，执行动作：修改了终端字符集</p>
+<p>解决方法：断开连接，重新登录<br>
+不要把非文本信息在终端输出</p>
+<h2 id="文本文件格式问题">文本文件格式问题</h2>
+<p>Linux下的文本文件在windows用notepad打开时，都在一行里面<br>
+原因：Linux和Windows的文本文件的存储格式不同<br>
+解决方法：在Linux完成格式转换后再用windows处理。用在Windows中可容忍Linux文本文件格式的其他编辑器。<br>
+Linux：行尾处仅存换行字符<br>
+Windows:行尾处存回车和换行两个字符<br>
+<img src="https://zjy98.github.io/post-images/1585043349737.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585043232586.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585043414421.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585043511535.png" alt="" loading="lazy"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wen-jian-bi-jiao/">
+                  <h3 class="post-title">
+                    文件比较
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

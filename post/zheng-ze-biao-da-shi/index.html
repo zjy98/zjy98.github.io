@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>正则表达式 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">正则表达式</h2>
+            <div class="post-date">2020-03-18</div>
+            
+            <div class="post-content">
+              <h1 id="元字符和集合">元字符和集合</h1>
+<p>正则表达式Regular Expression应用范围：字符串匹配和替换操作。如：Linux中的vi,more,grep,yacc,lex,awk,sed。正则表达式规则用于文本处理的场合，文件名匹配规则用于文件处理的场合。<br>
+元字符：. * [ \ ^ $<br>
+其他字符与自身匹配<br>
+转义：用反斜线可以取消特殊字符的特殊含义。<br>
+如：正则表达式end.只与字符串end.匹配<br>
+长的正则表达式由单字符正则表达式构成，非特殊字符与其自身匹配。正则表达式a与字符串a匹配，b与b，/与/</p>
+<h2 id="转义字符">转义字符()</h2>
+<p>. * $ ^ [ \代表他们自身，正则表达式*与字符串*匹配，转义字符后除了以上六种之外不该出现其他字符。例如不应该出现\u，这样的组合会被视为undefined<br>
+圆点.可以表示任何字符</p>
+<h2 id="单字符正则表达式">单字符正则表达式</h2>
+<ol>
+<li>基本用法：在一对方括号之间的字符为集合的内容,如：单字符正则表达式[abcd]与a或b,c,d匹配</li>
+<li>圆点，星号，反斜线在方括号内时，代表他们自己，如：[*.]可匹配3个单字符</li>
+<li>用减号-定义一个区间：如[a-d][A-Z][a-zA-Z0-9]。[][]含左右中括号两个字符。减号在最后，则失去区间表示的意义，[ad-]只与三个字符匹配</li>
+<li>用^ 表示补集。^ 在开头，则表示与集合内字符之外的任意字符匹配。[^][]匹配任一非中括号字符</li>
+<li>^ 不在开头，则失去其表示补集的意义，[a-z^]能匹配27个单字符</li>
+</ol>
+<h2 id="单字符正则表达式的组合">单字符正则表达式的组合</h2>
+<ol>
+<li>串结。如abc, [A-Z].[0-9].</li>
+<li>星号*。单字符正则表达式后跟*，匹配此单字符正则表达式的0次或任意多次出现。例如：12*4<br>
+与1224，12224,14匹配<br>
+<img src="https://zjy98.github.io/post-images/1584524417507.png" alt="" loading="lazy"><br>
+例如：正则表达式[Cc]hapter *[1-4]。在星号前有一个空格，允许数字1-4之前有多个或0个空格，可匹配Chapter2，chapter3等等<br>
+<img src="https://zjy98.github.io/post-images/1584524660638.png" alt="" loading="lazy"></li>
+</ol>
+<p>中括号星号要加斜线因为中括号星号是特殊字符<br>
+在vi中使用：:1,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi mathvariant="normal">/</mi><mo>[</mo><mn>1</mn><mo>−</mo><mn>9</mn><mo>]</mo><mo>∗</mo><mi mathvariant="normal">/</mi><mi>x</mi><mi>x</mi><mi mathvariant="normal">/</mi><mi>g</mi><mi mathvariant="normal">从</mi><mi mathvariant="normal">第</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">最</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">进</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">替</mi><mi mathvariant="normal">换</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">括</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">斜</mi><mi mathvariant="normal">线</mi><mi mathvariant="normal">隔</mi><mi mathvariant="normal">开</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">所</mi><mi mathvariant="normal">有</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">替</mi><mi mathvariant="normal">换</mi><mi mathvariant="normal">成</mi><mi>x</mi><mi>x</mi><mi mathvariant="normal">，</mi><mi>g</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">意</mi><mi mathvariant="normal">思</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">出</mi><mi mathvariant="normal">现</mi><mi mathvariant="normal">多</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">则</mi><mi mathvariant="normal">每</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">都</mi><mi mathvariant="normal">替</mi><mi mathvariant="normal">换</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">问</mi><mi mathvariant="normal">题</mi><mi mathvariant="normal">：</mi><mo>∗</mo><mi mathvariant="normal">可</mi><mi mathvariant="normal">出</mi><mi mathvariant="normal">现</mi><mn>0</mn><mi mathvariant="normal">次</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">任</mi><mi mathvariant="normal">何</mi><mi mathvariant="normal">两</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">空</mi><mi mathvariant="normal">格</mi><mi mathvariant="normal">之</mi><mi mathvariant="normal">间</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">加</mi><mi>x</mi><mi>x</mi><mi mathvariant="normal">。</mi><mn>3.</mn><mi mathvariant="normal">锚</mi><mi mathvariant="normal">点</mi><mi mathvariant="normal">：</mi></mrow><annotation encoding="application/x-tex">s/[1-9]*/xx/g
+从第一行到最后一行进行替换，中括号用斜线隔开，所有的数字替换成xx，g的意思是一行中出现多个数字则每个数字都替换。问题：*可出现0次，任何两个空格之间会加xx。
+3. 锚点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord">/</span><span class="mopen">[</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">9</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord cjk_fallback">从</span><span class="mord cjk_fallback">第</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">到</span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">进</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">替</span><span class="mord cjk_fallback">换</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">括</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">斜</span><span class="mord cjk_fallback">线</span><span class="mord cjk_fallback">隔</span><span class="mord cjk_fallback">开</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">所</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">替</span><span class="mord cjk_fallback">换</span><span class="mord cjk_fallback">成</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">意</span><span class="mord cjk_fallback">思</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">出</span><span class="mord cjk_fallback">现</span><span class="mord cjk_fallback">多</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">则</span><span class="mord cjk_fallback">每</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">都</span><span class="mord cjk_fallback">替</span><span class="mord cjk_fallback">换</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">问</span><span class="mord cjk_fallback">题</span><span class="mord cjk_fallback">：</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">出</span><span class="mord cjk_fallback">现</span><span class="mord">0</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">任</span><span class="mord cjk_fallback">何</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">空</span><span class="mord cjk_fallback">格</span><span class="mord cjk_fallback">之</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">加</span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mord cjk_fallback">。</span><span class="mord">3</span><span class="mord">.</span><span class="mord cjk_fallback">锚</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>与^。<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">在</mi><mi mathvariant="normal">尾</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">有</mi><mi mathvariant="normal">特</mi><mi mathvariant="normal">殊</mi><mi mathvariant="normal">意</mi><mi mathvariant="normal">义</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">否</mi><mi mathvariant="normal">则</mi><mi mathvariant="normal">与</mi><mi mathvariant="normal">其</mi><mi mathvariant="normal">自</mi><mi mathvariant="normal">身</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">例</mi><mi mathvariant="normal">如</mi><mi mathvariant="normal">：</mi><mn>123</mn></mrow><annotation encoding="application/x-tex">在尾部时有特殊意义，否则与其自身匹配。
+   例如：123</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">尾</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">特</span><span class="mord cjk_fallback">殊</span><span class="mord cjk_fallback">意</span><span class="mord cjk_fallback">义</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">否</span><span class="mord cjk_fallback">则</span><span class="mord cjk_fallback">与</span><span class="mord cjk_fallback">其</span><span class="mord cjk_fallback">自</span><span class="mord cjk_fallback">身</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">例</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">：</span><span class="mord">1</span><span class="mord">2</span><span class="mord">3</span></span></span></span>匹配文件中行尾的123，不在行位的123字符不匹配<br>
+$123与字符串<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>123</mn><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">123匹配。
+   .</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">3</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">。</span><span class="mord">.</span></span></span></span>匹配行尾的任意字符。<br>
+4. <sup>在首部时有特殊意义，</sup>printf匹配行首的printf字符。（在调试时加入临时添加的printf语句）<br>
+5. 在vi中使用:10,50/s^xxxx//g 从10行到50行进行替换，删除10-50行每行行首的4个空格</p>
+<h2 id="正则表达式扩展">正则表达式扩展</h2>
+<p>ERE、PCRE：Perl-compatible regular expression<br>
+对基本正则表达式(BRE)进行了改进：表示分组：()。(xy)<em>可匹配xy xyxy xyxyxy<br>
+表示逻辑运算：表示逻辑或的符号|<br>
+重复次数定义：与</em>地位类似的+和？，限定重复次数{m,n}<br>
++表示1次或多次。？表示0次或1次。限定次数：[1-9][0-9]{6,8} 表示后面的可以出现6-8次，表示7-9位数字<br>
+命名的预定义集合[[:xdigit:]]十六进制数字 \d数字 \D非数字 比^与$更灵活的锚点定义，例如：寻找一个数字串，但是要求这个数字串不许出现。</p>
+<h2 id="三个与正则表达式有关的处理命令">三个与正则表达式有关的处理命令</h2>
+<p>grep/egrep/fgrep:在文件中查找字符串（筛选）<br>
+sed:流编辑（加工）<br>
+1.grep 模式 文件名列表<br>
+举例：grep O_RDWR <em>.h  ps -ef | grep liang   ls -l / | grep '^fd | wc -l<br>
+grep '[0-9]</em>' shudu.c<br>
+egrep使用扩展正则表达式ERE描述模式，在指定模式方面比grep更灵活<br>
+fgrep快速搜索指定字符串<br>
+<img src="https://zjy98.github.io/post-images/1584527525887.png" alt="" loading="lazy"><br>
+选项：-n 显示时每行前面显示行号 -v显示不包含这个模式的行。-i 字母比较时忽略大小写<br>
+例如：grep -n main *.c（查找含有正则表达式main的行并打印行号，当文件数超过1个时，除了输出行号，还输出文件名）<br>
+例如：grep -v '[Dd]isable' dev.stat&gt;dev.active（取消文件中所有指定模式的行生成新的文件）</p>
+<h2 id="流编辑sed和正则表达式替换">流编辑sed和正则表达式替换</h2>
+<p>用法 sed '命令' 文件名列表<br>
+sed -e '命令1' -e '命令2' 文件名列表<br>
+sed -f 命令文件 文件名列表<br>
+<img src="https://zjy98.github.io/post-images/1584547310159.png" alt="" loading="lazy"><br>
+'s是替换。ip地址替换成名字<br>
+<img src="https://zjy98.github.io/post-images/1584551707522.png" alt="" loading="lazy"></p>
+<h2 id="行列筛选及文本加工awk">行列筛选及文本加工awk</h2>
+<p>用法：awk '程序' 文件名列表<br>
+awk -f 程序文件名 文件名列表<br>
+程序 条件 {动作}<br>
+awk自动对每行文本执行条件判断，满足条件执行动作（内置循环），允许多端程序 用空格隔开<br>
+处理方式：输入文件的每行为一个记录，变量NR是行号，每行用空格隔开的部分叫做记录的“域内置变量$1是第一域内容，依次$2是第二域内容...特别的$0是整个这一行的内容。<br>
+描述条件的方法（与C语言类似）也可以用正则表达式的模式匹配/regexpr/包含该模式的行，执行动作。<br>
+特殊的条件，不指定任何条件，对所有文本执行动作，BEGIN 开始处理所有文本之前执行动作。END所有文本处理完执行动作。<br>
+描述动作的简单用法：自定义变量，加减乘除等算术逻辑运算， 正则表达式匹配运算符（用作条件判断）~ !~例如：$2 ~ &quot;[1-9][0-9]*&quot; 流程控制(与C语言类似)if for。print 变量1，变量2...<br>
+printf(&quot; 格式串,变量1，变量2...)</p>
+<h1 id="正则表达式的应用">正则表达式的应用</h1>
+<h2 id="累加作品发行量">累加作品发行量</h2>
+<p>筛选作品发行总数：去掉多 保留万只留名字的前面的数字的内容如110多万 只留110，再选中这些行加在一起：<img src="https://zjy98.github.io/post-images/1584551769946.png" alt="" loading="lazy"></p>
+<h2 id="求一本书中出现频率最高的200个词">求一本书中出现频率最高的200个词</h2>
+<p>先把大写字母改成小写字母 tr '[A-Z]' '[a-z]'<br>
+echo ' | od -t o1 单引号的ASCII码是047<br>
+把标点符号去掉cat jane.txt | tr ';.?&quot;&quot;\047,()-:' ' ' | more<br>
+再把每个空格换成换行 tr ' ' '\012'<br>
+再去掉空行grep -v '^ *$'<br>
+再排序 sort 相同的字符在一起<br>
+uniq -c（所有重复的行不显示 ，再计数）<br>
+再排序一次sort -n<br>
+留下最后200个 tail -n 200</p>
+<h2 id="绘制游客流量随时间变化的曲线">绘制游客流量随时间变化的曲线</h2>
+<p>获取网页的命令wget xxxx/flow.php -o /dev/null; mv flow.php 180801.html<br>
+<img src="https://zjy98.github.io/post-images/1584588474191.png" alt="" loading="lazy"><br>
+现将&lt; tr 替换成换行 <img src="https://zjy98.github.io/post-images/1584588903206.png" alt="" loading="lazy"><br>
+去掉所有标签<img src="https://zjy98.github.io/post-images/1584588946819.png" alt="" loading="lazy"><br>
+vi flow.awk找到播报两个字<br>
+/播报 / {date=$1; }<br>
+{print date}<br>
+再加上命令 awk -f flow.awk<br>
+每行有个约字 删掉 -e 's/约//g'<br>
+瞄准这些行，每行有个查看，修改awk程序：<br>
+/播报 /{date=$1;}<br>
+/查看 / &amp;&amp; !/暂无/{<br>
+for (i=0;i&lt;8;i++)<br>
+printf(&quot;%s,%s,%d:00,%s\n&quot;,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo separator="true">,</mo><mi>d</mi><mi>a</mi><mi>t</mi><mi>e</mi><mo separator="true">,</mo><mn>9</mn><mo>+</mo><mi>i</mi><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">1,date,9+i,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mpunct">,</span></span></span></span>(2+i*2));<br>
+}<br>
+重定向到csv文件里：&gt;flow.csv<br>
+发到windows里：sz flow.csv</p>
+<h2 id="根据捕获的网络流量观察tcp发送窗口变化">根据捕获的网络流量观察TCP发送窗口变化</h2>
+<p>文件upload.cap是windows上使用软件wireshark捕获的文件上载过程中的网络流量<br>
+执行命令tcpdump -ttnr upload.cap<br>
+期望得到时间 窗口值<br>
+2301&gt;123是发送行<br>
+把冒号和逗号替换成空格 tr '',:' ' '<br>
+第十是发送序号，length 0的行不用计算，收到的行：20&gt;192<br>
+第9列是ack的值<br>
+awk文件：<br>
+/20 &gt; 192/{<br>
+ack = <span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 4: 9;
+}̲
+/230 &gt; 123/ &amp;&amp;…'>9;
+}
+/230 &gt; 123/ &amp;&amp; !/length 0</span>/{<br>
+printf(&quot;%.6f,%d\n&quot;,$1,$10 - ack);<br>
+}<br>
+把时间调成相对时间<br>
+NR==1 {t0 = $1;}<br>
+打印时间$1改为$1-t0<br>
+奥体中心  58      13μg/m3  65μg/m3</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/shu-ju-ya-suo/">
+                  <h3 class="post-title">
+                    数据压缩
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

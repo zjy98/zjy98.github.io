@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>命令获取信息方法 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">命令获取信息方法</h2>
+            <div class="post-date">2020-04-03</div>
+            
+            <div class="post-content">
+              <p>Linux系统命令和用户程序（ap)<br>
+· 从操作系统看，在地位上相同，都属于用户态程序<br>
+· 运行时需要获取的信息包括配置信息、处理方式（选项参数）、被处理的对象<br>
+· 配置信息等硬编码是不可取的。硬编码需要编程时就确定服务器的地址，程序运行时就无法改变，不太灵活。</p>
+<p>运行时获取信息的常见方式：<br>
+易变性从小到大为：<br>
+<strong>配置文件、环境变量、命令行参数、交互式键盘输入</strong></p>
+<!-- more -->
+<ul>
+<li>
+<p>配置文件<br>
+· 一般较为复杂的程序会提供配置文件以存储配置信息或者偏好配置信息<br>
+· 分为系统级偏好设置和用户级偏好设置<br>
+例如bash的/etc/profile和~/.bash_profile<br>
+· 配置文件提供了灵活性（同一个程序文件因用户不同读取的配置文件不同而表现不同）。变更这些信息不很方便，一般不需要变化的配置信息或选项信息存入配置文件，持久化存储。</p>
+</li>
+<li>
+<p>环境变量<br>
+命令env可以打印出当前的环境变量。<br>
+· 一般是与环境相关的配置或选项信息，信息量不大。这些选择在一段时间内反复使用同一个命令或者不同命令时保持不变。<br>
+例如：LANG（语言选择）HOME（主目录）TERM（终端类型）PATH（可执行文件的查找路径）<br>
+CLASSPATH（类库查找路径）<br>
+·性能问题：比读取配置文件需要的系统开支要小</p>
+</li>
+<li>
+<p>命令行参数<br>
+· 程序启动之前指定：通过命令行参数，操作员输入命令时提供处理选项和操作对象<br>
+· 每个命令都不同，命令运行完之后，对后续命令无影响</p>
+</li>
+<li>
+<p>交互式键盘使用<br>
+· 在Linux命令中很少使用<br>
+· 程序启动之后通过计算机与操作员之间的人机交互获取信息，C语言scanf(),fgets()函数</p>
+<p>命令行参数的三种风格<br>
+· 类似dd命令的风格<br>
+特点：命令行参数采用param = value的风格<br>
+dd if=sysdisk.img of=/dev/sdb<br>
+（磁盘的拷贝）将磁盘映像拷贝到硬盘：if指定输入文件，of指定输出文件<br>
+dd if=/dev/urandom of=test.dat bs=1024 count=512<br>
+用dd命令，生成512KB的测试数据文件test.dat<br>
+if:输入文件 of:输出文件 bs:块大小 count:块计数</p>
+<p>· 类似find和gcc的风格<br>
+特点：以减号打头的一个由多个字符构成的单词用作选项<br>
+find src -name '*.c' -type f -exec dos2unix --keepdate{} ;<br>
+将所有扩展名.c的普通文件由Windows文本格式转为Linux格式<br>
+gcc -O0 -Wall -g -masm=intel -Wa,-ahl -c shudu.c<br>
+编译C语言源程序文件mytest.c并生成C程序与汇编代码对比<br>
+W：警告信息<br>
+-g：生成调试信息<br>
+-ahl:h高级文件 l列表文件</p>
+<p>· 类似ls和grep的风格：现在流行的格式<br>
+特点：长选项和短选项。有的选项同时有2种格式，也有的选项仅有长格式或仅有短格式。<br>
+ls(其中-w选项指定一个整数参数值告知ls排版时屏幕的列宽度)<br>
+ls --classify --all --size --human-readable --width=80 /home/jiang长选项<br>
+ls -Fashw80 /home/jiang 多个选项挤在一起<br>
+ls -F -a -s -h -w 80 /home/jiang 多个选项分开<br>
+ls -F -w80 /home/jiang -has 可以把选项放在后面<br>
+也可以用独立的命令行参数--显式地标识命令行结束</p>
+</li>
+</ul>
+<p>尽量采取ls风格</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wen-jian-guan-li-he-mu-lu-guan-li/">
+                  <h3 class="post-title">
+                    文件管理和目录管理
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

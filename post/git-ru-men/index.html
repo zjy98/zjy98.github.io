@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Git入门 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Git入门</h2>
+            <div class="post-date">2020-02-29</div>
+            
+            <div class="post-content">
+              <h1 id="git的工作流程">GIT的工作流程</h1>
+<p>克隆Git资源作为工作目录<br>
+在克隆的资源上添加或修改文件<br>
+如果被他人修改了，可以更新资源。<br>
+在提交前查看修改<br>
+提交修改<br>
+在修改完后，如果发现错误，可以撤回提交并再次修改并提交<br>
+<img src="https://zjy98.github.io/post-images/1582954824008.png" alt="" loading="lazy"></p>
+<h1 id="基本概念">基本概念</h1>
+<p><strong>工作区</strong>：就是在电脑里能看到的目录<br>
+<strong>暂存区</strong>：stage或index,一般存放在&quot;.git目录&quot;下的index文件<br>
+<strong>版本库</strong>：工作区有个隐藏目录.git，这个不算工作区，而是git的版本库<br>
+<img src="https://zjy98.github.io/post-images/1582955047822.png" alt="" loading="lazy"><br>
+maste是master分支所代表的目录树<br>
+HEAD实际是指向master分支的一个游标，命令中出现HEAD的地方可以用master来替换<br>
+objects标识的区域为Git的对象库，实际位于&quot;.git/objects&quot;目录下，包含了创建的各种对象及内容。<br>
+对工作区修改（或新增）的文件执行git add命令，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入对象库的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。<br>
+执行提交git commit时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/wK-8SDdKv/" class="tag">
+                    杂七杂八
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/guan-yu-hua-yang-nian-hua/">
+                  <h3 class="post-title">
+                    关于花样年华
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

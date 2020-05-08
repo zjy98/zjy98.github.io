@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件系统 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件系统</h2>
+            <div class="post-date">2020-04-03</div>
+            
+            <div class="post-content">
+              <h1 id="文件系统的创建和安装">文件系统的创建和安装</h1>
+<ul>
+<li>根文件系统root filesystem<br>
+是整个文件系统的基础，不能脱卸umount</li>
+<li>子文件系统<br>
+包括硬盘，软盘，CD-ROM，USB盘，网络文件系统NFS<br>
+以根文件系统中某一子目录的身份出现</li>
+<li>独立的存储结构<br>
+创建文件系统<br>
+mkfs /dev/sdb:块设备文件/dev/sdb上创建文件系统make filesystem<br>
+安装文件系统<br>
+mount /dev/sdb /mnt<br>
+/mnt可以是任一个事先建好的空目录名，允许处于根文件系统的任何目录中，此后，操作子目录/mnt就是对子文件系统的访问。对于应用程序来说，从所操作的文件或目录名，看不出和其他根文件系统的对象有什么区别<br>
+不带参数的mount命令可以列出当前已安装的所有子文件系统<br>
+卸载文件系统<br>
+umount /dev/sdb 功能与mount相反，卸载一个已安装的子文件系统<br>
+df:文件系统空闲空间<br>
+-h human readable</li>
+</ul>
+<h1 id="文件系统的存储结构">文件系统的存储结构</h1>
+<p>把整个逻辑设备以块（扇区）为单位划分<br>
+编号0,1,2...<br>
+<img src="https://zjy98.github.io/post-images/1585913309828.png" alt="" loading="lazy"><br>
+mkfd命令初始化了专用块，df命令读出部分信息，df -i和df<br>
+i节点区：i节点区由若干块构成，在mkfs命令创建文件系统时确定<br>
+每个文件都对应一个i节点，i节点中的信息包括：指向文件存储区数据块的一些索引（index),指针（组成文件的逻辑块和硬盘的物理块之间的映射）。文件类型，属主，组，权限，link数，大小，时戳（i节点内不含文件名）<br>
+文件存储区：存放文件数据的区域，包括目录表。每块可容若干个i节点，每个i节点的大小是固定的（比如64字节）</p>
+<ul>
+<li>
+<p>目录的存储结构<br>
+Linux目录结构是树形带交叉勾连的目录结构<br>
+目录表<br>
+· 每个目录表也作为一个文件夹来管理，存于“文件存储区”中，有其自己的i节点和数据存储块。<br>
+·  目录表由若干个“目录项”构成，目录项只含有两部分信息：文件名、i节点号<br>
+·  ** 用ls命令列出的目录大小是目录表文件本身的长度  **<br>
+<img src="https://zjy98.github.io/post-images/1585919404265.png" alt="" loading="lazy"><br>
+目录表和i节点两级结构<br>
+主要目的：分开存放的主要目的是为了提高目录检索效率<br>
+假定的环境：存储文件名使用定长14字节，索引信息需要64字节，每磁盘块512字节、当前目录下有100个文件，需要访问的文件的文件名mydata.bin存放在目录表的最末尾处。<br>
+方案一：一级结构<br>
+· 文件名和索引信息存放在一起，放在目录表中<br>
+· 每个目录项78字节，每块可容纳512/78=6个目录项<br>
+· 读入目录直到第17块才找到mydata.bin及索引信息，根据索引信息访问文件存储区的数据块<br>
+方案二：两级结构<br>
+· 文件名和索引信息分开，索引信息放在i节点中，目录表中仅记录文件名和i节点的2字节编号<br>
+· 每个目录项16字节，一个磁盘块含512/16=32个目录项<br>
+· 只要读入4块就能找到名字mydata.bin的i节点号（因为100个文件）<br>
+· 根据i节点号访问对应的磁盘块，读入i节点中的索引信息<br>
+· 总共磁盘操作5块，就可以根据名字找到文件的索引信息。<br>
+后者访问的磁盘数目少</p>
+<h1 id="硬链接">硬链接</h1>
+<p>目录表由目录项构成，目录项是一个“文件名-i节点号”对<br>
+根据文件系统的存储结构，可以在同一目录或者不同目录中的两个目录项，有相同的i节点号<br>
+每个目录项指定的“文件名-i节点号”映射关系，叫做1个硬链接<br>
+硬链接的数目（link数）：同一个i节点被目录项引用的次数</p>
+</li>
+</ul>
+<p>ln:普通文件的硬链接<br>
+ln chapt0 intro:当前目录下创建一个新的目录项目intro，目录项的i节点名就抄的是chapt0的i节点号<br>
+<img src="https://zjy98.github.io/post-images/1585920117700.png" alt="" loading="lazy"><br>
+ls -i chapt0 intro可以列出每个文件对应的i节点编号<br>
+chapt0与intro同时存在时，地位完全平等<br>
+删chapt0文件，则intro仍存在但link数-1，一直到link数减到0时，对应的磁盘空间才真正删除。<br>
+硬链接操作只限于在同一文件系统的普通文件（目录不可以）<br>
+不允许对目录用ln建立硬链接<br>
+一般来说，目录的link数=直属子目录数+2<br>
+<img src="https://zjy98.github.io/post-images/1585920623769.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585920628865.png" alt="" loading="lazy"><br>
+home目录：自己.1次 子目录..3次 上一级中的home1次 一共5次（3+2）<br>
+可以给1个文件起好几个名字，在不同的目录起不同的名字</p>
+<h1 id="符号链接软链接">符号链接（软链接）</h1>
+<p>· 用特殊文件“符号链接文件”来实现<br>
+· 文件中仅包含了一个路径名<br>
+命令ln -s和ls -l<br>
+ln -s users_on sym.link  类型为l，大小为8字节，文件中只存放users_on字符串8个字符<br>
+一旦建立了符号链接，删除操作删除的是符号链接文件 ，其他所有操作都将访问符号链接所引用的文件<br>
+<img src="https://zjy98.github.io/post-images/1585920899749.png" alt="" loading="lazy"><br>
+符号链接中的相对路径<br>
+若符号链接包含绝对路径名，引用绝对路径名<br>
+若符号链接包含相对路径名，（开头不是斜线）是相对于符号链接文件的位置而不是相对于调用进程的当前工作目录<br>
+<img src="https://zjy98.github.io/post-images/1585929963543.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585930572150.png" alt="" loading="lazy"></p>
+<h1 id="系统调用">系统调用</h1>
+<p>以C语言函数调用的方式提供<br>
+操作系统内核提供的编程界面<br>
+应用程序ap和操作系统kernel进行交互的唯一手段。例如文件操作的open,read,write,close<br>
+种类：Linux有300个左右</p>
+<p>系统调用与库函数在执行方式上的区别：<br>
+例如：获取进程ID的getpid()与字符串拷贝函数strcpy()<br>
+CPU的INT指令（软中断）与CALL指令（子程序调用）<br>
+库函数对系统调用的封装（API）<br>
+目的：执行效率更高或者调用界面更方便<br>
+例如：库函数printf对系统调用write的封装<br>
+库函数malloc/free对系统调用sbrk的封装<br>
+可移植性：系统调用和相关API函数以及库函数的名称、参数排列顺序、参数类型、返回值的类型以及实现的功能，都属于类似POSIX标准规范的内容，便于不同Unix系统之间的移植</p>
+<p>返回值：一般返回一个数值。大于等于0 成功 负数 失败<br>
+整型变量 errno 标准库为errno保留存储空间，系统调用失败后填写错误代码，记录错误原因。<br>
+#include &lt;errno.h&gt;之后就可以直接使用变量errno<br>
+errno.h头文件定义了许多有E前缀的宏。<br>
+例如：EACCESS EIO ENOMEM EINTR<br>
+<img src="https://zjy98.github.io/post-images/1585932433731.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585932438185.png" alt="" loading="lazy"></p>
+<h1 id="访问i节点和目录">访问i节点和目录</h1>
+<p>系统调用stat/fstat 从i节点获得文件的状态信息<br>
+调用的参数不同<br>
+fstat得到已打开文件的i节点<br>
+stat得到指定路径名的文件的i节点<br>
+stat和fstat将数据放入调用者提供的stat结构中<br>
+<img src="https://zjy98.github.io/post-images/1585932925356.png" alt="" loading="lazy"><br>
+st_dev：存储改文件的块设备的设备号，包括主设备号和次设备号<br>
+<img src="https://zjy98.github.io/post-images/1585932972874.png" alt="" loading="lazy"><br>
+st_mode域：16比特<br>
+文件的基本存取权限和SUID/SGID权限（11比特）以及文件的类型（若干比特）<br>
+<img src="https://zjy98.github.io/post-images/1585933078735.png" alt="" loading="lazy"><br>
+st_size获取文件的大小<br>
+st_blocks指的是分配多少块<br>
+一般情况:st_size小于等于st_blocks<em>512<br>
+稀疏文件:st_size大于st_blocks</em>512<br>
+st_ctim st_atim st_mtim域<br>
+Linux中存储这3个时间的精度为纳秒<br>
+a访问:读，执行（有些系统为了效率做懒惰处理，不更新，但不早于m时间）<br>
+m修改:文件内容修改<br>
+c改变:i节点信息变化。写文件，修改权限/link数/文件主等(m变，c也变)</p>
+<p>目录访问<br>
+早起的UNIX像普通磁盘文件那样open()打开目录read()读取<br>
+现在的系统不再这样操作，而是直接使用封装好的库函数</p>
+<p>opendir 打开目录得到句柄（NULL表示失败）<br>
+readdir 获取一个目录项<br>
+dirent结构体：记录i节点号和文件名（d_ino和d_name成员）<br>
+返回值指针指向的dirent结构体（返回NULL表示已经读到目录尾）<br>
+访问结束：用closedir关闭不再使用的目录句柄</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/ming-ling-huo-qu-xin-xi-fang-fa/">
+                  <h3 class="post-title">
+                    命令获取信息方法
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

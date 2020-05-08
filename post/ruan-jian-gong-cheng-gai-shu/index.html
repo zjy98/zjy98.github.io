@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>软件工程概述 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">软件工程概述</h2>
+            <div class="post-date">2020-03-21</div>
+            
+            <div class="post-content">
+              <h1 id="软件的定义">软件的定义</h1>
+<p>软件是计算机系统中与硬件相互依存的另一部分，它包括程序、数据、以及其他相关文档的完整集合。<br>
+程序是按事先设计的功能和性能要求执行的指令序列<br>
+数据是使程序能正常操纵信息的数据结构<br>
+文档是与程序开发，维护和使用有关的图文材料。</p>
+<h1 id="软件的特点">软件的特点</h1>
+<ol>
+<li>软件是一种逻辑实体，具有抽象性，无法看到具体的形态，必须通过观察、分析、思考或运行，才能了解软件的功能和性能。</li>
+<li>软件的开发是一种逻辑思维成熟的过程，无明显制造过程。对软件的质量控制，必须和软件的研制过程交织在一起。</li>
+<li>在软件的运行和使用期间，没有硬件那样的机械磨损老化问题，但却存在退化问题。<br>
+<img src="https://zjy98.github.io/post-images/1584758314162.png" alt="" loading="lazy"></li>
+<li>软件的开发依然很原始，至今尚未完全摆脱手工艺的开发方式。</li>
+<li>软件是高度复杂的逻辑体。软件的复杂性能来自它反映的实际问题的复杂性，也能来自程序逻辑结构的复杂性。</li>
+<li>软件的开发和运行常常受到计算机系统的限制，对计算机系统有着不同程度的依赖性，在软件开发中要尽量提高软件的可移植性。</li>
+<li>软件成本昂贵</li>
+<li>相当多的软件工作涉及到社会因素，许多软件的开发涉及到机构、体制及管理方式等问题，甚至涉及到人的观念和人们的心理。</li>
+</ol>
+<h1 id="软件的分类">软件的分类</h1>
+<h2 id="按软件完成功能所处的层次划分">按软件完成功能所处的层次划分</h2>
+<ol>
+<li>系统软件<br>
+能与计算机硬件紧密配合在一起。eg:数据库管理系统、设备驱动程序、操作系统通信处理程序等。</li>
+<li>中间件软件<br>
+位于平台（硬件和系统软件）和应用软件之间的通用服务，用来管理分布式计算资源和网络通信，这些服务具有标准的程序接口和协议，针对不同的操作系统和硬件平台，有符合接口和协议规范的多种实现。</li>
+<li>应用软件<br>
+在特定领域内开发，为特定目的服务的一类软件。<br>
+<img src="https://zjy98.github.io/post-images/1584758757787.png" alt="" loading="lazy"></li>
+</ol>
+<h2 id="按软件服务对象的范围划分">按软件服务对象的范围划分</h2>
+<ol>
+<li>通用软件<br>
+由软件开发组织开发，面向市场用户公开销售的独立运行系统，满足大规模用户的普遍共性需求。例如：操作系统、数据库管理系统、字处理软件、绘图软件包和项目管理工具等</li>
+<li>定制软件<br>
+由某个特定客户委托，软件开发组织在合同的约束下开发的软件，满足用户个性化需求。</li>
+<li>可配置软件<br>
+软件本身具备完善功能，在某个客户使用时，按照企业自身的业务特点，对系统进行配置后再使用。软件使用过程中，可随时重新配置满足新的需求，从而降低开发成本延长软件的寿命。</li>
+</ol>
+<h2 id="按软件使用方式划分">按软件使用方式划分</h2>
+<ol>
+<li>单机软件<br>
+安装在计算机内部，只使用本地计算机资源，不与其他计算机或网络设备通信。</li>
+<li>服务器软件<br>
+运行在网络中，能够向其他程序提供某些服务的软件。如门户网站、搜索引擎、即时通讯、邮件服务器、、音乐服务器等。目前将“软件以服务的方式”提供（SaaS)已经成为趋势。</li>
+<li>客户端软件<br>
+运行在客户计算机中，与服务器进行通信，向客户提供服务结果的软件。<br>
+<img src="https://zjy98.github.io/post-images/1584759443219.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1584759459997.png" alt="" loading="lazy"></li>
+</ol>
+<h2 id="按软件工作方式划分">按软件工作方式划分</h2>
+<ol>
+<li>实时软件<br>
+指在事件或数据产生时，立即予以处理，并及时反馈 信号、控制过程执行的软件。主要包括数据采集、分析处理、控制输出三部分。</li>
+<li>分时软件<br>
+允许多个联机用户同时使用计算机</li>
+<li>交互式软件<br>
+能实现人机通信的软件</li>
+<li>批处理软件<br>
+把一组输入作业或一批数据以成批处理的方式一次运行，按顺序逐个处理完的软件。</li>
+</ol>
+<h1 id="软件工程包含以下两方面的重要内容">软件工程包含以下两方面的重要内容</h1>
+<ol>
+<li>软件工程是工程概念在软件领域里的一个特定内容<br>
+工程：将科学及数学原理运用于实际用途的应用手段，如：设计、制造、机器操纵、架构、系统等。</li>
+<li>软件工程涉及软件产品的所有环节。</li>
+</ol>
+<h1 id="软件工程三要素">软件工程三要素</h1>
+<p>方法 工具 过程<br>
+<img src="https://zjy98.github.io/post-images/1584759998125.png" alt="" loading="lazy"></p>
+<h1 id="软件工程的目标">软件工程的目标</h1>
+<p>在给定成本、进度的前提下，开发出满足用户需求且具有可修改性、有效性、可靠性、可理解性、可维护性、可重用性、可适应性、可移植性、可追踪性、可互操作性的软件产品。</p>
+<h1 id="软件工程的研究内容">软件工程的研究内容</h1>
+<ol>
+<li>软件开发技术<br>
+软件开发方法学、开发过程模型、开发工具和软件工程环境。</li>
+<li>软件工程管理<br>
+软甲管理学、软件工程经济学、软件心理学。</li>
+</ol>
+<h1 id="软件工程四条基本原则">软件工程四条基本原则</h1>
+<p>选取适宜的开发模型<br>
+采用合适的设计方法<br>
+提供高质量的工程支持<br>
+重视开发过程的管理。</p>
+<h1 id="软件工程原理">软件工程原理</h1>
+<ol>
+<li>软件工程一般原理<br>
+抽象  信息隐藏  模块化 局部化  确定性  一致性  完备性  可验证性。<br>
+<img src="https://zjy98.github.io/post-images/1584760314072.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1584760318210.png" alt="" loading="lazy"></li>
+</ol>
+<p><img src="https://zjy98.github.io/post-images/1584760340887.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1584760359032.png" alt="" loading="lazy"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/Zm6UV8nL7/" class="tag">
+                    软件工程
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/zhi-wen-chuan-gan-qi-de-ying-yong/">
+                  <h3 class="post-title">
+                    指纹传感器的应用
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件管理和目录管理 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件管理和目录管理</h2>
+            <div class="post-date">2020-03-29</div>
+            
+            <div class="post-content">
+              <h1 id="文件管理">文件管理</h1>
+<h2 id="列出文件目录">列出文件目录</h2>
+<p>ls:文件名列表<br>
+基本功能：在同一命令行中可以指定0~n个实参<br>
+不给出实参：列出当前目录下所有文件和目录<br>
+实参为文件时：列出文件项<br>
+实参为目录时：列出目录下的所有文件</p>
+<p>-F：<br>
+若列出目录，就在名字后面缀以斜线/<br>
+若列出的是可执行文件，就在文字后面缀以星号<br>
+若列出的是符号连接文件，就在名字后面缀以@<br>
+若列出的是普通文件，则什么也不加</p>
+<p>-l：长格式列表<br>
+<img src="https://zjy98.github.io/post-images/1585485377239.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585485436119.png" alt="" loading="lazy"><br>
+有权限显示字母，没权限显示-<br>
+<img src="https://zjy98.github.io/post-images/1585485608422.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585485613419.png" alt="" loading="lazy"></p>
+<p>-h选项<br>
+便于人阅读的方式打印数值（1K 2G..)<br>
+-d选项<br>
+当ls的参数是目录时，不像默认的情况那样列出目录下的文件而是列出目录详细信息<br>
+<img src="https://zjy98.github.io/post-images/1585491509157.png" alt="" loading="lazy"></p>
+<p>-a选项<br>
+列出文件名首字符为圆点的文件（默认情况下不显示，一般存偏好设置信息）<br>
+-A选项（功能与-a相同，除了不列出..和.)</p>
+<p>-s：列出文件占用的磁盘大小<br>
+-i：列出文件的i节点号</p>
+<h2 id="文件的复制和删除">文件的复制和删除</h2>
+<p>cp:复制<br>
+两种格式和功能：<br>
+cp file1 file2: file2不存在，则创建，存在且是文件则覆盖<br>
+cp file1 file2 ...filen dir ：file2存在且是目录。dir必须存在且是目录<br>
+拷贝文件举例：<br>
+<img src="https://zjy98.github.io/post-images/1585566055032.png" alt="" loading="lazy"><br>
+把备份目录下的文件拷贝回来：cp backup.d/p*.c<br>
+实际执行：cp backup.d/p1.c backup.d/p2.c<br>
+结果：backup.d目录下文件p1.c将覆盖掉p2.c<br>
+（与windows的执行结果不同 ，windows的命令会将这两个备份文件拷贝回当前目录）<br>
+将两个文件拷贝回当前目录的正确用法：cp backup.d/p*.c .</p>
+<p>mv:移动文件<br>
+mv file1 file2<br>
+mv file1 file2...filen dir<br>
+mv dir1 dir2<br>
+功能：使用mv命令可以将文件和目录改名。可以将文件和子目录从一个目录移动到另一个目录<br>
+mv dir1 dir2两种执行情况</p>
+<p>rm：删除文件<br>
+rm file1 file2...<br>
+-r 递归地删除实录表中的目录，删除一整颗目录树<br>
+-i:每删除一个文件需要操作员确认<br>
+-f:强迫删除，如果是只读文件，可以删不能改。只读文件被删除也没有提示<br>
+正在运行的可执行文件不可以删除</p>
+<p>命令行选项：<br>
+例如 当前目录下有abc三个文件<br>
+rm -i：只提供选项没有指定任何文件，命令格式错误<br>
+ls&gt;-i：生成文件-i（符合文件的命名规则）<br>
+rm -i：不能删除文件-i<br>
+rm *：相当于rm -i a b c 也不能删除-i这个文件<br>
+cat *<br>
+ls * 同理展开<br>
+因为命令在执行过程中要显式区分命令选项和处理对象<br>
+解决方法：用--显式标志命令行选项的结束，识别以-开头的处理对象<br>
+例如：rm -- -i（删除文件-i)<br>
+grep -- --help *.c</p>
+<h1 id="目录管理">目录管理</h1>
+<h2 id="路径名">路径名</h2>
+<p>文件.与..<br>
+在目录表中确实有两个文件，这两个目录项由系统创建和删除<br>
+主目录Home Directory<br>
+每个用户都有自己独立的主目录<br>
+用env查环境变量</p>
+<p>绝对路径名和相对路径名<br>
+路径分量分隔符用/<br>
+例如/home/stud/liu<br>
+test/case1/conf 相对当前目录<br>
+当前工作目录时进程属性的一部分，每个进程一个</p>
+<h2 id="打印-改变当前目录">打印、改变当前目录</h2>
+<p>pwd:打印当前工作目录<br>
+cd命令：改变当前目录<br>
+cd /user/include<br>
+cd ..返回上一级目录<br>
+cd 无实参，一般返回用户的主目录<br>
+cd是shell的一个内部命令（内部：文件名通配符的展开工作处理完后最左边的单词是shell的自己决定的是内部命令，磁盘上没有一个叫cd的可执行命令）</p>
+<p>创建目录mkdir<br>
+mkdir sun/work.d<br>
+除了创建目录外，系统自动建立文件.与..<br>
+选项-p，自动创建路径中不存在的目录，例如<br>
+mkdir database/2019/09/04/log</p>
+<p>删除目录rmdir<br>
+rmdir sun/work.d<br>
+要求被删除的目录除了.与..外无其他文件或目录<br>
+其他命令：rm -r sun/work.d（递归的删除，如果有文件连带文件删除，如果有子目录连带子目录删除）</p>
+<p>复制目录cp<br>
+cp -r 递归地复制一个目录<br>
+cp -r dir1 dir2<br>
+根据dir2是否存在，执行结果有差异<br>
+若dir2不存在，则新建子目录dir2，把dir1下的内容拷贝在dir2下<br>
+若dir2已经存在，则在dir2下新建子目录dir1，把dir1内容拷贝在新的dir1下</p>
+<p>选项-v 冗长verbose方式<br>
+复制目录时实时列出正在复制的文件的名字</p>
+<p>-u增量拷贝 便于备份目录<br>
+根据文件的时戳，不拷贝相同的或者过时的版本的文件，以提高速度<br>
+dir1和dir2不慎颠倒位置也不会出现灾难性后果</p>
+<p>命令touch<br>
+将文件的最后一次修改时间设置为当前时间，但不修改文件内容。例如：touch *.[ch]</p>
+<p>rsync：数据备份工具（增量拷贝工具）<br>
+远程同步remote sync 可以镜像整个目录树，使得网络只传输文件的增删改的部分</p>
+<h2 id="目录遍历">目录遍历</h2>
+<p>find：遍历目录树<br>
+三个基本功能：从指定的查找范围开始，遍历地查找子目录，凡满足条件的文件或目录，执行规定的动作。<br>
+举例：find ver1.d ver2.d -name '<em>.c' -print<br>
+范围：当前目录的子目录ver1.d和ver2.d<br>
+条件：名字和</em>.c匹配，要用引号扩起<br>
+动作：把查找到的文件的路径名打印出来</p>
+<p>特点：功能强，选项多，递归式查找，可以指定任何命令（awk类似）<br>
+-name wildcard 文件名与wildcard匹配（必须的引号，对通配符的解释由find完成,这里的“文件名”仅指路径名的最后一部分<br>
+-regex pattern<br>
+整个路径名与正则表达式pattern<br>
+-type<br>
+f:普通文件 d:目录 l:符号连接文件 c:字符设备文件 b:块设备文件 p:管道文件<br>
+-size:±n单位<br>
+指定文件大小（+大于 等于 小于-）<br>
+单位有c字符 b块512字节 k1024 M兆 G<br>
+-mtime ±ndays 文件最近修改时间<br>
+-newer file 文件最近修改时间比file的还晚<br>
+其他条件选项：<br>
+文件属性字段可用来对遍历到的目标进行筛选<br>
+指定i节点号 -inum<br>
+其他的具体查询手册</p>
+<p>复合条件：<br>
+可以用() -o ！等表示多条件的与或非</p>
+<p>关于动作的选项：<br>
+-print 打印查找的文件的路径名<br>
+-exec 对查找到的目标执行某一命令<br>
+在-exec及随后的分号之间的内容作为一条命令<br>
+在这命令的命令参数中，{}代表遍历到的目标文件的路径名<br>
+-ok 与-exec类似，只是对查找到的复合条件的目标执行一个命令前需要经过操作员确认</p>
+<h3 id="目录遍历的应用">目录遍历的应用</h3>
+<p>find . -type d -print<br>
+从当前目录开始查找，寻找所有目录，打印路径名<br>
+结果：按层次列出当前的目录结构<br>
+find / -name 'stud*' -type d -print<br>
+指定了两个条件，名字与stud<em>匹配，类型为目录两个条件逻辑“与”（两个条件连在一起），必须同时符合这两个条件<br>
+find  / -type f -mtime -10 -print<br>
+从根目录开始检索最近10天之内曾经修改过的普通磁盘文件（目录不算）<br>
+find , ! -type d -links +2 -print<br>
+从当前目录开始检索link数大于2的非目录文件条件非用！注意！与-type之间有空格<br>
+find ~-size+100k( -name core -o -name'</em>.cmp') -print<br>
+从主目录开始寻找大于100KB的名叫core或有.tmp后缀<br>
+使用了两条件“或”（-o)及组合（圆括号）<br>
+不要遗漏了所必需的引号，反斜线和空格，尤其是圆括号前后，圆括号是shell的特殊字符<br>
+其他写法；<br>
+find / -size+100k'(' -name core -o -name *.tmp ')' -print<br>
+find / -size+100k( -name core -o -name *.tmp ')' -print</p>
+<p>find /lib/usr -name 'lib*c.so' -exec ls -lh {} ;<br>
+-exec及随后的分号之间的内容作为一条命令执行<br>
+shell中分号有特殊意义，前面加反斜线<br>
+{}代表遍历时所查到的符合条件的路径名，注意两个花括号间无空格，之后的空格不可省略</p>
+<p>利用find的递归式遍历目录的功能在文件中搜寻字符串<br>
+find src -name *.c -exec grep -n -- --help {} /dev/null ;<br>
+grep特点：查找对象只有1个文件时，只列出行号。<br>
+在目录src中所有.c文件中查找--help字符串，grep的-n选项，--选项,/dev/null的作用<br>
+既打印了文件名也打印了行号</p>
+<h2 id="批量处理文件">批量处理文件</h2>
+<p>grep -r 递归的搜索子目录下的文件<br>
+但 grep -nr -- --help <em>.c 这样无法检索，因为那些子目录名字不能被</em>.c匹配<br>
+grep -nr -- --help * 这样可以检索但检索了太多非C源程序，输出结果被无用的信息淹没，应该使用find精确筛选的功能<br>
+应利用find和xargs的结合<br>
+能把find src -name *.c -print<br>
+生成的文件名列表追加在下列命令后面就可以了<br>
+grep -n -- --help filelist<br>
+改造成：find src -name *.c -print | xargs grep -n -- -- help</p>
+<p>xargs命令把标准输入追加到它的参数列表后面，也就是上述grep...的后面，再作为一个命令来执行，这样利用find精确筛选，利用grep批量处理文件，提高效率。<br>
+可以使用xargs的-n选项决定每次批处理多少个<br>
+<img src="https://zjy98.github.io/post-images/1585633150148.png" alt="" loading="lazy"></p>
+<h1 id="打包和压缩">打包和压缩</h1>
+<p>tar:文件归档<br>
+用于保留和恢复磁带上的文件<br>
+语法：<br>
+tar ctxv[f device] file-list<br>
+第一字母指定要执行的操作<br>
+c:Create创建新磁带，从头开始写，以前存于磁带上的数据会被覆盖掉<br>
+t:Table列表，磁带上的文件名列表，当不指定文件名时，列出所有的文件<br>
+x:extract抽取。从磁带中抽取指定的文件，当不指定文件名时，抽取所有文件<br>
+v:verbose冗长。每处理一个文件就打印出文件的文件名，并在该名前冠以功能字母<br>
+f:file 指定设备文件名<br>
+z:采用压缩格式gzip算法<br>
+j:采用压缩格式bzip2算法</p>
+<p>tar cvf /dev/rct0 .<br>
+将当前目录树备份到设备/dev/rct0中，圆点目是当前目录<br>
+tar tvf /dev/rct0<br>
+查看磁带设备/dev/rct0上的文件目录<br>
+tar xvf /dev/rct0<br>
+将磁带设备/dev/rct0上的文件恢复到文件系统中<br>
+tar cvf my.tar *.[ch] makefile<br>
+指定普通文件代替设备文件，将多个文件或目录存储成一个文件<br>
+一个危险操作是tar cvf *.[ch] makefile<br>
+漏写了功能字母f必须的“设备文件名”，按照shell的展开规则会覆盖掉现存排位第一的文件<br>
+展开成 tar cvf a1.c a2.c ab.h makefile（a1.c被覆盖掉 后面两个打包放在第一个文件）</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wen-jian-ming-he-wen-jian-tong-pei-fu/">
+                  <h3 class="post-title">
+                    文件名和文件通配符
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

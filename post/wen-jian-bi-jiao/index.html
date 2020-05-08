@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件比较 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件比较</h2>
+            <div class="post-date">2020-03-24</div>
+            
+            <div class="post-content">
+              <p>基本功能：</p>
+<ol>
+<li>cmp和散列算法：判断两个文件内容是否相同</li>
+<li>文件数据完整性验证</li>
+<li>diff:列出两个文本之间的区别</li>
+<li>版本管理</li>
+</ol>
+<h1 id="cmp命令">cmp命令：</h1>
+<p>两文件逐字节比较<br>
+cmp file1 file2<br>
+功能：逐字节比较两个文件是否完全相同<br>
+若两个文件完全相同时，不给出任何提示<br>
+若两个文件不同时，打印出第一个不同之处。</p>
+<h1 id="md5sumsha1sum">md5sum/sha1sum:</h1>
+<p>md5sum计算出位于两台不同计算机上的两文件的校验和是相同的，我们就认为两个文件的内容是完全相同的，无论这两个文件有多大。两计算机之间仅交换16字节的校验和就可以完成文件内容的比较。<br>
+使用md5算法（散列函数）根据文件内容生成16字节hash值，比较hash值是否相同，就可断定两个文件内容是否完全相同。<br>
+使用SHA-1算法的命令名为sha1sum(20字节hash值)<br>
+常用于数据完整性（Data Integrity)验证和判断位于网络不同机器上的两个文件是否相同<br>
+其他散列函数同样可以完成：sha512sum</p>
+<h1 id="diff">diff</h1>
+<p>求出两个文件的差别<br>
+diff file1 file2<br>
+diff -u file1 file2<br>
+diff命令的输出有normal和unified等格式选择，无论哪种格式，都能表达出从一个文本文件迁移到另外一个文本文件需要增加，修改和删除哪些文本行。<br>
+输出格式：<br>
+normal格式：列出一个如何将file1转化为file2的指令，这些指令有a(add)c(change),d(delete)。指令字母左边的行号是file1的行号，右边是file2的行号，列出内容时，大于号后边的内容是需要在file1文件中增加的内容；小于号后边的内容是需从file1中删除的内容。<br>
+<img src="https://zjy98.github.io/post-images/1585037258351.png" alt="" loading="lazy"><br>
+-u0格式：---：第一个文件剪掉的内容。+++：第二个增加的内容<br>
+@@ -50,2+51 @@第一个文件第50行删除，第二个文件第51行加上。<br>
+（相同的行就不显示）<br>
+数字越大显示的越多<br>
+-u格式：第一个转为第二个文件：先给出时间区别。每一列最左边的空格的地方指的是这一行在新旧文件中相同。-：从旧文件里删除，+：是加上新文件内容。</p>
+<h1 id="版本管理系统">版本管理系统</h1>
+<p>1975 SCCS<br>
+1986 CVS<br>
+2001 SVN<br>
+2005 GIT<br>
+基本功能：对一个目录树（项目）下的文本文件（主要是源程序文件的脚本以及文档）进行版本管理。<br>
+便于多人合作开发的项目（一个代码库，多个现场）</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/yuan-xing-de-cun-zai-yi-yi-ji-da-zhi-fen-lei/">
+                  <h3 class="post-title">
+                    原型的存在意义及大致分类
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

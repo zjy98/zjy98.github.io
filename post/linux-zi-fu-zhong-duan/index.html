@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>开始使用Linux | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">开始使用Linux</h2>
+            <div class="post-date">2020-03-10</div>
+            
+            <div class="post-content">
+              <h1 id="字符终端">字符终端</h1>
+<p>UNIX/Linux是多用户系统<br>
+主机连接多台字符终端，字符终端作为交互式输入输出设备<br>
+终端构成：<br>
+键盘 显示器 RS232串行通信接口</p>
+<p>字符终端的历史：电传打字机tty、字符终端（以屏幕代替）卷纸打印机，仍称作tty设备<br>
+主机与终端相连：主机中的串口卡（硬件）引出多个RS232串口，每个RS232接口通过电缆（3芯或更多芯）连接一台终端，</p>
+<p><strong>终端是主机的输入输出设备</strong> 通过电缆把用户的按键信息送到主机，把主机发来的信息占用主机内存来完成。<br>
+<img src="https://zjy98.github.io/post-images/1583829893200.png" alt="" loading="lazy"></p>
+<p>驱动程序：不同硬件需要不同的驱动程序，与行律模块的接口：上行与下行字符流<br>
+行律的作用：一行内字符的缓冲、回显和编辑，直到按下回车；完成数据的加工：如把\n转化为\r\n；将crtl-c字符转化为终止进程运行的信号。<br>
+行律功能的调整：程序中通过编程的方法，相关命令stty stty erase ^H   stty -a（把所有行律的状态打印）<br>
+crtl-s和crtl-q<br>
+软件流量控制的方式（利用流控字符Xon和Xoff)<br>
+终端希望主机暂停发送数据时，发Xoff字符<br>
+终端希望主机继续发送数据时，发Xon字符<br>
+Xon/Xoff分别被定义为ASCII码的17和19<br>
+按crtl-s暂停显示 crtl-q继续显示</p>
+<h2 id="终端转义序列">终端转义序列</h2>
+<p>转义字符：Esc:ASCII码1B（十进制27，八进制33）<br>
+主机发往终端方向的数据中的转义序列功能：控制光标位置、字符颜色、字符大小、选择终端的字符集、控制终端的打印机、刷卡机。<br>
+举例：Esc[2J   由主机发送到终端的4字节序列1B 5B 32 4A功能：清除屏幕</p>
+<p>主机根据终端类型匹配，实现一定功能发送对应的控制码。</p>
+<h2 id="仿真终端和虚拟终端">仿真终端和虚拟终端</h2>
+<h3 id="仿真终端">仿真终端</h3>
+<p>PC机RS232串口，运行终端仿真软件来实现一个终端设备的功能。例如：早期DOS操作系统下的CrossTalk Windows下的超级终端。仿真内容包括实现终端转义序列的控制码</p>
+<h2 id="虚拟终端">虚拟终端</h2>
+<p>终端和主机之间的通信由串口线替代为一个TCP连接，双向传递字节流。主机与PC通过网络相连，客户端运行telnet，服务器telnetd，成为Linux的基于TCP通信的虚拟终端。<img src="https://zjy98.github.io/post-images/1583831888849.png" alt="" loading="lazy"><br>
+现在经常使用的是安全终端，在TCP连接上加密和压缩数据，如Windows客户端软件SecureCRT或者putty</p>
+<h1 id="用户登录和联机手册查询">用户登录和联机手册查询</h1>
+<p>Linux有两种用户：超级用户和普通用户<br>
+<strong>root用户</strong>（超级用户)：不受权限的制约，可以随意修改和删除文件，但误删重要文件可能带来严重后果。可以创建新用户（useradd)用户信息放在/etc/passwd文件中，包括用户名和用户ID，以及Home目录，登录shell。<br>
+登录shell:一般为bash，也可以选择其他shell其他系统程序</p>
+<p>shell的提示符：$ Bourne shell系列 # 当前用户为超级用户root</p>
+<p>基本的Linux命令：man查阅手册 date日期 cal日历 bc计算器 passwd修改密码</p>
+<h1 id="时间计算器和口令维护">时间计算器和口令维护</h1>
+<p>读取系统日期和时间 命令date。可以根据需要定制输出格式<br>
+date &quot;+%Y-%m-%d %H:%M:%S Day %j&quot;<br>
+2018-11-07 21:09:54 Day 311格式控制字符串：第一个字符必须为+号，%Y代表年号，%m代表月份，%M代表分钟。311指的是今年的第311天<br>
+date &quot;+%s&quot; 秒坐标（从UTC1970开始）常用于计算时间间隔。<br>
+通过NTP协议校对系统时间：ntpdate命令 ntpdate -q 0.pool.ntp.org（查询时间，普通用户也可以）ntpdate 0.pool.ntp.org（设置时间，必须为root用户）·<br>
+cal命令 打印日历 cal（打印当前月份日历） cal 2020（打印2020年的日历）cal 10 2019</p>
+<p>bc计算器<br>
+基本计算器的功能，支持变量、函数、条件和循环等编程功能，可以进行任意精度计算。<br>
+bc 精度为小数点后0位<br>
+bc -l 小数点后20位</p>
+<p>passwd:更换口令<br>
+普通用户：使用passwd命令更改自己的口令，更改前先验证原来的口令。超级用户可以直接更改，但是超级用户无法读取其他用户的口令。</p>
+<h1 id="了解系统运行状态">了解系统运行状态</h1>
+<p>who:确定谁在系统中，列出当前已登入系统的用户<br>
+第一列：用户名，第二列：终端设备的设备文件名，设备文件一般放在目录/dev下<img src="https://zjy98.github.io/post-images/1583851940168.png" alt="" loading="lazy"><br>
+tty:可以打印出当前终端的设备文件名<br>
+who am i:可以列出当前终端上的登录用户<br>
+whoami:仅列出当前终端上的登录用户<br>
+uptime:系统的年龄<br>
+<img src="https://zjy98.github.io/post-images/1583852045965.png" alt="" loading="lazy"><br>
+top:列出资源占用排名靠前的进程<br>
+<img src="https://zjy98.github.io/post-images/1583852139501.png" alt="" loading="lazy"><br>
+VIRT（虚拟内存空间）C语言会产生内存泄露<br>
+占用CPU的比例也会超过100%<br>
+ps：查阅进程状态 将内核中进程状态信息有选择地打印<br>
+①无选项 只列出当前终端上启动的进程 列出的项目有：PID,TTY,TIME,COMMAND<br>
+②e选项，列出系统中所有的进程（进程范围）<br>
+③f选项，以full格式列出每个进程（控制列的数目）<br>
+④以long格式列出每一个进程（控制列的数目）<br>
+UID：用户ID（注册名）PID：进程ID PPID：父进程的PID C：CPU占用指数：最近一段时间（秒级别）进程占用CPU情况，STIME:启动时间 SZ：进程逻辑内存大小 TTY：终端名字 COMMAND:命令名 WCHAN:进程在内核的何处睡眠（wait channel) TIME:累计执行时间（占用CPU的时间）PRI：优先级 S:状态 S（sleep)等待占用的时间 R（run) 正在占用CPU的状态 Z（zombie）已经执行完了死掉了 僵尸状态</p>
+<p>free：了解内存使用情况<br>
+<img src="https://zjy98.github.io/post-images/1583857362020.png" alt="" loading="lazy"><br>
+在内存中缓冲曾读过的磁盘内容</p>
+<p>vmstat：了解系统负载<br>
+<img src="https://zjy98.github.io/post-images/1583857463779.png" alt="" loading="lazy"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/git-ru-men/">
+                  <h3 class="post-title">
+                    Git入门
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

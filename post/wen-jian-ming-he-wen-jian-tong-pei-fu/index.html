@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件名和文件通配符 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件名和文件通配符</h2>
+            <div class="post-date">2020-03-28</div>
+            
+            <div class="post-content">
+              <h1 id="文件命名和目录结构">文件命名和目录结构</h1>
+<p>名字长度：1-255字符<br>
+有些UNIX不支持长文件名，一般1-14<br>
+取名合法的字符：除了斜线外的所有字符都是命名的合法字符。不可打印字符也可以做文件名（除了字节0斜线/ 留作路径名分隔符。<br>
+大小写字母有区别！</p>
+<p>/etc目录：供系统维护管理用的命令和配置文件。文件格式为文本文件。功能类似windows的注册表信息<br>
+passwd:记录所有用户的名称，主目录<br>
+hosts：ip地址和文件名的对应关系<br>
+<em>.conf文件 ssh，xinet.d，apt,network<br>
+系统启动阶段系统初始化和启动各服务的脚本rt</em>.d<br>
+profile/bash.bashrc系统级bash等shell的偏好设置<br>
+自定义的需要自启动的服务脚本rc.local</p>
+<p>/tmp临时目录<br>
+每个用户都可以创建自己的文件，但只能删除自己的文件<br>
+/var目录<br>
+系统运行时需要改变的数据<br>
+系统日志syslog等</p>
+<p>可执行文件（类似Windows的program files目录）<br>
+/bin 系统常用命令：如ls ln cp cat等<br>
+/usr/bin 存放一些常用命令，如ssh,ftp,make,gcc,git等</p>
+<p>/sbin /user/bin是系统管理员专用命令<br>
+/dev 放设备文件。如终端设备，打印机设备等<br>
+/user/include 放头文件<br>
+/lib，/user/lib 放各种库文件，动态链接库<br>
+静态链接库文件有.a后缀，动态链接库文件后缀式.so（共享的目标代码）<br>
+Linux中广泛使用动态链接库：节省内存</p>
+<p>动态链接命令ldd<br>
+可以看到这个文件运行时需要哪些动态链接库文件<br>
+动态链接：gcc hello.c -o hello<br>
+静态链接：gcc -static hello.c -o hello</p>
+<h1 id="文件通配符">文件通配符</h1>
+<p>星号*<br>
+匹配任意长度的文件名字符串（包括空字符）<br>
+点字符.当他作为文件名或路径名分量的第一个字符时，必须显式匹配<br>
+例如：<em>file匹配file,makefile，不匹配.profile的文件（必须把.写出来）<br>
+斜线/也必须显式匹配<br>
+例如：try</em>c匹配try1.c try.c try.basic</p>
+<p>问号？<br>
+匹配任一单字符<br>
+方括号[]<br>
+匹配括号内任一字符，也可用-指定一个范围<br>
+例如：[A-Z]*, *.[ch]  [Mm]akfile</p>
+<p>波浪线~(Bash特有的)<br>
+~ 当前用户的主目录<br>
+~kuan 用户kuan的主目录</p>
+<p>点文件.与点点..文件<br>
+当前目录与上级目录<br>
+把.文件解释为当前目录，不是通配符处理程序完成的，来源于目录的存储结构</p>
+<p>注意：文件名通配符规则与正则表达式的规则不同，应用场合不同<br>
+不同种类shell通配符规则会有差别<br>
+Windows中星.星匹配所有文件，Linux中要求文件名必须含有圆点否则不匹配<br>
+使用星/星.[ch]匹配当前一级子目录下的所有C源程序文件<br>
+星/星/星.conf 匹配当前目录第三级子目录中所有后缀.conf的文件</p>
+<h1 id="文件通配符的处理过程">文件通配符的处理过程</h1>
+<p><img src="https://zjy98.github.io/post-images/1585368226860.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1585368335058.png" alt="" loading="lazy"></p>
+<p>文件名通配符的处理由Shell完成</p>
+<ol>
+<li>在shell提示符下，从键盘输入命令，被shell接收</li>
+<li>shell对键入内容做若干处理，对通配符的展开工作（文件名生成）</li>
+<li>执行前面生成的结果命令</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://zjy98.github.io/post-images/1585368893440.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wen-ben-wen-jian-de-bian-ji/">
+                  <h3 class="post-title">
+                    文本文件的编辑
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

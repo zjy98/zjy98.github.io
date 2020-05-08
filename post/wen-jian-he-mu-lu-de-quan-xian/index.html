@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件和目录的权限 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件和目录的权限</h2>
+            <div class="post-date">2020-04-19</div>
+            
+            <div class="post-content">
+              <h1 id="文件的权限">文件的权限</h1>
+<p>用于控制** 进程 <strong>对系统中文件和</strong> 目录 **的访问<br>
+· 权限的三个级别<br>
+文件主、同组用户、其他用户<br>
+每个文件有唯一的属主<br>
+· 普通文件的权限<br>
+读、写、可执行<br>
+不可写文件也可能会被删除</p>
+<h2 id="两类可执行文件">两类可执行文件</h2>
+<ol>
+<li>
+<p>程序文件（可执行文件）<br>
+二进制的CPU指令集合，满足操作系统规定的格式才可以被加载运行。</p>
+</li>
+<li>
+<p>脚本文件（文本文件）<br>
+默认的解释程序为/bin/sh<br>
+可以在文件的第一行自行指定解释程序（必须是第一行，#!必须是这个文件首先出现的两个字符）<br>
+例如:#! /bin/bash   #! /usr/bin/bc<br>
+解释程序也可以是用户自己编写的应用程序<br>
+脚本程序运行时，实际上是由解释程序创建了一个进程</p>
+<h1 id="目录的权限">目录的权限</h1>
+<ol>
+<li>目录的读写权限<br>
+· 读权限<br>
+若无读权限，那么目录表文件不许读，ls会失败<br>
+· 写权限<br>
+若无写权限，那么目录表不许写<br>
+创建文件，删除文件，文件改名会修改目录文件<br>
+修改文件不需要修改目录文件，需要修改i节点<br>
+目录无写权限不是指目录下所有文件禁止写</li>
+</ol>
+</li>
+<li>
+<p>执行权限<br>
+有执行权限意味着分析路径名过程中可以检索该目录<br>
+cat /a/b/c<br>
+要求/a,a/b三目录有x权限，c文件有读权限；否则命令执行失败<br>
+cd ../st8 要求当前目录，..和st8目录有x权限</p>
+</li>
+<li>
+<p>STICKY权限（粘着位）<br>
+早期UNIX具有sticky属性的可执行文件尽量常驻内存或交换区以提高效率<br>
+现代linux对访问过的文件自动缓冲在内存，文件sticky属性被忽略<br>
+<img src="https://zjy98.github.io/post-images/1587299604620.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1587299624990.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1587299643401.png" alt="" loading="lazy"></p>
+</li>
+</ol>
+<h1 id="权限验证的顺序">权限验证的顺序</h1>
+<p>每个文件都有文件主和组的属性（文件节点中）<br>
+每个进程也有进程主和组的属性（进程PCB中）<br>
+都是整数，uid和gid的编号与名字对应关系见/etc下passwd和group文件</p>
+<ol>
+<li>文件主与进程主相同：使用文件主权限，不再查组合其他用户的权限</li>
+<li>文件主与进程主不同，但文件主与进程主同组。只使用组权限</li>
+<li>都不同：使用文件关于其他用户的权限<br>
+例：权限---r--rw-,文件主不可读但同组用户可读，即使文件主是该组用户之一也不行<br>
+超级用户root不受权限的制约</li>
+</ol>
+<h1 id="权限相关命令">权限相关命令</h1>
+<p>确定文件的权限：</p>
+<ol>
+<li>使用ls命令：油管选项-l和-d<br>
+-l可以查当前目录下所有文件和子目录的权限<br>
+<img src="https://zjy98.github.io/post-images/1587299958245.png" alt="" loading="lazy"><br>
+修改权限：</li>
+<li>chmod<br>
+字母形式：chmod [ugoal][+-=][rwxst]文件名表<br>
+u--user 文件主的权限<br>
+g--group 同组用户的权限<br>
+o--other 其他用户的权限<br>
+a--all 所有上述三级权限<br>
+（t--Sticky,s--SUID）<br>
+例如：chmod go-rwx *.ch  对同组其他用户不允许读不允许写不允许执行<br>
+chmod a+x bash  对所有用户都可执行<br>
+数字形式：<br>
+<img src="https://zjy98.github.io/post-images/1587300197652.png" alt="" loading="lazy"><br>
+只允许文件主和超级用户修改文件权限</li>
+<li>umask命令：控制文件、目录的初始权限<br>
+用vi创建文件、用输出重定向创建文件、创建新目录<br>
+umask是进程属性的一部分，umask是shell内部命令<br>
+umask  打印当前的umask值<br>
+umask 022 设置当前umask的值为八进制022<br>
+二进制：000 010 010<br>
+取消新文件和新目录的w权限和其他用户w权限<br>
+umask 077<br>
+二进制：000 111 111<br>
+禁止组权限和其他用户权限（对应1的权限被屏蔽掉）<br>
+一般将umask命令放到shell自动执行批处理文件中<br>
+bash的$HOME/.bash_profile<br>
+系统调用umask:修改进程自身的umask属性值<br>
+·初创文件的权限：<br>
+受open的规定值和进程自身属性umask的影响<br>
+已存在的文件的权限，不受open/umask的影响<br>
+系统调用umask:<br>
+int umask(int mask)<br>
+mask为指定的新umask值，返回值为原先的umask<br>
+读出进程umask属性而不改变它，需调umask两次</li>
+</ol>
+<h1 id="三级权限存在的问题">三级权限存在的问题</h1>
+<p>用户修改口令，文件<br>
+/etc/passwd和/etc/shadow<br>
+例如：用户liu的文件list.txt：希望用户liang,只能读取行首为#的行和他有关的行<br>
+策略和机制相分离：SUID权限<br>
+文件list.txt的文件主liu给文件query增加SUID权限<br>
+chmod u+s query<br>
+ls -l query<br>
+-rws--x--x 1 liu leader 56134 Dec 10 23:04 query<br>
+运行其他人运行<br>
+进程实际UID/有效UID<br>
+一般情况下相等。<br>
+打开文件open()时，根据进程的有效ID与文件所有者的UID之间的关系和文件的权限进行访问合法性验证<br>
+可执行程序具有SUID权限，进程的实际UID和有效UID不相等，实际UID是当前用户，而有效UUID为可执行文件的文件主<br>
+SUID使得用户可以通过文件主提供的程序，以文件主的权限访问文件，但这种访问依赖于文件主提供的程序，进行有限的访问。</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wen-jian-xi-tong/">
+                  <h3 class="post-title">
+                    文件系统
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

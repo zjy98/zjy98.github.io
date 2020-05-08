@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Linux文本及文本处理工具 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588896515181">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1588896515181" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Linux文本及文本处理工具</h2>
+            <div class="post-date">2020-03-11</div>
+            
+            <div class="post-content">
+              <p><img src="https://zjy98.github.io/post-images/1583858336835.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1583858342640.png" alt="" loading="lazy"><br>
+进程的标准输入、输出<br>
+标准输入stdin 标准输出stdout<br>
+重定向：把标准输出重定向到一个文件中<br>
+输出重定向：ls -l &gt; filelist.txt<br>
+输入重定向：sort &lt; filelist.txt<br>
+管道机制：ls -l | sort 在管道中显示、在管道中搜索，可以把多个命令组合在一起</p>
+<p>文本文件处理的特点：不指定处理对象文件名时，从标准输入获得数据，指定处理对象文件时，从文件中获取数据，多数命令可以指定多个文件，处理结果在标准输出显示。</p>
+<p>more/less:逐屏显示文件<br>
+more shudu.c 指定一个文件 more *.[ch] 指定多个文件 ls -l | more 指定0个文件<br>
+less 回退浏览的功能更强，可直接使键盘的上下箭头键，或j,k类似vi的光标定位件，以及Pgup Pgdn Home End键<br>
+cat与od:列出文件内容 cat串结，文本格式打印 选项-n :行号 od 逐字节打印<br>
+head与tail：显示文件的头部或者尾部 tail -f msg.c：试试打印文件尾部被追加的内容<br>
+tee：三通 功能：将从标准输入stdin得到的数据抄送到标准输入stdout显示，同时存入磁盘文件中<br>
+wc：字计数<br>
+sort：对文件内容排序 -n：按照算数值排序<br>
+tr：翻译字符 将标准输入拷贝到标准输出，string1中出现的字符替换为string2中的对应字符或者用中括号来指定一个集合例：把小写字母改成大写字母 tr'[a-z]' '[A-Z]'<br>
+用\加三个八进制数字（类似C语言）表示一字符<br>
+uniq：筛选文件中的重复行。选项 -u 只保留没有重复的行 -d 只保留有重复的行 没有选项打印没有重复的行和重复的行（但只打印一次） 重复的行指的是上下紧邻的两行重复。<br>
+od:odtal dump，八进制打印。可以逐字节看到文件的存储结构，可以用于打印可执行文件，或者非文本格式的数据文件。不指定处理对象时从标准输入中获得。<br>
+od a.dat 以八进制打印出文件<br>
+od -x 使用十六进制打印文件内容，由于正好两个十六进制数字描述出一个字节，所以十六进制打印经常被使用。<br>
+od-c 对可打印字符打印出字符，不可打印字符打印出ASCII码。</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/linux-zi-fu-zhong-duan/">
+                  <h3 class="post-title">
+                    开始使用Linux
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
