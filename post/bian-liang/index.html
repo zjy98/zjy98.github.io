@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1588905257813">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589078658452">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1588905257813" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1589078658452" class="site-logo">
         <h1 class="site-title">给敦敦买炸猪排</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -104,13 +104,20 @@
 <h2 id="bash变量">bash变量</h2>
 <p>存储的的内容：字符串（对数字串来说，不是二进制形式）<br>
 在执行过程中其内容可以被修改<br>
-赋值及引用：<br>
-<code>引用addr变量的方法：$ addr或$ {addr} 例如:frp $ addr echo $ {addr} A echo $ addr A 命令行中有$ 符的变量引用，shell会先完成变量的替换 赋值时，等号右侧字符串中含有特殊字符：unit=&quot;Beiyou University&quot; echo $ unit</code> 引用未定义的变量，变量值为空字符串<br>
+赋值及引用：</p>
+<ul>
+<li>引用addr变量的方法：$ addr或$ {addr}<br>
+例如:frp $addr<br>
+echo ${addr} A<br>
+echo $addr A<br>
+命令行中有$ 符的变量引用，shell会先完成变量的替换<br>
+赋值时，等号右侧字符串中含有特殊字符：unit=&quot;Beiyou University&quot;  echo $ unit</li>
+<li>引用未定义的变量，变量值为空字符串<br>
 echo Connect to $ proto Network<br>
 porto=TCP/IP<br>
 echo Connect to $ proto Network<br>
-shell内部开关：set -u当引用一个未定义的变量时，产生一个错误；set +u 当引用一个未定义的变量时，认为是一个空串（默认情形）<br>
-` 命令echo<br>
+shell内部开关：set -u当引用一个未定义的变量时，产生一个错误；set +u 当引用一个未定义的变量时，认为是一个空串（默认情形）</li>
+<li>命令echo<br>
 echo arg1 arg2 arg3...<br>
 打印各命令行参数，每两个间用一空格分开，最后打印换行符<br>
 不可打印字符（转义）:Linux需加选项-e<br>
@@ -118,7 +125,8 @@ echo支持C语言字符串常数描述格式的转义和\c<br>
 \b退格 \n换行 \r回车 \t水平制表 \反斜线 \nnn 八进制描述的字符ASCII码 \c打印完毕，不换行<br>
 单词之间的分界符一个空格和多个空格一样，要想打印多个空格加双引号<br>
 printf用法和C语言类似，用单引号，可以替代echo<br>
-\033[H:在屏幕左上角打印</p>
+\033[H:在屏幕左上角打印</li>
+</ul>
 <h1 id="在脚本中编辑文件">在脚本中编辑文件</h1>
 <p>read:读用户的输入 变量取值的另一种方法<br>
 读取用户的而输入并使用输入的信息：read name<br>
