@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>强化学习 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589821160520">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1589821160520" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">强化学习</h2>
+            <div class="post-date">2020-05-15</div>
+            
+            <div class="post-content">
+              <p>强化学习：reinforvement learning<br>
+是一种“套路”或者“形式”，它可以强化或者鼓励某个人或者某个事物以更高的可能性产生同样的行为。<br>
+核心：通过某种手段影响被实验者的 行为，为了实现这个目标，实验者需要构建一个完整的实验环境，通过给与被实验者一定的观测和回报，让其产生实验者想要的结果。<br>
+流程：<br>
+1.在每一个时刻，环境都处于一种状态<br>
+2.智能体将设法得到环境当前状态的观测值<br>
+3.智能体根据观测值，结合自己历史的行为准则（一般称为策略）做出行动<br>
+4.这个行动会影响环境的状态，使环境发生一定改变。</p>
+<p>状态：智能体所处环境的所有信息<br>
+观测值：是玩家能看到的一部分信息<br>
+两者存在的差异：很多任务中玩家只能看到所处位置附近的信息，而这只占整个地图的一部分，这时状态和观测的差异会对决策产生很大影响，由于每一时刻只能观测到部分信息，玩家需要记住其他区域的信息，才能做更好的全局最优的决策。</p>
+<p>特点：<br>
+1.不断试错，Agent需要根据回报的多少不断调整自己的策略，从而尽可能多的获得回报<br>
+2.长期回报，强化学习的任务通常需要长时间的交互，追求长期分数需要多探探索，多尝试。<br>
+衡量指标：<br>
+算法的效果‘就散时间’稳定性和泛化性等<br>
+学习时间:由于学习和尝试相关，所以学习时间一般也看做探索的次数，如果探索次数较多，一般认为所花的时间也较长。</p>
+<p>监督学习：目标是训练一个模型，使模型能根据确定的输入得到对应的输出<br>
+强化学习：学习“做什么”即如何把当前的情景映射为动作，才能使得数值化的收益信号最大化。<br>
+学习目标的区别：<br>
+监督学习：希望模型根据指定的输入得到对应的输出<br>
+强化学习：希望agent（也可以想象成模型）根据指定的状态得到使回报最大化的行动<br>
+二者都是完成从一个事物到另一个事物的映射</p>
+<p>目标明确性的区别：<br>
+监督学习：目标更明确，输入对应的是确定的输出，一般一个输入对应一个输出<br>
+强化学习：目标没有这么明确。使当前状态获得最大回报的行动可能有很多<br>
+比如：俄罗斯方块: 采用监督学习进行训练，模型以每一帧游戏画面为输入，对应的输出必须是确定的； 但实际达到想要的目标的方法不止一种，强化学习更关心回报。</p>
+<p>从时间维度上看，二者输出的意义不同<br>
+监督学习：主要看重输入和输出的匹配程度，即使存在序列到序列的映射，我们也<br>
+希望每一个时刻的输出都能和输入对应上；<br>
+强化学习：目标是让回报最大化，但是在与环境交互的过程中，并不是每一个行动<br>
+都会获得回报。当我们完成了一次完整的交互后，会得到一个行动序列，这个行动<br>
+序列中哪些行动为回报产生了正向的贡献，哪些产生了负向的贡献，有时很难界定。<br>
+强化学习和监督学习<br>
+棋类游戏：游戏的目标是战胜对方（获得胜利），在得到最终结果之前，Agent可能不会得 到任何回报</p>
+<p>总的来说，强化学习相比监督学习有两个优点<br>
+（1）定义模型需要的约束更少，影响行动的反馈虽然不及监督学习 直接，却降低了定义问题的难度<br>
+（2）更看重行动序列带来的整体回报，而不是单步行动的一致性</p>
+<p>有一种学习方法的目标和强化学习一致，都是最大化长期回报，但是 学习方法和监督学习类似，收集大量的单步决策样本，并让模型学习 这些单步决策的逻辑<br>
+这种方法被称为“模仿学习”（ Imitation Learning），也被称为 “行为克隆”（ Behavior Cloning），它是模仿学习的一种<br>
+模仿学习在一些问题上可以获得比较好的效果，但也存在如下问题<br>
+（1）如何收集满足目标的样本？我们必须在某一个领域存在一个专 家，所有的样本通过专家和环境的交互产生。<br>
+（2）如何收集大量的样本？如果样本数量不够多，我们很难学习出 好的策略模型。<br>
+以上三个问题都不容易解决，因此模仿学习的难度并不小，这才使得 大家把目光集中在强化学习上，希望它能够解决模仿学习无法解决的 问题</p>
+<p>参考书：《强化学习精要》</p>
+<p>-马尔科夫决策过程MDP<br>
+-基于MDP的策略学习<br>
+策略迭代，价值迭代。</p>
+<p>蛇棋游戏介绍：</p>
+<p><img src="https://zjy98.github.io/post-images/1589503323720.png" alt="" loading="lazy"><br>
+哪些因素决定了最终获得的分数：<br>
+选择什么样的骰子投掷（可由玩家决定）<br>
+投掷出的数目大小（玩家无法控制，受环境的随机性控制）<br>
+St表示t时刻游戏状态的观测值（棋子所在的位置），用at表示t时刻选择的手法<br>
+用一条状态行动链表示<br>
+{S0,a0,S1,a1....St-1,at-1,St}<br>
+第一种转换由策略决定：<br>
+策略是一种映射，将环境的状态值st映射到一个行动集合的概率分布<br>
+π=p{at,i|{s0,a0...st}}<br>
+行动：玩家根据当前的状态以某种策略选择自认为最好的行动<br>
+a*t=argmaxat,ip(at,i|{s0,a0...st})</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/6VMQnRNce/" class="tag">
+                    机器学习
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/wei-xin-xiao-cheng-xu-bi-ji/">
+                  <h3 class="post-title">
+                    微信小程序笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

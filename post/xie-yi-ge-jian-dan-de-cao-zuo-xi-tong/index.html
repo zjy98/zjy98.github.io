@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>写一个简单的操作系统 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589821160520">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1589821160520" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">写一个简单的操作系统</h2>
+            <div class="post-date">2020-05-12</div>
+            
+            <div class="post-content">
+              <h1 id="一-基本核心模块">一、基本核心模块</h1>
+<ul>
+<li>
+<p>进程管理<br>
+1.进程的创建、删除<br>
+2.进程的基本属性：进程名、进程时间片、进程优先级<br>
+3.支持进程创建与撤销功能，创建后的进程在其整个生命周期可以以PCB形式存在，每个进程用一个PCB表示。<br>
+4.进程根据其执行情况在不同队列（就绪队列、阻塞队列、运行队列）间迁移<br>
+5.实现单处理器进程调度功能等调度算法实现。<br>
+6.管理的进程数目不少于3个，竞争使用的资源可以是CPU、内存、I/O设备等<br>
+7.进程可以在初始时刻由系统创建，也可以有其他进程在运行时创建。<br>
+8.能够查看各进程状态、各进程队列内容。系统在运行过程中可以显示打印各进程的状态以及有关参数的变化情况，以便观察各个进程的运行过程以及系统的管理过程<br>
+9.至少支持1-2个调度算法</p>
+</li>
+<li>
+<p>内存管理</p>
+</li>
+<li>
+<p>文件管理<br>
+1.文件的创建、删除<br>
+2.文件属性的修改、有关文件目录的操作</p>
+</li>
+</ul>
+<h1 id="二-如何开发">二、如何开发</h1>
+<p>我们这次想要做的可 不是这种可执行程序，而是希望能够做到把含有操作系统的CD-ROM或软盘插入电脑，或者将操 作系统装入硬盘后，只要打开电源开关就能自动运行。 为了开发这样的操作系统，我们准备按照如下的步骤来进行。<br>
+1、在windows或其他系统上编写源代码<br>
+2、用C语言编译器编译源代码，生成机器语言文件<br>
+3、对机器语言文件进行加工，生成软盘映像文件<br>
+4、将映像文件写入磁盘，作成含操作系统的启动盘</p>
+<p>所谓开发操作系统，就是想办法制作一张“含有操作系统的，能够自动启动的 磁盘” 。 这里出现的“映像文件”一词，简单地说就是软盘的备份数据。我们想要把特定的内容写入 磁盘可不是拿块磁铁来在磁盘上晃晃就可以的。所以我们要先做出备份数据，然后将这些备份数 据写入磁盘，这样才能做出符合我们要求的磁盘</p>
+<h1 id="三-文件管理">三、文件管理</h1>
+<h2 id="文件">文件：</h2>
+<ul>
+<li>文件是指记录在外存上的具有文件名的一组相关信息的集合。</li>
+<li>系统运行时，以进程作为基本单位，用户输入输出时，以文件为基本单位。</li>
+<li>可分为有结构文件和无结构文件两种。有结构文件是由若干个相关记录组成，而无结构文件则被看成一个字符流。</li>
+<li>有结构的记录式文件<br>
+文件构成：由一组相似记录(如:考生信息记录)构成。<br>
+记录长度：分为定长和变长。<br>
+分类（按记录的组织）：<br>
+顺序文件（适用定长记录）<br>
+索引文件(变长，建立一张索引表)<br>
+直接/哈希文件（键值确定物理地址）</li>
+<li>无结构的流式文件<br>
+文件构成：由字符流构成。<br>
+长度：字节为单位<br>
+访问：读写指针,通过穷举搜索的方式访问.</li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/WM6L5Zh67/" class="tag">
+                    操作系统
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/clustering-ju-lei/">
+                  <h3 class="post-title">
+                    Clustering 聚类
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

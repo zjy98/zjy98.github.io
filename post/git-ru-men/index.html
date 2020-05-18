@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589078725357">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589821160520">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1589078725357" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1589821160520" class="site-logo">
         <h1 class="site-title">给敦敦买炸猪排</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -118,6 +118,73 @@ HEAD实际是指向master分支的一个游标，命令中出现HEAD的地方可
 objects标识的区域为Git的对象库，实际位于&quot;.git/objects&quot;目录下，包含了创建的各种对象及内容。<br>
 对工作区修改（或新增）的文件执行git add命令，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入对象库的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。<br>
 执行提交git commit时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树</p>
+<h1 id="基本操作">基本操作：</h1>
+<h2 id="创建-create">创建 | CREATE</h2>
+<p>$ git clone ssh://user@domain.com/xx.git 克隆远程仓库<br>
+$ git init 初始化本地 git 仓库（新建仓库）</p>
+<h2 id="本地更改-local-changes">本地更改 | LOCAL CHANGES</h2>
+<p>$ git status 查看当前版本状态（是否修改）<br>
+$ git diff 显示所有未添加至 index 的变更<br>
+$ git diff HEAD 查看已缓存的与未缓存的所有改动<br>
+$ git add &lt;path&gt; 将该文件添加到缓存<br>
+$ git commit -m ‘xxx’ 提交<br>
+$ git commit --amend -m ‘xxx’ 合并上一次提交（用于反复修改）<br>
+$ git commit -am ‘xxx’ 将 add 和 commit 合为一步</p>
+<h2 id="提交历史记录-commit-history">提交历史记录 | COMMIT HISTORY</h2>
+<p>$ git log 显示日志<br>
+$ git show &lt;commit&gt; 显示某个提交的详细内容<br>
+$ git blame &lt;file&gt; 在每一行显示 commit 号,提交者,最早提交日期</p>
+<h2 id="分支机构和标签-branches-tags">分支机构和标签 | BRANCHES &amp; TAGS</h2>
+<p>$ git log 显示日志<br>
+$ git show &lt;commit&gt; 显示某个提交的详细内容<br>
+$ git blame &lt;file&gt; 在每一行显示 commit 号,提交者,最早提交日期</p>
+<h2 id="更新和发布-update-publish">更新和发布 | UPDATE &amp; PUBLISH</h2>
+<p>$ git remote -v 列出远程分支详细信息<br>
+$ git remote show &lt;remote&gt; 显示某个分支信息<br>
+$ git remote add &lt;remote&gt; &lt;url&gt; 添加一个新的远程仓库<br>
+$ git fetch &lt;remote&gt; 获取远程分支，但不更新本地分支，另需 merge<br>
+$ git pull &lt;remote&gt; &lt;branch&gt; 获取远程分支，并更新本地分支<br>
+$ git push &lt;remote&gt; &lt;branch&gt; 推送本地更新到远程分支<br>
+$ git push &lt;remote&gt; --delete &lt;branch&gt; 删除一个远程分支<br>
+$ git push --tags 推送本地标签</p>
+<h2 id="合并与衍合-merge-rebase">合并与衍合 | MERGE &amp; REBASE</h2>
+<p>$ git merge <branch> 合并分支到当前分支，存在两个<br>
+$ git rebase <branch> 合并分支到当前分支，存在一个<br>
+$ git rebase --abort 回到执行 rebase 之前<br>
+$ git rebase --continue 解决矛盾后继续执行 rebase<br>
+$ git mergetool 使用 mergetool 解决冲突<br>
+$ git add <resolve-file> 使用冲突文件解决冲突<br>
+$ git rm <resolved-file></p>
+<h2 id="撤消-undo">撤消 | UNDO</h2>
+<p>$ git reset --hard HEAD 将当前版本重置为 HEAD（用于 merge 失败）<br>
+$ git reset --hard <commit> 将当前版本重置至某一个提交状态(慎用!)<br>
+$ git reset <commit> 将当前版本重置至某一个提交状态，代码不变<br>
+$ git reset --merge <commit> 重置至某一状态,保留版本库中不同的文件<br>
+$ git reset --keep <commit> 重置至某一状态,重置变化的文件,代码改变<br>
+$ git checkout HEAD <file> 丢弃本地更改信息并将其存入特定文件<br>
+$ git revert <commit> 撤消提交</p>
+<h1 id="分支管理">分支管理</h1>
+<p>创建分支命令：<br>
+git branch (branchname)</p>
+<p>切换分支命令:<br>
+git checkout (branchname)<br>
+当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p>
+<p>合并分支命令:<br>
+git merge</p>
+<p>没有参数时，git branch 会列出你在本地的分支。<br>
+$ git branch<br>
+master<br>
+使用分支将工作切分开来，从而让我们能够在不同上下文中做事，并来回切换。</p>
+<h1 id="远程仓库">远程仓库</h1>
+<p>Git 有两个命令用来提取远程仓库的更新。</p>
+<p>1、从远程仓库下载新分支与数据：<br>
+git fetch<br>
+该命令执行完后需要执行git merge 远程分支到你所在的分支。</p>
+<p>2、从远端仓库提取数据并尝试合并到当前分支：<br>
+git pull</p>
+<p>3,.推送到远程仓库<br>
+推送你的新分支与数据到某个远端仓库命令:<br>
+git push [alias] [branch]</p>
 
             </div>
             

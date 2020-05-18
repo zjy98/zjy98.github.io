@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>进程控制与进程之间的通信 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589821160520">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1589821160520" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">进程控制与进程之间的通信</h2>
+            <div class="post-date">2020-05-17</div>
+            
+            <div class="post-content">
+              <h1 id="进程的基本概念和逻辑内存">进程的基本概念和逻辑内存</h1>
+<ul>
+<li>程序<br>
+指令和数据的集合<br>
+存放在磁盘上的一个普通文件里<br>
+文件的i节点中标位可执行，内容符合系统要求</li>
+<li>进程<br>
+包括指令段、用户数据段和系统数据段的执行环节<br>
+（进程就是程序的一次执行）</li>
+<li>进程和程序的关系<br>
+程序用于初始化进程的指令段和用户数据段，初始化后，进程和初始它的程序之间无联系<br>
+进程运行时磁盘上的程序文件不可修改或删除<br>
+同时运行的多个进程可由同一程序初始化得到，进程之间没什么联系内核通过安排它们共享指令段甚至不同程序的进程共享函数库（动态链接）以节省内存，但这种安排对用户来说是透明的</li>
+<li>进程的组成部分<br>
+四部分：**  指令段、数据段，栈段和系统数据 **<br>
+1.指令段：text（从可执行文件中抄来）<br>
+程序的CPU指令代码，包括：主程序和子程序编译后的CPU指令代码，以及调用的库函数代码<br>
+指令段的大小固定不变，只读<br>
+2.用户数据段：（两个来源）程序中或malloc动态申请<br>
+·全局变量，静态变量，字符串常数<br>
+允许数据段增长和缩小，实现内存的动态分配<br>
+系统调用sbrk()允许编程调整数据段的大小（调整单位为页）<br>
+内存管理库函数：malloc(),free()<br>
+3.用户栈段：（程序执行现场的一部分，保留当前指针）<br>
+·程序执行所需要的栈空间，实现函数的调用<br>
+用于保存子程序返回地址<br>
+在函数和被调函数之间传递参数<br>
+函数体内部定义的变量（静态变量除外）<br>
+·main函数得到的命令行参数以及环境参数<br>
+存放在栈的最底部<br>
+main函数运行之前，这些部分就已经被系统初始化<br>
+·栈段的动态增长与增长限制（在编译程序编译时设置参数）<br>
+4.系统数据段<br>
+·上述三部分在进程私有的独立的逻辑地址空间内（CPU用户态访问）<br>
+·系统数据段是内核内的数据，每个进程对应一套：包括页表和进程控制块PCB<br>
+<img src="https://zjy98.github.io/post-images/1589808827641.png" alt="" loading="lazy"></li>
+</ul>
+<p>初始化的读写型数据：int a<br>
+下面三行从可执行文件中拷贝而来</p>
+<p><img src="https://zjy98.github.io/post-images/1589816585649.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817098948.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817133888.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817691042.png" alt="" loading="lazy"></p>
+<p>进程的系统数据：<br>
+在UINX内核中，含有进程的属性，包括：<br>
+页表<br>
+进程状态，优先级信息<br>
+核心堆栈<br>
+当前目录（记录了当前目录的i节点）根目录<br>
+打开的文件描述符表<br>
+umask值<br>
+进程PID,PPID<br>
+进程主的实际UID/GID,有效UID/GID<br>
+进程组组号</p>
+<h2 id="进程pcb被分为user结构和proc结构两部分">进程PCB被分为user结构和proc结构两部分</h2>
+<ul>
+<li>user结构约5000字节，&lt;sys/user.h&gt;<br>
+进程运行时才需要的数据在user结构<br>
+核心态堆栈占用了较多空间</li>
+<li>proc结构约300字节，&lt;sys/proc.h&gt;<br>
+进程不运行时也需要的管理信息存于proc结构</li>
+<li>用户程序不能直接存取和修改进程的系统数据</li>
+<li>系统调用可用来访问或修改这些属性<br>
+chdir umask open close setpgrp getpid getppid</li>
+</ul>
+<h2 id="进程的基本状态">进程的基本状态</h2>
+<p>3个基本状态<br>
+进程创建之后，主要有运行状态和睡眠状态（也叫阻塞状态，等待状态，挂起状态等等）<br>
+内核总是在分时处理运行状态的进程，而不顾那些睡眠状态 的进程<br>
+睡眠状态的进程，在条件满足后转化为运行状态<br>
+进程在睡眠时，不占用CPU时间<br>
+在编程时，尽量不要让程序处于忙等待状态</p>
+<h2 id="进程的调度">进程的调度</h2>
+<p>调度优先级：<br>
+内核将可运行程序按优先级调度，高优先级进程优先<br>
+进程的优先级在不停的变化<br>
+处于睡眠状态的进程一旦被叫醒后，被赋予高优先级，以保障人机会话操作和其他外设的响应速度<br>
+优先级高：时间片短 优先级低：时间片长<br>
+用户程序用nice()系统调用有限地调整优先级<br>
+<img src="https://zjy98.github.io/post-images/1589818884183.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819141064.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819153633.png" alt="" loading="lazy"></p>
+<h2 id="进程的执行时间">进程的执行时间</h2>
+<p>进程占用CPU的时间，大部分处于阻塞状态<br>
+<img src="https://zjy98.github.io/post-images/1589819294612.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819539782.png" alt="" loading="lazy"></p>
+<p>多任务系统中，忙等待是不可取的。浪费CPU while循环一直转<br>
+<img src="https://zjy98.github.io/post-images/1589820327759.png" alt="" loading="lazy"></p>
+<p>课后题：<br>
+1.下段程序中变量a,b以及常数120, 250分别存放在进程的哪个内存段中？</p>
+<pre><code class="language-c">static int a = 120;
+void modify(void)
+{
+    int b;
+    scanf(&quot;%d&quot;, &amp;b);
+    a += b + 250;
+}
+</code></pre>
+<p>在main函数运行前，加载程序负责初始化携带初值的可读写型变量a在数据段的初值为120，所以常数120在数据段，它和a是一回事，只是a的初始值而已，而250是编译之后指令的一个操作数，叫“立即数寻址”，也就是说250是一条指令的操作数之一，是一条指令的一部分，存放在指令段</p>
+<p>2.int a[N] = { 2 };改为int a[N]<br>
+局数组只要是初始化了，无论初始化了一个元素或者全部元素，编译生成可执行文件（即狭义的“程序”）时，会把这个数组的全部内容逐比特记录到可执行文件中，进程启动时分配指定大小空间并把可执行文件中记录的初值初始化它。如果数组未初始化，可执行文件里只需要记录一下这个全局变量有多大就可以了，进程启动时分配指定大小空间并清零。可以尝试把那一行修改为<br>
+int a[N] = { 0 };<br>
+在现代的Linux中处理得跟未赋初值一样，在早先的Unix中处理得跟有赋初值一样。显然新的处理方法更优。</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/qiang-hua-xue-xi/">
+                  <h3 class="post-title">
+                    强化学习
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

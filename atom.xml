@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>给敦敦买炸猪排</title>
-    <updated>2020-05-10T02:45:27.217Z</updated>
+    <updated>2020-05-18T16:59:33.812Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -10,6 +10,251 @@
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 给敦敦买炸猪排</rights>
+    <entry>
+        <title type="html"><![CDATA[进程控制与进程之间的通信]]></title>
+        <id>https://zjy98.github.io/post/jin-cheng-kong-zhi-yu-jin-cheng-zhi-jian-de-tong-xin/</id>
+        <link href="https://zjy98.github.io/post/jin-cheng-kong-zhi-yu-jin-cheng-zhi-jian-de-tong-xin/">
+        </link>
+        <updated>2020-05-17T03:19:36.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="进程的基本概念和逻辑内存">进程的基本概念和逻辑内存</h1>
+<ul>
+<li>程序<br>
+指令和数据的集合<br>
+存放在磁盘上的一个普通文件里<br>
+文件的i节点中标位可执行，内容符合系统要求</li>
+<li>进程<br>
+包括指令段、用户数据段和系统数据段的执行环节<br>
+（进程就是程序的一次执行）</li>
+<li>进程和程序的关系<br>
+程序用于初始化进程的指令段和用户数据段，初始化后，进程和初始它的程序之间无联系<br>
+进程运行时磁盘上的程序文件不可修改或删除<br>
+同时运行的多个进程可由同一程序初始化得到，进程之间没什么联系内核通过安排它们共享指令段甚至不同程序的进程共享函数库（动态链接）以节省内存，但这种安排对用户来说是透明的</li>
+<li>进程的组成部分<br>
+四部分：**  指令段、数据段，栈段和系统数据 **<br>
+1.指令段：text（从可执行文件中抄来）<br>
+程序的CPU指令代码，包括：主程序和子程序编译后的CPU指令代码，以及调用的库函数代码<br>
+指令段的大小固定不变，只读<br>
+2.用户数据段：（两个来源）程序中或malloc动态申请<br>
+·全局变量，静态变量，字符串常数<br>
+允许数据段增长和缩小，实现内存的动态分配<br>
+系统调用sbrk()允许编程调整数据段的大小（调整单位为页）<br>
+内存管理库函数：malloc(),free()<br>
+3.用户栈段：（程序执行现场的一部分，保留当前指针）<br>
+·程序执行所需要的栈空间，实现函数的调用<br>
+用于保存子程序返回地址<br>
+在函数和被调函数之间传递参数<br>
+函数体内部定义的变量（静态变量除外）<br>
+·main函数得到的命令行参数以及环境参数<br>
+存放在栈的最底部<br>
+main函数运行之前，这些部分就已经被系统初始化<br>
+·栈段的动态增长与增长限制（在编译程序编译时设置参数）<br>
+4.系统数据段<br>
+·上述三部分在进程私有的独立的逻辑地址空间内（CPU用户态访问）<br>
+·系统数据段是内核内的数据，每个进程对应一套：包括页表和进程控制块PCB<br>
+<img src="https://zjy98.github.io/post-images/1589808827641.png" alt="" loading="lazy"></li>
+</ul>
+<p>初始化的读写型数据：int a<br>
+下面三行从可执行文件中拷贝而来</p>
+<p><img src="https://zjy98.github.io/post-images/1589816585649.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817098948.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817133888.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589817691042.png" alt="" loading="lazy"></p>
+<p>进程的系统数据：<br>
+在UINX内核中，含有进程的属性，包括：<br>
+页表<br>
+进程状态，优先级信息<br>
+核心堆栈<br>
+当前目录（记录了当前目录的i节点）根目录<br>
+打开的文件描述符表<br>
+umask值<br>
+进程PID,PPID<br>
+进程主的实际UID/GID,有效UID/GID<br>
+进程组组号</p>
+<h2 id="进程pcb被分为user结构和proc结构两部分">进程PCB被分为user结构和proc结构两部分</h2>
+<ul>
+<li>user结构约5000字节，&lt;sys/user.h&gt;<br>
+进程运行时才需要的数据在user结构<br>
+核心态堆栈占用了较多空间</li>
+<li>proc结构约300字节，&lt;sys/proc.h&gt;<br>
+进程不运行时也需要的管理信息存于proc结构</li>
+<li>用户程序不能直接存取和修改进程的系统数据</li>
+<li>系统调用可用来访问或修改这些属性<br>
+chdir umask open close setpgrp getpid getppid</li>
+</ul>
+<h2 id="进程的基本状态">进程的基本状态</h2>
+<p>3个基本状态<br>
+进程创建之后，主要有运行状态和睡眠状态（也叫阻塞状态，等待状态，挂起状态等等）<br>
+内核总是在分时处理运行状态的进程，而不顾那些睡眠状态 的进程<br>
+睡眠状态的进程，在条件满足后转化为运行状态<br>
+进程在睡眠时，不占用CPU时间<br>
+在编程时，尽量不要让程序处于忙等待状态</p>
+<h2 id="进程的调度">进程的调度</h2>
+<p>调度优先级：<br>
+内核将可运行程序按优先级调度，高优先级进程优先<br>
+进程的优先级在不停的变化<br>
+处于睡眠状态的进程一旦被叫醒后，被赋予高优先级，以保障人机会话操作和其他外设的响应速度<br>
+优先级高：时间片短 优先级低：时间片长<br>
+用户程序用nice()系统调用有限地调整优先级<br>
+<img src="https://zjy98.github.io/post-images/1589818884183.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819141064.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819153633.png" alt="" loading="lazy"></p>
+<h2 id="进程的执行时间">进程的执行时间</h2>
+<p>进程占用CPU的时间，大部分处于阻塞状态<br>
+<img src="https://zjy98.github.io/post-images/1589819294612.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1589819539782.png" alt="" loading="lazy"></p>
+<p>多任务系统中，忙等待是不可取的。浪费CPU while循环一直转<br>
+<img src="https://zjy98.github.io/post-images/1589820327759.png" alt="" loading="lazy"></p>
+<p>课后题：<br>
+1.下段程序中变量a,b以及常数120, 250分别存放在进程的哪个内存段中？</p>
+<pre><code class="language-c">static int a = 120;
+void modify(void)
+{
+    int b;
+    scanf(&quot;%d&quot;, &amp;b);
+    a += b + 250;
+}
+</code></pre>
+<p>在main函数运行前，加载程序负责初始化携带初值的可读写型变量a在数据段的初值为120，所以常数120在数据段，它和a是一回事，只是a的初始值而已，而250是编译之后指令的一个操作数，叫“立即数寻址”，也就是说250是一条指令的操作数之一，是一条指令的一部分，存放在指令段</p>
+<p>2.int a[N] = { 2 };改为int a[N]<br>
+局数组只要是初始化了，无论初始化了一个元素或者全部元素，编译生成可执行文件（即狭义的“程序”）时，会把这个数组的全部内容逐比特记录到可执行文件中，进程启动时分配指定大小空间并把可执行文件中记录的初值初始化它。如果数组未初始化，可执行文件里只需要记录一下这个全局变量有多大就可以了，进程启动时分配指定大小空间并清零。可以尝试把那一行修改为<br>
+int a[N] = { 0 };<br>
+在现代的Linux中处理得跟未赋初值一样，在早先的Unix中处理得跟有赋初值一样。显然新的处理方法更优。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[强化学习]]></title>
+        <id>https://zjy98.github.io/post/qiang-hua-xue-xi/</id>
+        <link href="https://zjy98.github.io/post/qiang-hua-xue-xi/">
+        </link>
+        <updated>2020-05-15T00:24:48.000Z</updated>
+        <content type="html"><![CDATA[<p>强化学习：reinforvement learning<br>
+是一种“套路”或者“形式”，它可以强化或者鼓励某个人或者某个事物以更高的可能性产生同样的行为。<br>
+核心：通过某种手段影响被实验者的 行为，为了实现这个目标，实验者需要构建一个完整的实验环境，通过给与被实验者一定的观测和回报，让其产生实验者想要的结果。<br>
+流程：<br>
+1.在每一个时刻，环境都处于一种状态<br>
+2.智能体将设法得到环境当前状态的观测值<br>
+3.智能体根据观测值，结合自己历史的行为准则（一般称为策略）做出行动<br>
+4.这个行动会影响环境的状态，使环境发生一定改变。</p>
+<p>状态：智能体所处环境的所有信息<br>
+观测值：是玩家能看到的一部分信息<br>
+两者存在的差异：很多任务中玩家只能看到所处位置附近的信息，而这只占整个地图的一部分，这时状态和观测的差异会对决策产生很大影响，由于每一时刻只能观测到部分信息，玩家需要记住其他区域的信息，才能做更好的全局最优的决策。</p>
+<p>特点：<br>
+1.不断试错，Agent需要根据回报的多少不断调整自己的策略，从而尽可能多的获得回报<br>
+2.长期回报，强化学习的任务通常需要长时间的交互，追求长期分数需要多探探索，多尝试。<br>
+衡量指标：<br>
+算法的效果‘就散时间’稳定性和泛化性等<br>
+学习时间:由于学习和尝试相关，所以学习时间一般也看做探索的次数，如果探索次数较多，一般认为所花的时间也较长。</p>
+<p>监督学习：目标是训练一个模型，使模型能根据确定的输入得到对应的输出<br>
+强化学习：学习“做什么”即如何把当前的情景映射为动作，才能使得数值化的收益信号最大化。<br>
+学习目标的区别：<br>
+监督学习：希望模型根据指定的输入得到对应的输出<br>
+强化学习：希望agent（也可以想象成模型）根据指定的状态得到使回报最大化的行动<br>
+二者都是完成从一个事物到另一个事物的映射</p>
+<p>目标明确性的区别：<br>
+监督学习：目标更明确，输入对应的是确定的输出，一般一个输入对应一个输出<br>
+强化学习：目标没有这么明确。使当前状态获得最大回报的行动可能有很多<br>
+比如：俄罗斯方块: 采用监督学习进行训练，模型以每一帧游戏画面为输入，对应的输出必须是确定的； 但实际达到想要的目标的方法不止一种，强化学习更关心回报。</p>
+<p>从时间维度上看，二者输出的意义不同<br>
+监督学习：主要看重输入和输出的匹配程度，即使存在序列到序列的映射，我们也<br>
+希望每一个时刻的输出都能和输入对应上；<br>
+强化学习：目标是让回报最大化，但是在与环境交互的过程中，并不是每一个行动<br>
+都会获得回报。当我们完成了一次完整的交互后，会得到一个行动序列，这个行动<br>
+序列中哪些行动为回报产生了正向的贡献，哪些产生了负向的贡献，有时很难界定。<br>
+强化学习和监督学习<br>
+棋类游戏：游戏的目标是战胜对方（获得胜利），在得到最终结果之前，Agent可能不会得 到任何回报</p>
+<p>总的来说，强化学习相比监督学习有两个优点<br>
+（1）定义模型需要的约束更少，影响行动的反馈虽然不及监督学习 直接，却降低了定义问题的难度<br>
+（2）更看重行动序列带来的整体回报，而不是单步行动的一致性</p>
+<p>有一种学习方法的目标和强化学习一致，都是最大化长期回报，但是 学习方法和监督学习类似，收集大量的单步决策样本，并让模型学习 这些单步决策的逻辑<br>
+这种方法被称为“模仿学习”（ Imitation Learning），也被称为 “行为克隆”（ Behavior Cloning），它是模仿学习的一种<br>
+模仿学习在一些问题上可以获得比较好的效果，但也存在如下问题<br>
+（1）如何收集满足目标的样本？我们必须在某一个领域存在一个专 家，所有的样本通过专家和环境的交互产生。<br>
+（2）如何收集大量的样本？如果样本数量不够多，我们很难学习出 好的策略模型。<br>
+以上三个问题都不容易解决，因此模仿学习的难度并不小，这才使得 大家把目光集中在强化学习上，希望它能够解决模仿学习无法解决的 问题</p>
+<p>参考书：《强化学习精要》</p>
+<p>-马尔科夫决策过程MDP<br>
+-基于MDP的策略学习<br>
+策略迭代，价值迭代。</p>
+<p>蛇棋游戏介绍：</p>
+<p><img src="https://zjy98.github.io/post-images/1589503323720.png" alt="" loading="lazy"><br>
+哪些因素决定了最终获得的分数：<br>
+选择什么样的骰子投掷（可由玩家决定）<br>
+投掷出的数目大小（玩家无法控制，受环境的随机性控制）<br>
+St表示t时刻游戏状态的观测值（棋子所在的位置），用at表示t时刻选择的手法<br>
+用一条状态行动链表示<br>
+{S0,a0,S1,a1....St-1,at-1,St}<br>
+第一种转换由策略决定：<br>
+策略是一种映射，将环境的状态值st映射到一个行动集合的概率分布<br>
+π=p{at,i|{s0,a0...st}}<br>
+行动：玩家根据当前的状态以某种策略选择自认为最好的行动<br>
+a*t=argmaxat,ip(at,i|{s0,a0...st})</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[微信小程序笔记]]></title>
+        <id>https://zjy98.github.io/post/wei-xin-xiao-cheng-xu-bi-ji/</id>
+        <link href="https://zjy98.github.io/post/wei-xin-xiao-cheng-xu-bi-ji/">
+        </link>
+        <updated>2020-05-14T16:16:44.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>rpx:可以根据屏幕宽度自适应</strong>，规定屏幕宽为750rpx,在ipohne6上，屏幕宽度为375rpx,共有750个像素，则750rpx=375px=750物理像素，1rpx=0.5px=1物理像素（每个设备上换算的不一样）</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[写一个简单的操作系统]]></title>
+        <id>https://zjy98.github.io/post/xie-yi-ge-jian-dan-de-cao-zuo-xi-tong/</id>
+        <link href="https://zjy98.github.io/post/xie-yi-ge-jian-dan-de-cao-zuo-xi-tong/">
+        </link>
+        <updated>2020-05-12T12:40:08.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一-基本核心模块">一、基本核心模块</h1>
+<ul>
+<li>
+<p>进程管理<br>
+1.进程的创建、删除<br>
+2.进程的基本属性：进程名、进程时间片、进程优先级<br>
+3.支持进程创建与撤销功能，创建后的进程在其整个生命周期可以以PCB形式存在，每个进程用一个PCB表示。<br>
+4.进程根据其执行情况在不同队列（就绪队列、阻塞队列、运行队列）间迁移<br>
+5.实现单处理器进程调度功能等调度算法实现。<br>
+6.管理的进程数目不少于3个，竞争使用的资源可以是CPU、内存、I/O设备等<br>
+7.进程可以在初始时刻由系统创建，也可以有其他进程在运行时创建。<br>
+8.能够查看各进程状态、各进程队列内容。系统在运行过程中可以显示打印各进程的状态以及有关参数的变化情况，以便观察各个进程的运行过程以及系统的管理过程<br>
+9.至少支持1-2个调度算法</p>
+</li>
+<li>
+<p>内存管理</p>
+</li>
+<li>
+<p>文件管理<br>
+1.文件的创建、删除<br>
+2.文件属性的修改、有关文件目录的操作</p>
+</li>
+</ul>
+<h1 id="二-如何开发">二、如何开发</h1>
+<p>我们这次想要做的可 不是这种可执行程序，而是希望能够做到把含有操作系统的CD-ROM或软盘插入电脑，或者将操 作系统装入硬盘后，只要打开电源开关就能自动运行。 为了开发这样的操作系统，我们准备按照如下的步骤来进行。<br>
+1、在windows或其他系统上编写源代码<br>
+2、用C语言编译器编译源代码，生成机器语言文件<br>
+3、对机器语言文件进行加工，生成软盘映像文件<br>
+4、将映像文件写入磁盘，作成含操作系统的启动盘</p>
+<p>所谓开发操作系统，就是想办法制作一张“含有操作系统的，能够自动启动的 磁盘” 。 这里出现的“映像文件”一词，简单地说就是软盘的备份数据。我们想要把特定的内容写入 磁盘可不是拿块磁铁来在磁盘上晃晃就可以的。所以我们要先做出备份数据，然后将这些备份数 据写入磁盘，这样才能做出符合我们要求的磁盘</p>
+<h1 id="三-文件管理">三、文件管理</h1>
+<h2 id="文件">文件：</h2>
+<ul>
+<li>文件是指记录在外存上的具有文件名的一组相关信息的集合。</li>
+<li>系统运行时，以进程作为基本单位，用户输入输出时，以文件为基本单位。</li>
+<li>可分为有结构文件和无结构文件两种。有结构文件是由若干个相关记录组成，而无结构文件则被看成一个字符流。</li>
+<li>有结构的记录式文件<br>
+文件构成：由一组相似记录(如:考生信息记录)构成。<br>
+记录长度：分为定长和变长。<br>
+分类（按记录的组织）：<br>
+顺序文件（适用定长记录）<br>
+索引文件(变长，建立一张索引表)<br>
+直接/哈希文件（键值确定物理地址）</li>
+<li>无结构的流式文件<br>
+文件构成：由字符流构成。<br>
+长度：字节为单位<br>
+访问：读写指针,通过穷举搜索的方式访问.</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Clustering 聚类]]></title>
         <id>https://zjy98.github.io/post/clustering-ju-lei/</id>
@@ -405,439 +650,6 @@ TERM：终端类型<br>
 内部命令set列出当前所有变量及其值以及函数定义：包括环境变量和局部变量，函数定义<br>
 set | grep ^fname=<br>
 外部命令/bin/env 列出环境变量及其值</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[shell的基本概述]]></title>
-        <id>https://zjy98.github.io/post/shell-de-ji-ben-gai-shu/</id>
-        <link href="https://zjy98.github.io/post/shell-de-ji-ben-gai-shu/">
-        </link>
-        <updated>2020-04-19T13:21:41.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="shell概述">shell概述</h1>
-<h2 id="shell的种类">shell的种类</h2>
-<p>c-shell :/bin/csh由加利福尼亚大学的William N.joy在20世纪70年代开发<br>
-k-shell:1986年开发<br>
-b-shell:/bin/bash，吸收了Cshell的某些特点。<br>
-bash等</p>
-<h2 id="shell的功能">shell的功能</h2>
-<p>shell是命令解释器<br>
-文件名替换，命令替换，变量替换<br>
-历史替换，别名替换<br>
-流程控制的内部命令（内部命令和外部命令）<br>
-主要用途：批处理，执行效率比算法语言低<br>
-shell编程风格和C语言等算法语言的区别：shell是面向命令处理的语言，提供的流程控制结构通过对一些内部命令的解释实现<br>
-策略与机制相分离，shell许多灵活的功能，通过shell替换实现</p>
-<h1 id="bash">bash</h1>
-<p>启动bash:3种方法<br>
-注册shell<br>
-键入bash命令（交互式shell)<br>
-脚本解释器<br>
-<img src="https://zjy98.github.io/post-images/1587375802636.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1587375828380.png" alt="" loading="lazy"></p>
-<h1 id="脚本文件">脚本文件</h1>
-<p>编辑文件lsdir(格式为文本文件，文件名不必须为.sh后缀，只是个惯例)<br>
-<img src="https://zjy98.github.io/post-images/1587375881462.png" alt="" loading="lazy"><br>
-执行：</p>
-<ol>
-<li>新创建子进程，并在子进程中执行脚本<br>
-bash&lt; lsdir<br>
-无法携带命令行参数<br>
-bash lsdir可以带参数<br>
-bash -x lsdir 执行一行打出一行内容<br>
-bash lsdir /usr/lib/gcc    debug调试<br>
-给文件设置可执行属性x：chmod u+x lsdir<br>
-然后执行 ./lsdir /usr/lib/gcc<br>
-三种方法均启动程序/bin/bash 生成新进程</li>
-<li>在当前shell进程中执行脚本<br>
-. lsdir /usr/lib/gcc<br>
-source lsdir /usr/lib/gcc</li>
-</ol>
-<h1 id="历史与别名">历史与别名</h1>
-<p>· 历史表大小<br>
-先前键入的命令存于历史表，编号递增，FIFO刷新<br>
-表大小由变量HISTSIZE设定<br>
-修改HISTSIZE的配置应放入~/.bashrc<br>
-查看历史表：内部命令history<br>
-文件<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">.</mi><mi>b</mi><mi>a</mi><mi>s</mi><msub><mi>h</mi><mi>h</mi></msub><mi>i</mi><mi>s</mi><mi>t</mi><mi>o</mi><mi>r</mi><mi>y</mi><mo separator="true">⋅</mo><mi mathvariant="normal">历</mi><mi mathvariant="normal">史</mi><mi mathvariant="normal">替</mi><mi mathvariant="normal">换</mi><mi mathvariant="normal">人</mi><mi mathvariant="normal">机</mi><mi mathvariant="normal">交</mi><mi mathvariant="normal">互</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">使</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">上</mi><mi mathvariant="normal">下</mi><mi mathvariant="normal">箭</mi><mi mathvariant="normal">头</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">调</mi><mi mathvariant="normal">出</mi><mi mathvariant="normal">之</mi><mi mathvariant="normal">前</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">命</mi><mi mathvariant="normal">令</mi><mi mathvariant="normal">其</mi><mi mathvariant="normal">他</mi><mi mathvariant="normal">引</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi><mo>!</mo><mo>!</mo><mi mathvariant="normal">引</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">上</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">命</mi><mi mathvariant="normal">令</mi><mo>!</mo><mi>s</mi><mi>t</mi><mi>r</mi><mi mathvariant="normal">以</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi mathvariant="normal">开</mi><mi mathvariant="normal">头</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">最</mi><mi mathvariant="normal">近</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">过</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">命</mi><mi mathvariant="normal">令</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">如</mi><mo>:</mo><mo>!</mo><mi>v</mi><mo>!</mo><mi>m</mi><mo>!</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">‘</mi><mi mathvariant="normal">别</mi><mi mathvariant="normal">名</mi><mi mathvariant="normal">和</mi><mi mathvariant="normal">别</mi><mi mathvariant="normal">名</mi><mi mathvariant="normal">替</mi><mi mathvariant="normal">换</mi><mi mathvariant="normal">在</mi><mi mathvariant="normal">别</mi><mi mathvariant="normal">名</mi><mi mathvariant="normal">表</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">增</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">别</mi><mi mathvariant="normal">名</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">内</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">命</mi><mi mathvariant="normal">令</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>a</mi><mi>s</mi><mo>!</mo><mo>[</mo><mo>]</mo><mo>(</mo><mi>h</mi><mi>t</mi><mi>t</mi><mi>p</mi><mi>s</mi><mo>:</mo><mi mathvariant="normal">/</mi><mi mathvariant="normal">/</mi><mi>z</mi><mi>j</mi><mi>y</mi><mn>98.</mn><mi>g</mi><mi>i</mi><mi>t</mi><mi>h</mi><mi>u</mi><mi>b</mi><mi mathvariant="normal">.</mi><mi>i</mi><mi>o</mi><mi mathvariant="normal">/</mi><mi>p</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>−</mo><mi>i</mi><mi>m</mi><mi>a</mi><mi>g</mi><mi>e</mi><mi>s</mi><mi mathvariant="normal">/</mi><mn>1587390962968.</mn><mi>p</mi><mi>n</mi><mi>g</mi><mo>)</mo><mi mathvariant="normal">如</mi><mi mathvariant="normal">果</mi><mi mathvariant="normal">需</mi><mi mathvariant="normal">要</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">应</mi><mi mathvariant="normal">把</mi><mi mathvariant="normal">别</mi><mi mathvariant="normal">名</mi><mi mathvariant="normal">存</mi><mi mathvariant="normal">入</mi><mi mathvariant="normal">.</mi><mi>b</mi><mi>a</mi><mi>s</mi><mi>h</mi><mi>r</mi><mi>c</mi><mi mathvariant="normal">‘</mi><mi>T</mi><mi>A</mi><mi>B</mi><mi mathvariant="normal">键</mi><mi mathvariant="normal">补</mi><mi mathvariant="normal">全</mi><mi mathvariant="normal">每</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">首</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">单</mi><mi mathvariant="normal">词</mi><mi>T</mi><mi>A</mi><mi>B</mi><mi mathvariant="normal">键</mi><mi mathvariant="normal">补</mi><mi mathvariant="normal">全</mi><mi mathvariant="normal">搜</mi><mi mathvariant="normal">索</mi></mrow><annotation encoding="application/x-tex">HOME/.bash_history
-· 历史替换
-人机交互时使用上下箭头，调出之前的命令
-其他引用方法：!! 引用上一命令  !str 以str开头的最近用过的命令，如:!v  !m  !.
-` 别名和别名替换
-在别名表中增加一个别名：内部命令alias
-![](https://zjy98.github.io/post-images/1587390962968.png)
-如果需要，应把别名存入.bashrc
-` TAB键补全
-每行的首个单词 TAB键补全搜索</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord">.</span><span class="mord mathdefault">b</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">历</span><span class="mord cjk_fallback">史</span><span class="mord cjk_fallback">替</span><span class="mord cjk_fallback">换</span><span class="mord cjk_fallback">人</span><span class="mord cjk_fallback">机</span><span class="mord cjk_fallback">交</span><span class="mord cjk_fallback">互</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">使</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">箭</span><span class="mord cjk_fallback">头</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">调</span><span class="mord cjk_fallback">出</span><span class="mord cjk_fallback">之</span><span class="mord cjk_fallback">前</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">命</span><span class="mord cjk_fallback">令</span><span class="mord cjk_fallback">其</span><span class="mord cjk_fallback">他</span><span class="mord cjk_fallback">引</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span><span class="mclose">!</span><span class="mclose">!</span><span class="mord cjk_fallback">引</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">命</span><span class="mord cjk_fallback">令</span><span class="mclose">!</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">以</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">开</span><span class="mord cjk_fallback">头</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">近</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">过</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">命</span><span class="mord cjk_fallback">令</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">如</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">!</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">!</span><span class="mord mathdefault">m</span><span class="mclose">!</span><span class="mord">.</span><span class="mord">‘</span><span class="mord cjk_fallback">别</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">和</span><span class="mord cjk_fallback">别</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">替</span><span class="mord cjk_fallback">换</span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">别</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">增</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">别</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">命</span><span class="mord cjk_fallback">令</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mclose">!</span><span class="mopen">[</span><span class="mclose">]</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">t</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">9</span><span class="mord">8</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">u</span><span class="mord mathdefault">b</span><span class="mord">.</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord">/</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord">/</span><span class="mord">1</span><span class="mord">5</span><span class="mord">8</span><span class="mord">7</span><span class="mord">3</span><span class="mord">9</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mord">2</span><span class="mord">9</span><span class="mord">6</span><span class="mord">8</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">需</span><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">应</span><span class="mord cjk_fallback">把</span><span class="mord cjk_fallback">别</span><span class="mord cjk_fallback">名</span><span class="mord cjk_fallback">存</span><span class="mord cjk_fallback">入</span><span class="mord">.</span><span class="mord mathdefault">b</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">c</span><span class="mord">‘</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord cjk_fallback">键</span><span class="mord cjk_fallback">补</span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">每</span><span class="mord cjk_fallback">行</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">首</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">单</span><span class="mord cjk_fallback">词</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord cjk_fallback">键</span><span class="mord cjk_fallback">补</span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">搜</span><span class="mord cjk_fallback">索</span></span></span></span>PATH下的命令</p>
-<h1 id="输入重定向">输入重定向</h1>
-<ol>
-<li>&lt; filename<br>
-从文件filename中获取stdin 例如sort &lt; telno.txt</li>
-<li>&lt;&lt; word<br>
-从shell脚本文件获取数据直到再次遇到定界符word<br>
-cat &lt;&lt; TOAST（两部分之间的内容是cat的显示内容）<br>
-定界符所界定内容的加工处理（等同双引号处理）<br>
-变量替换，命令替换<br>
-不执行文件名生成<br>
-定界符两侧加单引号：不允许定界符之间的内容进行替换操作</li>
-<li>&lt;&lt;&lt; word<br>
-三个小于号后面的单词内容作为标准输入</li>
-</ol>
-<h1 id="输出重定向和管道">输出重定向和管道</h1>
-<figure data-type="image" tabindex="1"><img src="https://zjy98.github.io/post-images/1587391592960.png" alt="" loading="lazy"></figure>
-<ol>
-<li>&gt;filename<br>
-将stdout重定向到文件filename,文件已存在则先清空（覆盖方式）</li>
-<li>&gt;&gt;filename<br>
-将stdout重定向追加到文件filename尾</li>
-<li>2&gt;filename<br>
-将文件句柄2重定向到文件filename<br>
-分离stdout与stderr的意义<br>
-2&gt;&amp;1 将文件句柄2重定向到文件描述符1指向的文件<br>
-允许对除了0,1,2以外其他文件句柄输入或输出重定向，<br>
-例如：./myp 5&lt; a.txt  6&gt; b.dat<br>
-<img src="https://zjy98.github.io/post-images/1587392097679.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1587392131704.png" alt="" loading="lazy"><br>
-管道只把标准输出重定向，标准错误没有，要想重定向加入2&gt;&amp;1</li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[文件和目录的权限]]></title>
-        <id>https://zjy98.github.io/post/wen-jian-he-mu-lu-de-quan-xian/</id>
-        <link href="https://zjy98.github.io/post/wen-jian-he-mu-lu-de-quan-xian/">
-        </link>
-        <updated>2020-04-19T12:15:03.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文件的权限">文件的权限</h1>
-<p>用于控制** 进程 <strong>对系统中文件和</strong> 目录 **的访问<br>
-· 权限的三个级别<br>
-文件主、同组用户、其他用户<br>
-每个文件有唯一的属主<br>
-· 普通文件的权限<br>
-读、写、可执行<br>
-不可写文件也可能会被删除</p>
-<h2 id="两类可执行文件">两类可执行文件</h2>
-<ol>
-<li>
-<p>程序文件（可执行文件）<br>
-二进制的CPU指令集合，满足操作系统规定的格式才可以被加载运行。</p>
-</li>
-<li>
-<p>脚本文件（文本文件）<br>
-默认的解释程序为/bin/sh<br>
-可以在文件的第一行自行指定解释程序（必须是第一行，#!必须是这个文件首先出现的两个字符）<br>
-例如:#! /bin/bash   #! /usr/bin/bc<br>
-解释程序也可以是用户自己编写的应用程序<br>
-脚本程序运行时，实际上是由解释程序创建了一个进程</p>
-<h1 id="目录的权限">目录的权限</h1>
-<ol>
-<li>目录的读写权限<br>
-· 读权限<br>
-若无读权限，那么目录表文件不许读，ls会失败<br>
-· 写权限<br>
-若无写权限，那么目录表不许写<br>
-创建文件，删除文件，文件改名会修改目录文件<br>
-修改文件不需要修改目录文件，需要修改i节点<br>
-目录无写权限不是指目录下所有文件禁止写</li>
-</ol>
-</li>
-<li>
-<p>执行权限<br>
-有执行权限意味着分析路径名过程中可以检索该目录<br>
-cat /a/b/c<br>
-要求/a,a/b三目录有x权限，c文件有读权限；否则命令执行失败<br>
-cd ../st8 要求当前目录，..和st8目录有x权限</p>
-</li>
-<li>
-<p>STICKY权限（粘着位）<br>
-早期UNIX具有sticky属性的可执行文件尽量常驻内存或交换区以提高效率<br>
-现代linux对访问过的文件自动缓冲在内存，文件sticky属性被忽略<br>
-<img src="https://zjy98.github.io/post-images/1587299604620.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1587299624990.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1587299643401.png" alt="" loading="lazy"></p>
-</li>
-</ol>
-<h1 id="权限验证的顺序">权限验证的顺序</h1>
-<p>每个文件都有文件主和组的属性（文件节点中）<br>
-每个进程也有进程主和组的属性（进程PCB中）<br>
-都是整数，uid和gid的编号与名字对应关系见/etc下passwd和group文件</p>
-<ol>
-<li>文件主与进程主相同：使用文件主权限，不再查组合其他用户的权限</li>
-<li>文件主与进程主不同，但文件主与进程主同组。只使用组权限</li>
-<li>都不同：使用文件关于其他用户的权限<br>
-例：权限---r--rw-,文件主不可读但同组用户可读，即使文件主是该组用户之一也不行<br>
-超级用户root不受权限的制约</li>
-</ol>
-<h1 id="权限相关命令">权限相关命令</h1>
-<p>确定文件的权限：</p>
-<ol>
-<li>使用ls命令：油管选项-l和-d<br>
--l可以查当前目录下所有文件和子目录的权限<br>
-<img src="https://zjy98.github.io/post-images/1587299958245.png" alt="" loading="lazy"><br>
-修改权限：</li>
-<li>chmod<br>
-字母形式：chmod [ugoal][+-=][rwxst]文件名表<br>
-u--user 文件主的权限<br>
-g--group 同组用户的权限<br>
-o--other 其他用户的权限<br>
-a--all 所有上述三级权限<br>
-（t--Sticky,s--SUID）<br>
-例如：chmod go-rwx *.ch  对同组其他用户不允许读不允许写不允许执行<br>
-chmod a+x bash  对所有用户都可执行<br>
-数字形式：<br>
-<img src="https://zjy98.github.io/post-images/1587300197652.png" alt="" loading="lazy"><br>
-只允许文件主和超级用户修改文件权限</li>
-<li>umask命令：控制文件、目录的初始权限<br>
-用vi创建文件、用输出重定向创建文件、创建新目录<br>
-umask是进程属性的一部分，umask是shell内部命令<br>
-umask  打印当前的umask值<br>
-umask 022 设置当前umask的值为八进制022<br>
-二进制：000 010 010<br>
-取消新文件和新目录的w权限和其他用户w权限<br>
-umask 077<br>
-二进制：000 111 111<br>
-禁止组权限和其他用户权限（对应1的权限被屏蔽掉）<br>
-一般将umask命令放到shell自动执行批处理文件中<br>
-bash的$HOME/.bash_profile<br>
-系统调用umask:修改进程自身的umask属性值<br>
-·初创文件的权限：<br>
-受open的规定值和进程自身属性umask的影响<br>
-已存在的文件的权限，不受open/umask的影响<br>
-系统调用umask:<br>
-int umask(int mask)<br>
-mask为指定的新umask值，返回值为原先的umask<br>
-读出进程umask属性而不改变它，需调umask两次</li>
-</ol>
-<h1 id="三级权限存在的问题">三级权限存在的问题</h1>
-<p>用户修改口令，文件<br>
-/etc/passwd和/etc/shadow<br>
-例如：用户liu的文件list.txt：希望用户liang,只能读取行首为#的行和他有关的行<br>
-策略和机制相分离：SUID权限<br>
-文件list.txt的文件主liu给文件query增加SUID权限<br>
-chmod u+s query<br>
-ls -l query<br>
--rws--x--x 1 liu leader 56134 Dec 10 23:04 query<br>
-运行其他人运行<br>
-进程实际UID/有效UID<br>
-一般情况下相等。<br>
-打开文件open()时，根据进程的有效ID与文件所有者的UID之间的关系和文件的权限进行访问合法性验证<br>
-可执行程序具有SUID权限，进程的实际UID和有效UID不相等，实际UID是当前用户，而有效UUID为可执行文件的文件主<br>
-SUID使得用户可以通过文件主提供的程序，以文件主的权限访问文件，但这种访问依赖于文件主提供的程序，进行有限的访问。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[文件系统]]></title>
-        <id>https://zjy98.github.io/post/wen-jian-xi-tong/</id>
-        <link href="https://zjy98.github.io/post/wen-jian-xi-tong/">
-        </link>
-        <updated>2020-04-03T10:47:24.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文件系统的创建和安装">文件系统的创建和安装</h1>
-<ul>
-<li>根文件系统root filesystem<br>
-是整个文件系统的基础，不能脱卸umount</li>
-<li>子文件系统<br>
-包括硬盘，软盘，CD-ROM，USB盘，网络文件系统NFS<br>
-以根文件系统中某一子目录的身份出现</li>
-<li>独立的存储结构<br>
-创建文件系统<br>
-mkfs /dev/sdb:块设备文件/dev/sdb上创建文件系统make filesystem<br>
-安装文件系统<br>
-mount /dev/sdb /mnt<br>
-/mnt可以是任一个事先建好的空目录名，允许处于根文件系统的任何目录中，此后，操作子目录/mnt就是对子文件系统的访问。对于应用程序来说，从所操作的文件或目录名，看不出和其他根文件系统的对象有什么区别<br>
-不带参数的mount命令可以列出当前已安装的所有子文件系统<br>
-卸载文件系统<br>
-umount /dev/sdb 功能与mount相反，卸载一个已安装的子文件系统<br>
-df:文件系统空闲空间<br>
--h human readable</li>
-</ul>
-<h1 id="文件系统的存储结构">文件系统的存储结构</h1>
-<p>把整个逻辑设备以块（扇区）为单位划分<br>
-编号0,1,2...<br>
-<img src="https://zjy98.github.io/post-images/1585913309828.png" alt="" loading="lazy"><br>
-mkfd命令初始化了专用块，df命令读出部分信息，df -i和df<br>
-i节点区：i节点区由若干块构成，在mkfs命令创建文件系统时确定<br>
-每个文件都对应一个i节点，i节点中的信息包括：指向文件存储区数据块的一些索引（index),指针（组成文件的逻辑块和硬盘的物理块之间的映射）。文件类型，属主，组，权限，link数，大小，时戳（i节点内不含文件名）<br>
-文件存储区：存放文件数据的区域，包括目录表。每块可容若干个i节点，每个i节点的大小是固定的（比如64字节）</p>
-<ul>
-<li>
-<p>目录的存储结构<br>
-Linux目录结构是树形带交叉勾连的目录结构<br>
-目录表<br>
-· 每个目录表也作为一个文件夹来管理，存于“文件存储区”中，有其自己的i节点和数据存储块。<br>
-·  目录表由若干个“目录项”构成，目录项只含有两部分信息：文件名、i节点号<br>
-·  ** 用ls命令列出的目录大小是目录表文件本身的长度  **<br>
-<img src="https://zjy98.github.io/post-images/1585919404265.png" alt="" loading="lazy"><br>
-目录表和i节点两级结构<br>
-主要目的：分开存放的主要目的是为了提高目录检索效率<br>
-假定的环境：存储文件名使用定长14字节，索引信息需要64字节，每磁盘块512字节、当前目录下有100个文件，需要访问的文件的文件名mydata.bin存放在目录表的最末尾处。<br>
-方案一：一级结构<br>
-· 文件名和索引信息存放在一起，放在目录表中<br>
-· 每个目录项78字节，每块可容纳512/78=6个目录项<br>
-· 读入目录直到第17块才找到mydata.bin及索引信息，根据索引信息访问文件存储区的数据块<br>
-方案二：两级结构<br>
-· 文件名和索引信息分开，索引信息放在i节点中，目录表中仅记录文件名和i节点的2字节编号<br>
-· 每个目录项16字节，一个磁盘块含512/16=32个目录项<br>
-· 只要读入4块就能找到名字mydata.bin的i节点号（因为100个文件）<br>
-· 根据i节点号访问对应的磁盘块，读入i节点中的索引信息<br>
-· 总共磁盘操作5块，就可以根据名字找到文件的索引信息。<br>
-后者访问的磁盘数目少</p>
-<h1 id="硬链接">硬链接</h1>
-<p>目录表由目录项构成，目录项是一个“文件名-i节点号”对<br>
-根据文件系统的存储结构，可以在同一目录或者不同目录中的两个目录项，有相同的i节点号<br>
-每个目录项指定的“文件名-i节点号”映射关系，叫做1个硬链接<br>
-硬链接的数目（link数）：同一个i节点被目录项引用的次数</p>
-</li>
-</ul>
-<p>ln:普通文件的硬链接<br>
-ln chapt0 intro:当前目录下创建一个新的目录项目intro，目录项的i节点名就抄的是chapt0的i节点号<br>
-<img src="https://zjy98.github.io/post-images/1585920117700.png" alt="" loading="lazy"><br>
-ls -i chapt0 intro可以列出每个文件对应的i节点编号<br>
-chapt0与intro同时存在时，地位完全平等<br>
-删chapt0文件，则intro仍存在但link数-1，一直到link数减到0时，对应的磁盘空间才真正删除。<br>
-硬链接操作只限于在同一文件系统的普通文件（目录不可以）<br>
-不允许对目录用ln建立硬链接<br>
-一般来说，目录的link数=直属子目录数+2<br>
-<img src="https://zjy98.github.io/post-images/1585920623769.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1585920628865.png" alt="" loading="lazy"><br>
-home目录：自己.1次 子目录..3次 上一级中的home1次 一共5次（3+2）<br>
-可以给1个文件起好几个名字，在不同的目录起不同的名字</p>
-<h1 id="符号链接软链接">符号链接（软链接）</h1>
-<p>· 用特殊文件“符号链接文件”来实现<br>
-· 文件中仅包含了一个路径名<br>
-命令ln -s和ls -l<br>
-ln -s users_on sym.link  类型为l，大小为8字节，文件中只存放users_on字符串8个字符<br>
-一旦建立了符号链接，删除操作删除的是符号链接文件 ，其他所有操作都将访问符号链接所引用的文件<br>
-<img src="https://zjy98.github.io/post-images/1585920899749.png" alt="" loading="lazy"><br>
-符号链接中的相对路径<br>
-若符号链接包含绝对路径名，引用绝对路径名<br>
-若符号链接包含相对路径名，（开头不是斜线）是相对于符号链接文件的位置而不是相对于调用进程的当前工作目录<br>
-<img src="https://zjy98.github.io/post-images/1585929963543.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1585930572150.png" alt="" loading="lazy"></p>
-<h1 id="系统调用">系统调用</h1>
-<p>以C语言函数调用的方式提供<br>
-操作系统内核提供的编程界面<br>
-应用程序ap和操作系统kernel进行交互的唯一手段。例如文件操作的open,read,write,close<br>
-种类：Linux有300个左右</p>
-<p>系统调用与库函数在执行方式上的区别：<br>
-例如：获取进程ID的getpid()与字符串拷贝函数strcpy()<br>
-CPU的INT指令（软中断）与CALL指令（子程序调用）<br>
-库函数对系统调用的封装（API）<br>
-目的：执行效率更高或者调用界面更方便<br>
-例如：库函数printf对系统调用write的封装<br>
-库函数malloc/free对系统调用sbrk的封装<br>
-可移植性：系统调用和相关API函数以及库函数的名称、参数排列顺序、参数类型、返回值的类型以及实现的功能，都属于类似POSIX标准规范的内容，便于不同Unix系统之间的移植</p>
-<p>返回值：一般返回一个数值。大于等于0 成功 负数 失败<br>
-整型变量 errno 标准库为errno保留存储空间，系统调用失败后填写错误代码，记录错误原因。<br>
-#include &lt;errno.h&gt;之后就可以直接使用变量errno<br>
-errno.h头文件定义了许多有E前缀的宏。<br>
-例如：EACCESS EIO ENOMEM EINTR<br>
-<img src="https://zjy98.github.io/post-images/1585932433731.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1585932438185.png" alt="" loading="lazy"></p>
-<h1 id="访问i节点和目录">访问i节点和目录</h1>
-<p>系统调用stat/fstat 从i节点获得文件的状态信息<br>
-调用的参数不同<br>
-fstat得到已打开文件的i节点<br>
-stat得到指定路径名的文件的i节点<br>
-stat和fstat将数据放入调用者提供的stat结构中<br>
-<img src="https://zjy98.github.io/post-images/1585932925356.png" alt="" loading="lazy"><br>
-st_dev：存储改文件的块设备的设备号，包括主设备号和次设备号<br>
-<img src="https://zjy98.github.io/post-images/1585932972874.png" alt="" loading="lazy"><br>
-st_mode域：16比特<br>
-文件的基本存取权限和SUID/SGID权限（11比特）以及文件的类型（若干比特）<br>
-<img src="https://zjy98.github.io/post-images/1585933078735.png" alt="" loading="lazy"><br>
-st_size获取文件的大小<br>
-st_blocks指的是分配多少块<br>
-一般情况:st_size小于等于st_blocks<em>512<br>
-稀疏文件:st_size大于st_blocks</em>512<br>
-st_ctim st_atim st_mtim域<br>
-Linux中存储这3个时间的精度为纳秒<br>
-a访问:读，执行（有些系统为了效率做懒惰处理，不更新，但不早于m时间）<br>
-m修改:文件内容修改<br>
-c改变:i节点信息变化。写文件，修改权限/link数/文件主等(m变，c也变)</p>
-<p>目录访问<br>
-早起的UNIX像普通磁盘文件那样open()打开目录read()读取<br>
-现在的系统不再这样操作，而是直接使用封装好的库函数</p>
-<p>opendir 打开目录得到句柄（NULL表示失败）<br>
-readdir 获取一个目录项<br>
-dirent结构体：记录i节点号和文件名（d_ino和d_name成员）<br>
-返回值指针指向的dirent结构体（返回NULL表示已经读到目录尾）<br>
-访问结束：用closedir关闭不再使用的目录句柄</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[命令获取信息方法]]></title>
-        <id>https://zjy98.github.io/post/ming-ling-huo-qu-xin-xi-fang-fa/</id>
-        <link href="https://zjy98.github.io/post/ming-ling-huo-qu-xin-xi-fang-fa/">
-        </link>
-        <updated>2020-04-03T06:34:24.000Z</updated>
-        <summary type="html"><![CDATA[<p>Linux系统命令和用户程序（ap)<br>
-· 从操作系统看，在地位上相同，都属于用户态程序<br>
-· 运行时需要获取的信息包括配置信息、处理方式（选项参数）、被处理的对象<br>
-· 配置信息等硬编码是不可取的。硬编码需要编程时就确定服务器的地址，程序运行时就无法改变，不太灵活。</p>
-<p>运行时获取信息的常见方式：<br>
-易变性从小到大为：<br>
-<strong>配置文件、环境变量、命令行参数、交互式键盘输入</strong></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>Linux系统命令和用户程序（ap)<br>
-· 从操作系统看，在地位上相同，都属于用户态程序<br>
-· 运行时需要获取的信息包括配置信息、处理方式（选项参数）、被处理的对象<br>
-· 配置信息等硬编码是不可取的。硬编码需要编程时就确定服务器的地址，程序运行时就无法改变，不太灵活。</p>
-<p>运行时获取信息的常见方式：<br>
-易变性从小到大为：<br>
-<strong>配置文件、环境变量、命令行参数、交互式键盘输入</strong></p>
-<!-- more -->
-<ul>
-<li>
-<p>配置文件<br>
-· 一般较为复杂的程序会提供配置文件以存储配置信息或者偏好配置信息<br>
-· 分为系统级偏好设置和用户级偏好设置<br>
-例如bash的/etc/profile和~/.bash_profile<br>
-· 配置文件提供了灵活性（同一个程序文件因用户不同读取的配置文件不同而表现不同）。变更这些信息不很方便，一般不需要变化的配置信息或选项信息存入配置文件，持久化存储。</p>
-</li>
-<li>
-<p>环境变量<br>
-命令env可以打印出当前的环境变量。<br>
-· 一般是与环境相关的配置或选项信息，信息量不大。这些选择在一段时间内反复使用同一个命令或者不同命令时保持不变。<br>
-例如：LANG（语言选择）HOME（主目录）TERM（终端类型）PATH（可执行文件的查找路径）<br>
-CLASSPATH（类库查找路径）<br>
-·性能问题：比读取配置文件需要的系统开支要小</p>
-</li>
-<li>
-<p>命令行参数<br>
-· 程序启动之前指定：通过命令行参数，操作员输入命令时提供处理选项和操作对象<br>
-· 每个命令都不同，命令运行完之后，对后续命令无影响</p>
-</li>
-<li>
-<p>交互式键盘使用<br>
-· 在Linux命令中很少使用<br>
-· 程序启动之后通过计算机与操作员之间的人机交互获取信息，C语言scanf(),fgets()函数</p>
-<p>命令行参数的三种风格<br>
-· 类似dd命令的风格<br>
-特点：命令行参数采用param = value的风格<br>
-dd if=sysdisk.img of=/dev/sdb<br>
-（磁盘的拷贝）将磁盘映像拷贝到硬盘：if指定输入文件，of指定输出文件<br>
-dd if=/dev/urandom of=test.dat bs=1024 count=512<br>
-用dd命令，生成512KB的测试数据文件test.dat<br>
-if:输入文件 of:输出文件 bs:块大小 count:块计数</p>
-<p>· 类似find和gcc的风格<br>
-特点：以减号打头的一个由多个字符构成的单词用作选项<br>
-find src -name '*.c' -type f -exec dos2unix --keepdate{} ;<br>
-将所有扩展名.c的普通文件由Windows文本格式转为Linux格式<br>
-gcc -O0 -Wall -g -masm=intel -Wa,-ahl -c shudu.c<br>
-编译C语言源程序文件mytest.c并生成C程序与汇编代码对比<br>
-W：警告信息<br>
--g：生成调试信息<br>
--ahl:h高级文件 l列表文件</p>
-<p>· 类似ls和grep的风格：现在流行的格式<br>
-特点：长选项和短选项。有的选项同时有2种格式，也有的选项仅有长格式或仅有短格式。<br>
-ls(其中-w选项指定一个整数参数值告知ls排版时屏幕的列宽度)<br>
-ls --classify --all --size --human-readable --width=80 /home/jiang长选项<br>
-ls -Fashw80 /home/jiang 多个选项挤在一起<br>
-ls -F -a -s -h -w 80 /home/jiang 多个选项分开<br>
-ls -F -w80 /home/jiang -has 可以把选项放在后面<br>
-也可以用独立的命令行参数--显式地标识命令行结束</p>
-</li>
-</ul>
-<p>尽量采取ls风格</p>
 ]]></content>
     </entry>
 </feed>
