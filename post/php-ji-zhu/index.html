@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>PHP技术 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590165038567">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590165038567" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">PHP技术</h2>
+            <div class="post-date">2020-05-20</div>
+            
+            <div class="post-content">
+              <p>为什么要用PHP<br>
+1.PHP是脚本语言<br>
+2.PHP是最流行的网站开发语言<br>
+3.PHP适合做移动APP的接口<br>
+4.PHP适合做服务端脚本</p>
+<h1 id="apache-php-和-mysql">Apache PHP 和 Mysql</h1>
+<p>Apache是一个Web服务器： 基于Http/Https/Websocket等协议对外部提供数据、文件的获取功能<br>
+PHP是可编程的脚本语言： 提供基本的运算和逻辑处理的功能，可以很好的应用于Web网站功能需求的开发<br>
+MySQL是一种关系型数据库： 用于存储、修改、获取和管理数据的工具，可以通过结构化查询语言（SQL）进行数据库的管理。</p>
+<h2 id="apache和php">Apache和PHP</h2>
+<p>Apache和PHP解释器之间的关系，是调用和被调用之间的关系，Apache主动调用PHP解释器去执行PHP脚本文件，PHP解释器被Apache调用。<br>
+Apache是web服务器软件，它可以接受来自客户端的Http/Https等协议的请求，当请求的文件是PHP脚本文件时，它会调用PHP解释器去解释和执行该脚本中的内容，并将解释器返回的结果，根据对应的协议规则封装成相应格式的数据，再将数据返回给请求的客户端</p>
+<h2 id="php和mysql">PHP和mysql</h2>
+<p>PHP和Mysql之间的关系，也是调用和被调用的关系，PHP通过SQL语言调用Mysql进行数据库的管理功能，Mysql数据库总是被动的接受操作指令。<br>
+MYSQL是小型关系数据库软件，它为可以各种软件提供数据库支持，通过PHP可以操作Mysql，同理使用其它语言也可以操作Mysql，同样PHP也可以操作其他的数据库，不一定是MYSQL。<br>
+PHP如何调用Mysql数据库进行操作？ PHP与Mysql交互使用的语言规则是SQL，但是PHP和Mysql是两个独立的应用程序，想要交互必须得先建立连接，就如同浏览器访问Web服务器一样，在请求数据发送之前也需要先成功建立tcp连接。PHP脚本与Mysql建立连接的过程都是由PHP的Mysqld/PDO等驱动来完成的，这些驱动的本质都是PHP的模块，即PHP解释器可以识别的相关函数集合，一般使用C语言编写，对PHP语言来说，屏蔽了具体连接建立和数据库协议操作的详细过程，对PHP语言暴露了一些基础的接口，即PHP可以调用到的一些数据库操作函数，如连接数据库、执行数据库SQL命令、断开连接等。<br>
+总而言之，PHP调用Mysql数据库的过程，通常是通过PHP的数据库驱动模块来操作的，它的本质也是一个网络数据的请求操作（遵循MySql通信协议来建立连接，使用SQL语法来执行具体操作指令）。</p>
+<h2 id="搭建环境">搭建环境</h2>
+<p>使用PHP程序就需要先搭建一个PHP的运行环境，PHP运行环境就是包含PHP+Apache+Mysql这三个软件的环境，还需要满足的条件就是，Apache可以调用PHP解释器来执行PHP脚本，PHP可以连接Mysql数据库来操作和管理存储的数据，当满足以上两个条件时，Apache、PHP和Mysql的运行环境就是一个完整的PHP运行环境了。</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/Zm6UV8nL7/" class="tag">
+                    软件工程
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/jin-cheng-kong-zhi-yu-jin-cheng-zhi-jian-de-tong-xin/">
+                  <h3 class="post-title">
+                    进程控制与进程之间的通信
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

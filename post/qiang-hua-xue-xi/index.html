@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1589821160520">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590165038567">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1589821160520" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590165038567" class="site-logo">
         <h1 class="site-title">给敦敦买炸猪排</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -161,6 +161,54 @@ St表示t时刻游戏状态的观测值（棋子所在的位置），用at表示
 π=p{at,i|{s0,a0...st}}<br>
 行动：玩家根据当前的状态以某种策略选择自认为最好的行动<br>
 a*t=argmaxat,ip(at,i|{s0,a0...st})</p>
+<p>马尔可夫性-&gt;简化模型<br>
+马尔可夫性：当前时刻选择什么行动只和当前的状态有关，和前面的状态和行动无关。<br>
+<img src="https://zjy98.github.io/post-images/1590105972411.png" alt="" loading="lazy"></p>
+<p>环境<br>
+第二种转换由环境决定<br>
+环境的状态转换：从行动到状态的转换，即玩家完成行动后，环境会受到影响并完成状态的转换<br>
+假设换换符合马尔可夫性质，即下一步的状态只受前一步状态影响，不受前面的状态影响，于是状态转换就能以概率的形式表示：<br>
+P(St+1|St,at)</p>
+<p>马尔科夫决策过程</p>
+<ul>
+<li>马尔科夫表示了状态间的依赖性<br>
+当前状态的取值只和前一个状态产生依赖，不和更早的状态产生联系、</li>
+<li>决策表示了其中的策略将由Agent决定<br>
+Agent可以通过自己的行动改变状态序列<br>
+和环境中存在的随机性共同决定未来的状态</li>
+<li>过程表示了时间的属性<br>
+Agent行动后，环境的状态将发生改变<br>
+同时时间向前推进，新的状态产生<br>
+Agent将获得观测值，于是新的行动产生，然后状态再更新</li>
+</ul>
+<p>长期回报</p>
+<ul>
+<li>赢得游戏的关键-&gt;得到好的策略-&gt;最大化长期回报<br>
+环境可以提供我们某一时刻t的回报（即时回报）r<br>
+采取某一个行动希望最大化长期回报<img src="https://zjy98.github.io/post-images/1590106372739.png" alt="" loading="lazy"></li>
+<li>存的问题1<br>
+计算时间（若游戏无限循环，则无法计算）<br>
+解决方法：降低未来回报对当前的影响，也就是未来的回报乘以一个打折率，这个回报就是有限地<br>
+<img src="https://zjy98.github.io/post-images/1590106462377.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590106488738.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590106712909.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107138865.png" alt="" loading="lazy"></li>
+</ul>
+<p><img src="https://zjy98.github.io/post-images/1590107205961.png" alt="" loading="lazy"><br>
+S：100<br>
+A：2（2种骰子）<br>
+r:除了走到100是100其他都是-1</p>
+<p><img src="https://zjy98.github.io/post-images/1590107549955.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107575116.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107715390.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107797638.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590108553791.png" alt="" loading="lazy"></p>
+<p><img src="https://zjy98.github.io/post-images/1590108847260.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590108851578.png" alt="" loading="lazy"><br>
+要定义好S是什么，t是什么<br>
+<img src="https://zjy98.github.io/post-images/1590108984587.png" alt="" loading="lazy"></p>
+<p>价值迭代法<br>
+<img src="https://zjy98.github.io/post-images/1590110418499.png" alt="" loading="lazy"></p>
 
             </div>
             

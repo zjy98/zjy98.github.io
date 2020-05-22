@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>进程的创建和重定向 | 给敦敦买炸猪排</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590165038567">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590165038567" class="site-logo">
+        <h1 class="site-title">给敦敦买炸猪排</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">进程的创建和重定向</h2>
+            <div class="post-date">2020-05-22</div>
+            
+            <div class="post-content">
+              <h1 id="进程的生命周期从生到死">进程的生命周期：从生到死</h1>
+<p>程序运行起来：产生了一个进程。<br>
+<img src="https://zjy98.github.io/post-images/1590077907649.png" alt="" loading="lazy"></p>
+<h2 id="fork创建新进程">fork:创建新进程</h2>
+<ul>
+<li>功能<br>
+fork系统调用时创建新进程的唯一方式<br>
+原先的进程叫做父进程，新进程被称作子进程<br>
+完全复制：新进程的指令，用户数据段，堆栈段<br>
+部分复制：系统数据段</li>
+<li>fork返回值：父子进程都收到返回值，但不相同<br>
+返回值很关键，它是区分父进程（返回值&gt;0是子进程的PID）和子进程（返回值=0），失败时返回-1</li>
+<li>内核实现<br>
+创建新的PCB，复制父进程环境（包括PCB和内存资源）给子进程<br>
+父子进程可以共享程序和数据（如copy-on-write技术，COW）但是这些系统核心的安排，对程序员透明<br>
+<img src="https://zjy98.github.io/post-images/1590078682173.png" alt="" loading="lazy"><br>
+最后两行，可能是父进程先执行，也可能是子进程<br>
+<img src="https://zjy98.github.io/post-images/1590078789026.png" alt="" loading="lazy"><br>
+一边父进程，一边子进程<br>
+执行fork(),两个阶段，1执行fork调用，2恢复运行 给ret赋值两个进程都要赋值<br>
+父子进程有区别，父进程赋值的是大于0的值，子进程是==0的值（父子进程的程序一样）<br>
+<img src="https://zjy98.github.io/post-images/1590078911802.png" alt="" loading="lazy"><br>
+这个执行结果来看，子进程先结束</li>
+</ul>
+<p><img src="https://zjy98.github.io/post-images/1590079147167.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590079162563.png" alt="" loading="lazy"></p>
+<h2 id="exec系统调用">exec系统调用</h2>
+<ul>
+<li>功能<br>
+用一个指定的程序文件，重新初始化一个进程<br>
+可指定新的命令行参数和环境参数（初始化堆栈底部）<br>
+exec不创建新进程，只是将当前进程重新初始化了指令段和用户端段，堆栈段以及CPU的PC指针</li>
+<li>6种格式exec系统调用<br>
+exec前缀，后跟一至两个字母<br>
+l-list, v-vector, e-env, p-path<br>
+l与v:指定命令行参数的两种方式，l以表的形式，v要事先组织成一个指针数组<br>
+e:需要指定环境变量PATH查找可执行文件<br>
+p:使用环境变量PATH查找可执行文件<br>
+六种格式的区别：不同的参数方式初始化堆栈底部</li>
+</ul>
+<h2 id="僵尸进程zombie或defunct">僵尸进程（zombie或defunct)</h2>
+<ul>
+<li>进程生命期结束时的特殊状态<br>
+系统已经释放了进程占用的包括内存在内的系统资源，但仍在内核中保留进程的部分数据结构，记录进程的终止态，等待父进程来收尸。<br>
+父进程的收尸动作完成后，僵尸进程不再存在。</li>
+<li>僵尸进程占用资源很少，仅占用内核进程表资源<br>
+过多的僵尸进程会导致有限地进程表用完</li>
+<li>孤儿进程：父进程死了，子进程都变成1号进程的子进程</li>
+</ul>
+<h2 id="wait系统调用收尸">wait系统调用（收尸）</h2>
+<ul>
+<li>功能<br>
+等待进程的子进程终止<br>
+如果已有子进程终止，则立即返回<br>
+<img src="https://zjy98.github.io/post-images/1590080061781.png" alt="" loading="lazy"></li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/php-ji-zhu/">
+                  <h3 class="post-title">
+                    PHP技术
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>给敦敦买炸猪排</title>
-    <updated>2020-05-18T16:59:33.812Z</updated>
+    <updated>2020-05-22T16:30:40.745Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -10,6 +10,97 @@
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 给敦敦买炸猪排</rights>
+    <entry>
+        <title type="html"><![CDATA[进程的创建和重定向]]></title>
+        <id>https://zjy98.github.io/post/jin-cheng-de-chuang-jian-he-chong-ding-xiang/</id>
+        <link href="https://zjy98.github.io/post/jin-cheng-de-chuang-jian-he-chong-ding-xiang/">
+        </link>
+        <updated>2020-05-21T16:16:52.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="进程的生命周期从生到死">进程的生命周期：从生到死</h1>
+<p>程序运行起来：产生了一个进程。<br>
+<img src="https://zjy98.github.io/post-images/1590077907649.png" alt="" loading="lazy"></p>
+<h2 id="fork创建新进程">fork:创建新进程</h2>
+<ul>
+<li>功能<br>
+fork系统调用时创建新进程的唯一方式<br>
+原先的进程叫做父进程，新进程被称作子进程<br>
+完全复制：新进程的指令，用户数据段，堆栈段<br>
+部分复制：系统数据段</li>
+<li>fork返回值：父子进程都收到返回值，但不相同<br>
+返回值很关键，它是区分父进程（返回值&gt;0是子进程的PID）和子进程（返回值=0），失败时返回-1</li>
+<li>内核实现<br>
+创建新的PCB，复制父进程环境（包括PCB和内存资源）给子进程<br>
+父子进程可以共享程序和数据（如copy-on-write技术，COW）但是这些系统核心的安排，对程序员透明<br>
+<img src="https://zjy98.github.io/post-images/1590078682173.png" alt="" loading="lazy"><br>
+最后两行，可能是父进程先执行，也可能是子进程<br>
+<img src="https://zjy98.github.io/post-images/1590078789026.png" alt="" loading="lazy"><br>
+一边父进程，一边子进程<br>
+执行fork(),两个阶段，1执行fork调用，2恢复运行 给ret赋值两个进程都要赋值<br>
+父子进程有区别，父进程赋值的是大于0的值，子进程是==0的值（父子进程的程序一样）<br>
+<img src="https://zjy98.github.io/post-images/1590078911802.png" alt="" loading="lazy"><br>
+这个执行结果来看，子进程先结束</li>
+</ul>
+<p><img src="https://zjy98.github.io/post-images/1590079147167.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590079162563.png" alt="" loading="lazy"></p>
+<h2 id="exec系统调用">exec系统调用</h2>
+<ul>
+<li>功能<br>
+用一个指定的程序文件，重新初始化一个进程<br>
+可指定新的命令行参数和环境参数（初始化堆栈底部）<br>
+exec不创建新进程，只是将当前进程重新初始化了指令段和用户端段，堆栈段以及CPU的PC指针</li>
+<li>6种格式exec系统调用<br>
+exec前缀，后跟一至两个字母<br>
+l-list, v-vector, e-env, p-path<br>
+l与v:指定命令行参数的两种方式，l以表的形式，v要事先组织成一个指针数组<br>
+e:需要指定环境变量PATH查找可执行文件<br>
+p:使用环境变量PATH查找可执行文件<br>
+六种格式的区别：不同的参数方式初始化堆栈底部</li>
+</ul>
+<h2 id="僵尸进程zombie或defunct">僵尸进程（zombie或defunct)</h2>
+<ul>
+<li>进程生命期结束时的特殊状态<br>
+系统已经释放了进程占用的包括内存在内的系统资源，但仍在内核中保留进程的部分数据结构，记录进程的终止态，等待父进程来收尸。<br>
+父进程的收尸动作完成后，僵尸进程不再存在。</li>
+<li>僵尸进程占用资源很少，仅占用内核进程表资源<br>
+过多的僵尸进程会导致有限地进程表用完</li>
+<li>孤儿进程：父进程死了，子进程都变成1号进程的子进程</li>
+</ul>
+<h2 id="wait系统调用收尸">wait系统调用（收尸）</h2>
+<ul>
+<li>功能<br>
+等待进程的子进程终止<br>
+如果已有子进程终止，则立即返回<br>
+<img src="https://zjy98.github.io/post-images/1590080061781.png" alt="" loading="lazy"></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[PHP技术]]></title>
+        <id>https://zjy98.github.io/post/php-ji-zhu/</id>
+        <link href="https://zjy98.github.io/post/php-ji-zhu/">
+        </link>
+        <updated>2020-05-20T08:44:24.000Z</updated>
+        <content type="html"><![CDATA[<p>为什么要用PHP<br>
+1.PHP是脚本语言<br>
+2.PHP是最流行的网站开发语言<br>
+3.PHP适合做移动APP的接口<br>
+4.PHP适合做服务端脚本</p>
+<h1 id="apache-php-和-mysql">Apache PHP 和 Mysql</h1>
+<p>Apache是一个Web服务器： 基于Http/Https/Websocket等协议对外部提供数据、文件的获取功能<br>
+PHP是可编程的脚本语言： 提供基本的运算和逻辑处理的功能，可以很好的应用于Web网站功能需求的开发<br>
+MySQL是一种关系型数据库： 用于存储、修改、获取和管理数据的工具，可以通过结构化查询语言（SQL）进行数据库的管理。</p>
+<h2 id="apache和php">Apache和PHP</h2>
+<p>Apache和PHP解释器之间的关系，是调用和被调用之间的关系，Apache主动调用PHP解释器去执行PHP脚本文件，PHP解释器被Apache调用。<br>
+Apache是web服务器软件，它可以接受来自客户端的Http/Https等协议的请求，当请求的文件是PHP脚本文件时，它会调用PHP解释器去解释和执行该脚本中的内容，并将解释器返回的结果，根据对应的协议规则封装成相应格式的数据，再将数据返回给请求的客户端</p>
+<h2 id="php和mysql">PHP和mysql</h2>
+<p>PHP和Mysql之间的关系，也是调用和被调用的关系，PHP通过SQL语言调用Mysql进行数据库的管理功能，Mysql数据库总是被动的接受操作指令。<br>
+MYSQL是小型关系数据库软件，它为可以各种软件提供数据库支持，通过PHP可以操作Mysql，同理使用其它语言也可以操作Mysql，同样PHP也可以操作其他的数据库，不一定是MYSQL。<br>
+PHP如何调用Mysql数据库进行操作？ PHP与Mysql交互使用的语言规则是SQL，但是PHP和Mysql是两个独立的应用程序，想要交互必须得先建立连接，就如同浏览器访问Web服务器一样，在请求数据发送之前也需要先成功建立tcp连接。PHP脚本与Mysql建立连接的过程都是由PHP的Mysqld/PDO等驱动来完成的，这些驱动的本质都是PHP的模块，即PHP解释器可以识别的相关函数集合，一般使用C语言编写，对PHP语言来说，屏蔽了具体连接建立和数据库协议操作的详细过程，对PHP语言暴露了一些基础的接口，即PHP可以调用到的一些数据库操作函数，如连接数据库、执行数据库SQL命令、断开连接等。<br>
+总而言之，PHP调用Mysql数据库的过程，通常是通过PHP的数据库驱动模块来操作的，它的本质也是一个网络数据的请求操作（遵循MySql通信协议来建立连接，使用SQL语法来执行具体操作指令）。</p>
+<h2 id="搭建环境">搭建环境</h2>
+<p>使用PHP程序就需要先搭建一个PHP的运行环境，PHP运行环境就是包含PHP+Apache+Mysql这三个软件的环境，还需要满足的条件就是，Apache可以调用PHP解释器来执行PHP脚本，PHP可以连接Mysql数据库来操作和管理存储的数据，当满足以上两个条件时，Apache、PHP和Mysql的运行环境就是一个完整的PHP运行环境了。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[进程控制与进程之间的通信]]></title>
         <id>https://zjy98.github.io/post/jin-cheng-kong-zhi-yu-jin-cheng-zhi-jian-de-tong-xin/</id>
@@ -188,6 +279,54 @@ St表示t时刻游戏状态的观测值（棋子所在的位置），用at表示
 π=p{at,i|{s0,a0...st}}<br>
 行动：玩家根据当前的状态以某种策略选择自认为最好的行动<br>
 a*t=argmaxat,ip(at,i|{s0,a0...st})</p>
+<p>马尔可夫性-&gt;简化模型<br>
+马尔可夫性：当前时刻选择什么行动只和当前的状态有关，和前面的状态和行动无关。<br>
+<img src="https://zjy98.github.io/post-images/1590105972411.png" alt="" loading="lazy"></p>
+<p>环境<br>
+第二种转换由环境决定<br>
+环境的状态转换：从行动到状态的转换，即玩家完成行动后，环境会受到影响并完成状态的转换<br>
+假设换换符合马尔可夫性质，即下一步的状态只受前一步状态影响，不受前面的状态影响，于是状态转换就能以概率的形式表示：<br>
+P(St+1|St,at)</p>
+<p>马尔科夫决策过程</p>
+<ul>
+<li>马尔科夫表示了状态间的依赖性<br>
+当前状态的取值只和前一个状态产生依赖，不和更早的状态产生联系、</li>
+<li>决策表示了其中的策略将由Agent决定<br>
+Agent可以通过自己的行动改变状态序列<br>
+和环境中存在的随机性共同决定未来的状态</li>
+<li>过程表示了时间的属性<br>
+Agent行动后，环境的状态将发生改变<br>
+同时时间向前推进，新的状态产生<br>
+Agent将获得观测值，于是新的行动产生，然后状态再更新</li>
+</ul>
+<p>长期回报</p>
+<ul>
+<li>赢得游戏的关键-&gt;得到好的策略-&gt;最大化长期回报<br>
+环境可以提供我们某一时刻t的回报（即时回报）r<br>
+采取某一个行动希望最大化长期回报<img src="https://zjy98.github.io/post-images/1590106372739.png" alt="" loading="lazy"></li>
+<li>存的问题1<br>
+计算时间（若游戏无限循环，则无法计算）<br>
+解决方法：降低未来回报对当前的影响，也就是未来的回报乘以一个打折率，这个回报就是有限地<br>
+<img src="https://zjy98.github.io/post-images/1590106462377.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590106488738.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590106712909.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107138865.png" alt="" loading="lazy"></li>
+</ul>
+<p><img src="https://zjy98.github.io/post-images/1590107205961.png" alt="" loading="lazy"><br>
+S：100<br>
+A：2（2种骰子）<br>
+r:除了走到100是100其他都是-1</p>
+<p><img src="https://zjy98.github.io/post-images/1590107549955.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107575116.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107715390.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590107797638.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590108553791.png" alt="" loading="lazy"></p>
+<p><img src="https://zjy98.github.io/post-images/1590108847260.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590108851578.png" alt="" loading="lazy"><br>
+要定义好S是什么，t是什么<br>
+<img src="https://zjy98.github.io/post-images/1590108984587.png" alt="" loading="lazy"></p>
+<p>价值迭代法<br>
+<img src="https://zjy98.github.io/post-images/1590110418499.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
     <entry>
@@ -253,6 +392,34 @@ a*t=argmaxat,ip(at,i|{s0,a0...st})</p>
 长度：字节为单位<br>
 访问：读写指针,通过穷举搜索的方式访问.</li>
 </ul>
+<p>读书笔记：<br>
+关于操作系统启动的最重要的一个概念就是Boot Sector，也就是引导扇区，通常指设备的第一个扇区，用于加载并转让处理器控制权给操作系统。</p>
+<p>硬盘的0柱面、0磁头、1扇区称为主引导扇区，也叫主引导记录MBR，该记录占用512个字节，它用于硬盘启动时将系统控制权转给用户指定的、在分区表中登记了某个操作系统分区。MBR的内容是在硬盘分区时由分区软件写入该扇区的，MBR不属于任何一个操作系统，不随操作系统的不同而不同，即使不同，MBR也不会夹带操作系统的性质，具有公共引导的特性。但安装某些多重引导功能的软件或LINUX的LILO时有可能改写它，它先于所有的操作系统被调入内存并发挥作用，然后才将控制权交给活动主分区内的操作系统</p>
+<p>MBR的功能<br>
+1．扫描分区表查找活动分区；<br>
+2．寻找活动分区的起始扇区；<br>
+3．将活动分区的引导扇区读到内存；<br>
+4．执行引导扇区的运行代码。</p>
+<p>使用 nasm os.asm -o os.img 命令将汇编代码转变为一个镜像文件，然后在虚拟机中使用了。</p>
+<p>在IA32下，CPU有两种工作模式：实模式和保护模式。当我们打开自己的PC，开始时CPU是工作在实模式下的，经过 某种机制之后，才进入保护模式。在保护模式下，CPU有着巨大的寻址能力，并为强大的32位操作系统提供了更好的硬件保障。</p>
+<p>参考代码：<br>
+支持进程工作目录 提供getcwd与chdir</p>
+<p>新的syscall</p>
+<p>SYS_env_set_workpath 修改工作路径<br>
+新的用户程序<br>
+ls 功能完善<br>
+pwd 输出当前工作目录<br>
+cat 接入工作目录<br>
+touch 由于文件属性没啥可改的，用于创建文件<br>
+mkdir 创建目录文件<br>
+msh 更高级的shell 还未完全完工 支持cd 支持默认二进制路径为 bin<br>
+调整目标磁盘生成工具</p>
+<p>底层与磁盘有关的丢给ide_xx来实现，因为要用到IO中断，要给对应的权限<br>
+通过bc_pgfault来实现缺页自己映射，利用flush_block来回写磁盘<br>
+然后通过分block利用block cache实现对于磁盘的数据读入内存或者写回磁盘<br>
+再上面一层的file_read与file_write，均是对于blk的操作。<br>
+再上面就是文件系统服务器，通过调用file_read实现功能了。<br>
+客户端通过对需求打包，发送IPC给文件系统服务器，即可实现读／写文件的功能。</p>
 ]]></content>
     </entry>
     <entry>
@@ -548,108 +715,6 @@ word与多个模式匹配时，执行遇到的第一个命令表</p>
 <h2 id="shell脚本中的注释">shell脚本中的注释</h2>
 <p>shell中使用#号注释<br>
 #号出现在一个单词的首部,那么从#号至行尾的所有字符都被忽略</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[元字符]]></title>
-        <id>https://zjy98.github.io/post/yuan-zi-fu/</id>
-        <link href="https://zjy98.github.io/post/yuan-zi-fu/">
-        </link>
-        <updated>2020-04-30T02:26:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="shell元字符">shell元字符</h1>
-<p><img src="https://zjy98.github.io/post-images/1588216326317.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1588216344754.png" alt="" loading="lazy"><br>
-反斜线作转义符，取消其后元字符的特殊作用<br>
-如果反斜线加在非元字符前面，反斜线和没有一样<br>
-find / -size +100 (-name core -o -name*.tmp) -exec rm -f {} ;<br>
-<img src="https://zjy98.github.io/post-images/1588216380092.png" alt="" loading="lazy"><br>
-取消shell对圆括号的特殊解释 分号前反斜线，<br>
-ls -l &gt; file\ list<br>
-vi *.c 起名叫*.c<br>
-vi 2&gt;&amp;1<br>
-单引号和双引号<br>
-<img src="https://zjy98.github.io/post-images/1588216408673.png" alt="" loading="lazy"></p>
-<p>单引号'<br>
-对所括起的任何字符，不作任何解释<br>
-系统扫描单引号开始，停止对所有字符的特殊解释，直到再次遇到单引号<br>
-<img src="https://zjy98.github.io/post-images/1588214376780.png" alt="" loading="lazy"><br>
-单引号是取消所有元字符，双引号取消了大多数元字符，保留了$和`</p>
-<h1 id="引号及转义处理">引号及转义处理</h1>
-<p>转义问题：在人机交互时，需要准确传达信息，对于特殊字符是其特殊意义还是字面意义<br>
-<img src="https://zjy98.github.io/post-images/1588216469133.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1588216490996.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1588216506365.png" alt="" loading="lazy"><br>
-这样的设计为了反撇号的嵌套<br>
-<img src="https://zjy98.github.io/post-images/1588214944367.png" alt="" loading="lazy"></p>
-<h1 id="应用程序的转义处理与shell的转义处理">应用程序的转义处理与shell的转义处理</h1>
-<p>在*.conf文件中找行尾是被单引号括起来的IP地址192.168.x.x的行<br>
-<img src="https://zjy98.github.io/post-images/1588216542454.png" alt="" loading="lazy"><br>
-双引号里不允许有反斜线，有要加两个</p>
-<figure data-type="image" tabindex="1"><img src="https://zjy98.github.io/post-images/1588216166823.png" alt="" loading="lazy"></figure>
-<h2 id="反撇号的转义处理">反撇号的转义处理</h2>
-<figure data-type="image" tabindex="2"><img src="https://zjy98.github.io/post-images/1588216602639.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[变量]]></title>
-        <id>https://zjy98.github.io/post/bian-liang/</id>
-        <link href="https://zjy98.github.io/post/bian-liang/">
-        </link>
-        <updated>2020-04-27T14:20:45.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="变量的赋值及使用">变量的赋值及使用</h1>
-<h2 id="bash变量">bash变量</h2>
-<p>存储的的内容：字符串（对数字串来说，不是二进制形式）<br>
-在执行过程中其内容可以被修改<br>
-赋值及引用：</p>
-<ul>
-<li>引用addr变量的方法：$ addr或$ {addr}<br>
-例如:frp $addr<br>
-echo ${addr} A<br>
-echo $addr A<br>
-命令行中有$ 符的变量引用，shell会先完成变量的替换<br>
-赋值时，等号右侧字符串中含有特殊字符：unit=&quot;Beiyou University&quot;  echo $ unit</li>
-<li>引用未定义的变量，变量值为空字符串<br>
-echo Connect to $ proto Network<br>
-porto=TCP/IP<br>
-echo Connect to $ proto Network<br>
-shell内部开关：set -u当引用一个未定义的变量时，产生一个错误；set +u 当引用一个未定义的变量时，认为是一个空串（默认情形）</li>
-<li>命令echo<br>
-echo arg1 arg2 arg3...<br>
-打印各命令行参数，每两个间用一空格分开，最后打印换行符<br>
-不可打印字符（转义）:Linux需加选项-e<br>
-echo支持C语言字符串常数描述格式的转义和\c<br>
-\b退格 \n换行 \r回车 \t水平制表 \反斜线 \nnn 八进制描述的字符ASCII码 \c打印完毕，不换行<br>
-单词之间的分界符一个空格和多个空格一样，要想打印多个空格加双引号<br>
-printf用法和C语言类似，用单引号，可以替代echo<br>
-\033[H:在屏幕左上角打印</li>
-</ul>
-<h1 id="在脚本中编辑文件">在脚本中编辑文件</h1>
-<p>read:读用户的输入 变量取值的另一种方法<br>
-读取用户的而输入并使用输入的信息：read name<br>
-/SERVER 找到SERVER这一行<br>
-.d 把当前行删掉<br>
-i 插入<br>
-.插入结束<br>
-w 存盘<br>
-q退出</p>
-<h1 id="环境变量">环境变量</h1>
-<p>默认类型：所创建的shell变量，默认为局部变量<br>
-内部命令export:局部变量转换为环境变量例如：export proto<br>
-shell启动的子进程继承环境变量，不继承局部变量<br>
-子进程对环境变量的修改，不影响父进程中同名变量（环境变量的设置，如PATH,CLASSPATH,LANG,如果必要的话放在~/.bashrc中或/etc/profile中）</p>
-<p>系统的环境变量<br>
-HOME：用户主目录的路径名<br>
-PATH：命令查找路径 PATH=/bin:/usr/bin:/etc<br>
-与DOS/Windows不同的是：不先搜索当前目录<br>
-PATH=./bin:/usr/bin:/etc 先搜索当前目录（危险）<br>
-PATH=/bin:/usr/bin:/etc:. 后搜索当前目录（危险）<br>
-TERM：终端类型<br>
-环境变量PATH的值有特别的含义，一般不会把当前目录.或者上一级目录..作为PATH的分量，主要是出于多用户环境下的安全考虑</p>
-<p>环境变量的赋值对某个应用程序，包括java虚拟机及其他的系统软件，有什么影响，与这个AP的设计相关，需要查阅相关的手册<br>
-相关命令 set/env<br>
-内部命令set列出当前所有变量及其值以及函数定义：包括环境变量和局部变量，函数定义<br>
-set | grep ^fname=<br>
-外部命令/bin/env 列出环境变量及其值</p>
 ]]></content>
     </entry>
 </feed>
