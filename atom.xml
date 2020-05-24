@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>给敦敦买炸猪排</title>
-    <updated>2020-05-24T17:22:14.966Z</updated>
+    <updated>2020-05-24T17:40:57.426Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -10,6 +10,21 @@
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 给敦敦买炸猪排</rights>
+    <entry>
+        <title type="html"><![CDATA[本周计划]]></title>
+        <id>https://zjy98.github.io/post/ben-zhou-ji-hua/</id>
+        <link href="https://zjy98.github.io/post/ben-zhou-ji-hua/">
+        </link>
+        <updated>2020-05-24T17:34:58.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>交换原理的的课看完，作业写了（周一）</li>
+<li>计算机系统结构实验（周一/周二上午写了）</li>
+<li>机器学习实验3（周五前写完）</li>
+<li>Linux课看完，实验写了（周四周五周六周日）</li>
+<li>软工再继续写，能收发消息！（看情况周日前）</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[进程的创建和重定向]]></title>
         <id>https://zjy98.github.io/post/jin-cheng-de-chuang-jian-he-chong-ding-xiang/</id>
@@ -698,100 +713,6 @@ done<br>
 <li>exit:结束脚本程序的执行，退出。exit的参数为该进程执行结束后的返回码<br>
 例：exit 1</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[shell逻辑流程控制]]></title>
-        <id>https://zjy98.github.io/post/shell-luo-ji-liu-cheng-kong-zhi/</id>
-        <link href="https://zjy98.github.io/post/shell-luo-ji-liu-cheng-kong-zhi/">
-        </link>
-        <updated>2020-05-02T03:12:56.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="shell中的逻辑判断">shell中的逻辑判断</h1>
-<p>判定一条命令是否执行成功，方法：命令执行的返回码：0表示成功，非0表示失败。可以吧命令执行结束后的返回码理解为出错代码<br>
-主函数：<br>
-int main（void){...}<br>
-int main  (int argc,char **argv){...}<br>
-int main  (int argc,char **argv,char **env) {...}<br>
-main函数的返回值，如果代码中main()函数没有return一个确定的值，返回码就是随机值，不可用来做条件判断。或者程序调用了exit(code)导致进程终止，exit函数的参数值code。取值0~255。</p>
-<h2 id="shell内部变量">shell内部变量$?</h2>
-<p>ls -d xyz xyz是一个目录<br>
-xyz<br>
-echo $?   $?是上一命令的返回码，shell自定义变量<br>
-0 若目录存在返回值为0，若不存在返回2<br>
-用管道线连接在一起的若干命令，进行条件判断时以最后一个命令执行的返回码为准</p>
-<h2 id="复合逻辑">复合逻辑</h2>
-<p>用&amp;&amp;或||连结两个命令<br>
-可以利用复合逻辑中的短路计算特性实现最简单的条件</p>
-<ul>
-<li>cmd1&amp;&amp;cmd2<br>
-若cmd1执行成功（返回码为0）则执行cmd2,否则不执行cmd2</li>
-<li>cmd1||cmd2<br>
-若cmd1执行失败（返回码为0）则执行cmd2,否则不执行cmd2<br>
-命令true与false<br>
-/bin/true<br>
-返回码总为0<br>
-/bin/false<br>
-返回码总不为0<br>
-有的shell为了提高效率，将true和false设置为内部命令</li>
-</ul>
-<h1 id="test及方括号命令">test及方括号命令</h1>
-<p>命令test与[<br>
-命令/usr/bin/[要求最后一个命令行参数必须为]<br>
-除此之外/usr/bin/[与/usr/bin/test功能相同<br>
-有的linux系统中/usr/bin/[是一个指向tset的符号连接<br>
-注意不要将方括号理解成一个词法符号<br>
-举例： test -r /etc/motd<br>
-[ -r /etc/motd ]</p>
-<ul>
-<li>文件特性检测<br>
-<img src="https://zjy98.github.io/post-images/1588820228483.png" alt="" loading="lazy"></li>
-<li>字符串比较<br>
-str1 = str2 字符串相等<br>
-str1 != str2 字符串不相等<br>
-注意等号和不等号两侧的空格不可少<br>
-[ &quot;$a&quot; = &quot;&quot; ] &amp;&amp; echo empty string 注意$a的引号</li>
-<li>整数的比较<br>
-<img src="https://zjy98.github.io/post-images/1588820402761.png" alt="" loading="lazy"></li>
-<li>复合条件<br>
-<img src="https://zjy98.github.io/post-images/1588820441597.png" alt="" loading="lazy"></li>
-</ul>
-<h1 id="命令组合">命令组合</h1>
-<p>命令组合类似C语言中的复合语句，组合在一起的几个命令作为一个整体看待：可以集体管道和重定向或者当条件满足时执行若干个命令<br>
-判断目录是否存在 统计目录下多少文件 打印当前的工作目录，当前工作目录变成判断的目录<br>
-<img src="https://zjy98.github.io/post-images/1588820539948.png" alt="" loading="lazy"><br>
-改成（) 当前工作目录不变<br>
-<img src="https://zjy98.github.io/post-images/1588820600796.png" alt="" loading="lazy"></p>
-<p>{} 在当前shell中执行一组命令<br>
-() 在子shell中执行一组命令</p>
-<p>(list) 在子shell中执行命令表list<br>
-{list} 在当前shell中执行命令表list 注意左花括号后面必须有一个空格<br>
-圆括号是shell元字符，花括号不是，它作为一个特殊内部命令处理。所以必须是一行的行首单词<br>
-(ls -l;ps)| more<br>
-{ ls -l;ps; } | more<br>
-<img src="https://zjy98.github.io/post-images/1588834539728.png" alt="" loading="lazy"></p>
-<h1 id="条件分支">条件分支</h1>
-<p>if 和 case</p>
-<h2 id="条件结构if两个或多个分支">条件结构if:两个或多个分支</h2>
-<p><img src="https://zjy98.github.io/post-images/1588835015842.png" alt="" loading="lazy"><br>
-其中：if/then/elif/else/fi为关键字（内部命令）<br>
-<img src="https://zjy98.github.io/post-images/1588835723941.png" alt="" loading="lazy"><br>
-date &gt;&gt; /$LOGFILE追加日期到文件里<br>
-判断如果文件可写，则把这个文件内容追加到log里，删掉<br>
-否则追加no error到LOG<br>
-注意：if行不可以和then行直接合并成一行<br>
-将两行合并：分号使得一行内可以输入多条命令<br>
-if test -r errfile; then<br>
-then行可以和cat合并成一行<br>
-和C语言不同的是：if的语法中then与else或fi配对，使得不需要花括号这样的命令组合</p>
-<h2 id="case结构多条件分支">case结构：多条件分支</h2>
-<p><img src="https://zjy98.github.io/post-images/1588836013374.png" alt="" loading="lazy"><br>
-;;是一个整体，不能在两个分号之间加空格，也不能用两个连续的空行代替<br>
-word与pattern匹配，使用shell的文件名匹配规则<br>
-可以使用竖线表示多个模式<br>
-word与多个模式匹配时，执行遇到的第一个命令表</p>
-<h2 id="shell脚本中的注释">shell脚本中的注释</h2>
-<p>shell中使用#号注释<br>
-#号出现在一个单词的首部,那么从#号至行尾的所有字符都被忽略</p>
 ]]></content>
     </entry>
 </feed>
