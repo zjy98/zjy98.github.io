@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590165038567">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590340923148">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1590165038567" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590340923148" class="site-logo">
         <h1 class="site-title">给敦敦买炸猪排</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -156,6 +156,83 @@ p:使用环境变量PATH查找可执行文件<br>
 如果已有子进程终止，则立即返回<br>
 <img src="https://zjy98.github.io/post-images/1590080061781.png" alt="" loading="lazy"></li>
 </ul>
+<h1 id="写一个简单的shell">写一个简单的shell</h1>
+<h2 id="字符串库函数strtok">字符串库函数strtok</h2>
+<p><img src="https://zjy98.github.io/post-images/1590337219763.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337409218.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337794150.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337763764.png" alt="" loading="lazy"></p>
+<h2 id="库函数system运行一个命令">库函数system：运行一个命令</h2>
+<p>int system(char *string)<br>
+执行字符串传递的shell命令，可使用管道符和重定向<br>
+库函数system(),是利用系统调用fork,exec,wait实现的<br>
+<img src="https://zjy98.github.io/post-images/1590338359341.png" alt="" loading="lazy"></p>
+<h1 id="进程与文件描述符">进程与文件描述符</h1>
+<h2 id="活动文件目录afd">活动文件目录AFD</h2>
+<ul>
+<li>磁盘文件目录（分2级）<br>
+文件名，i节点</li>
+<li>活动文件目录（分3级）<br>
+文件描述符表FDT：每个进程一张，PCB的user结构中<br>
+user结构中整型数组u_ofile记录进程打开的文件<br>
+文件描述符fd是u_ofile数组的下标<br>
+系统文件表SFT：整个核心一张，file结构</li>
+</ul>
+<pre><code class="language-c">struct file{
+    char f_flag; //读写操作要求
+    char f_count;//引用计数
+    long f_offset;//文件读写位置指针
+    int f_inode;//内核中inode数组的下标
+}
+</code></pre>
+<p>活动i节点表：整个核心一张，inode结构<br>
+内存中inode表是外存中inode的缓冲<br>
+内存inode表里也有个专用的引用计数<br>
+<img src="https://zjy98.github.io/post-images/1590338772959.png" alt="" loading="lazy"></p>
+<h2 id="文件描述符的继承和关闭">文件描述符的继承和关闭</h2>
+<p>fork创建的子进程继承父进程的文件描述符表<br>
+父进程在fork前打开的文件，父子进程有相同的文件偏移<br>
+<img src="https://zjy98.github.io/post-images/1590339425330.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590339445517.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590339714460.png" alt="" loading="lazy"></p>
+<h1 id="重定向">重定向</h1>
+<p>类似文件描述符的复制</p>
+<ul>
+<li>系统调用<br>
+int dup2(int fd1,int fd2)</li>
+<li>功能<br>
+复制文件描述符fd1到fd2<br>
+fd2可以是空闲的文件描述符<br>
+如果fd2是已打开文件，则关闭已打开文件<br>
+<img src="https://zjy98.github.io/post-images/1590339931448.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590340733716.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590340790365.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="错题">错题：</h1>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+int main(void)
+{
+    int i = 0;
+    printf(&quot;PID=%d\n&quot;, getpid());
+    for (;;) {
+        if (!fork())
+            return 0;
+        sleep(1);
+        printf(&quot;%d\n&quot;, ++i);
+    }
+}
+</code></pre>
+<p>编译链接后生成的可执行程序为foo，运行./foo得到的第一行输出为：</p>
+<p>PID=7812</p>
+<p>然后程序继续运行，一段时间以后，在其他终端上执行vi bar.c失败，得到的提示信息为：</p>
+<p>-bash: fork: retry: Resource temporarily unavailable</p>
+<p>A.<br>
+**在另外一个终端上执行kill 7812之后，系统恢复正常 **</p>
+<p>程序中第9行if  (!fork())应该修改为if (fork() == 0)。尽管语义相同，但可读性不好，前者容易误导别人是判断fork失败，fork失败将不创建子进程，实际上是fork成功且自身是子进程。<br>
+fork()后子进程直接终止，就是产生了僵尸，但是父进程没有执行wait消除僵尸。kill是内部命令，不需要创建新的进程，Ctrl-C也不需要创建进程，所以可以把foo进程杀死，foo的所有子进程（尽管都是僵尸状态），不会成为foo的父进程的子进程，而是成为操作系统进程1的子进程，1号进程会删除僵尸子进程，系统恢复正常，可以创建新的进程。reboot和killall都是外部命令，需要启动新的进程，当僵尸进程把操作系统内核中的全部进程槽占满了之后，启动失败。<br>
+如果foo进程是一个网络服务后台进程，脱离终端在后台运行，出现这样的问题，任何用户也不可能再完成登录，因为登录就需要创建shell进程，就算知道了PID连执行kill命令的机会都没有。执行关机命令的机会都没有，就麻烦了。<br>
+如果foo进程是后台进程没有机会Ctrl-C，即使有一个已登录的终端，若不知道进程的PID号，ps运行不了，也没法完成kill</p>
 
             </div>
             
