@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>Just FOR 1998</title>
-    <updated>2020-05-24T17:43:08.547Z</updated>
+    <updated>2020-05-31T10:54:05.601Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -11,17 +11,240 @@
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Just FOR 1998</rights>
     <entry>
+        <title type="html"><![CDATA[信号和重定向]]></title>
+        <id>https://zjy98.github.io/post/xin-hao-he-chong-ding-xiang/</id>
+        <link href="https://zjy98.github.io/post/xin-hao-he-chong-ding-xiang/">
+        </link>
+        <updated>2020-05-29T10:27:10.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="管道">管道</h1>
+<ul>
+<li>
+<p>创建管道<br>
+int pipe(int pfd[2])<br>
+int pipe(int *pfd)<br>
+int pipe(int pfd[])<br>
+创建一个管道，pfd[0]和pfd[1]分别为管道两端的文件描述字，pfd[0]用于读，pfd[1]用于写</p>
+</li>
+<li>
+<p>管道写<br>
+ret = write(pfd[1],buf,n)<br>
+若管道已满，则被阻塞，直到管道另一端read将已进入管道的数据读走为止<br>
+管道容量：某一有限值，如8192字，与操作系统实现相关。</p>
+</li>
+<li>
+<p>管道读<br>
+ret = read(pfd[0],buf,n)<br>
+若管道写端已关闭，则返回0<br>
+若管道为空，且写端文件描述自未关闭，则被阻塞<br>
+若管道不为空（设管道中实际有m个字节）<br>
+n≥m 则读m个<br>
+n＜m则读n个<br>
+实际读取的数目作为read的返回值<br>
+注意：管道是无记录边界的字节流通信</p>
+<ul>
+<li>
+<p>关闭管道close<br>
+关闭写端则读端read调用返回0<br>
+关闭读端则写端write导致进程收到SIGPIPE信号（默认处理是终止进程，则信号可以被捕捉）<br>
+写端wirte返回-1 errno被设为EPIPE<br>
+<img src="https://zjy98.github.io/post-images/1590903131169.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590903228189.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590903944349.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>管道传输是一个无记录边界的字节流<br>
+写端一次write所发数据读端可能需多次read才能读取<br>
+写端多次write所发数据读端可能一次read就全部读出</p>
+</li>
+<li>
+<p>父子进程需要双向通信时，应采用两个管道<br>
+用一个管道，进程可能会受到自己刚写到管道取的数据<br>
+仅仅使用一个管道并增加其他同步方式也可以，太复杂</p>
+</li>
+<li>
+<p>父子进程使用两个管道传递数据，有可能死锁<br>
+父进程因输出管道满而写，导致被阻塞<br>
+子进程因需要向父进程写回足够多的数据而导致写也被阻塞，产生死锁<br>
+多进程通信问题必须仔细分析流量控制和死锁问题<br>
+** 管道的缺点：没有记录边界 **<br>
+在xshe2加入管道命令<br>
+<img src="https://zjy98.github.io/post-images/1590904371891.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590904423569.png" alt="" loading="lazy"><br>
+注意fork后，要关闭写端。close(fd[1])自己的进程没关闭，父进程已经死亡，还有人在写，会死锁。<br>
+不需要的文件描述符必须关闭，把资源留出来。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>命名管道<br>
+pipe创建的管道（匿名管道）的缺点：只限于同祖先进程间通信<br>
+命名管道：允许不相干的进程（没有共同的祖先）访问FIFO管道<br>
+命名管道的创建：<br>
+用命令 mknod pipe0 p<br>
+创建一个文件，名字为pipe0<br>
+用ls -l 列出时，文件类型为p<br>
+发送者：fd = open(&quot;pipe0&quot;,O_WRONLY);<br>
+write(fd,buf,len);<br>
+接收者：fd = open(&quot;pipe0&quot;,O_RDONLY);<br>
+read = (fd,buf,sizeof(buf));</p>
+</li>
+</ul>
+<h1 id="信号">信号</h1>
+<h2 id="信号的产生和类型">信号的产生和类型</h2>
+<ul>
+<li>命令kill<br>
+kill -signal PID-list<br>
+kill命令用于向进程发送一个信号<br>
+kill 1275 向进程1275的进程发送信号，默认信号为15，一般会导致进程死亡<br>
+kill -9 1326 向进程1326发送信号9，导致进程死亡</li>
+</ul>
+<h2 id="进程组">进程组</h2>
+<p>进程在其PCB结构中有p_pgrp域<br>
+p_pgrp都相同的进程构成一个进程组<br>
+如果p_pgrp=p_pid则该进程是组长<br>
+setsid()系统调用将PCB中的p_pgrp改为进程自己的PID，从而脱离原进程组，成为新进程组的组长<br>
+fork创建的进程继承父进程p_pgrp,与父进程同组<br>
+举例：kill命令的PID为0时，向与本进程同组的所有进程发送信号</p>
+<h2 id="信号机制">信号机制</h2>
+<p>信号是送到进程的“软件中断“，通知进程出现了非正常事件<br>
+信号的产生：<br>
+用户态进程：自己或者其他进程发出的 使用kill()或者alarm()调用<br>
+操作系统内核产生信号（往往由中断引发，也有软件触发）<br>
+段违例信号SIGSEGV：档进程试图存取它的地址空间以外的存储单元时，内核向进程发送段违例信号<br>
+浮点溢出信号SIGFPE:零做除数时，内核向进程发送浮点溢出信号<br>
+信号SIGPIPE:关闭管道读端则写端write导致进程收到信号SIGPIPE（纯粹软件产生）<br>
+<img src="https://zjy98.github.io/post-images/1590905582032.png" alt="" loading="lazy"></p>
+<h2 id="进程对信号的处理">进程对信号的处理</h2>
+<ul>
+<li>设置为缺省处理方式（大部分处理是程序中止，有的会产生core文件）</li>
+<li>信号被忽略</li>
+<li>信号被捕捉<br>
+用户事先注册好一个函数，当信号发生后就去执行这一函数<br>
+信号被设为缺省模式：signal(SIGINT,SIG_DFL)<br>
+信号被忽略：signal(SIGINT,SIG_IGN)<br>
+在执行了这个调用后，进程就不再收到SIGINT信号<br>
+注意：某信号被忽略，作为进程的一种属性被它的子进程继承<br>
+<img src="https://zjy98.github.io/post-images/1590910469169.png" alt="" loading="lazy"><br>
+信号的捕捉：<br>
+信号被捕捉并由一个用户函数来处理<br>
+信号到达时，这个函数将被调用来处理那个信号<br>
+<img src="https://zjy98.github.io/post-images/1590910630475.png" alt="" loading="lazy"><br>
+僵尸进程：</li>
+<li>僵尸子进程<br>
+子进程终止，将至进程（defunct或zombie）出现，父进程使用wait系统调用收尸后消除僵尸<br>
+僵尸进程不占用内存资源但占用内核proc表项，僵尸进程太多会导致proc表耗尽而无法再创建新进程</li>
+<li>子进程中止后的异步通知机制<br>
+子进程中止后，系统会向父进程发送信号SIGCLD</li>
+<li>不导致僵尸子进程出现的方法<br>
+忽略对SIGCLD信号的处理<br>
+signal(SIGCLD,SIG_IGN)<br>
+捕获SIGCLD信号，执行wait系统调用</li>
+</ul>
+<h2 id="发送信号">发送信号</h2>
+<ul>
+<li>系统调用kill<br>
+int kill(ind pid,int sig)<br>
+返回值：0--成功 1--失败</li>
+<li>kill调用分几种情况<br>
+当pid&gt;0时，向指定的进程发信号<br>
+当pid=0时，向与本进程同组的所有进程发信号<br>
+当pid&lt;\0时，向以-pid为组长的所有进程发信号<br>
+当sig=0时，则信号根本就没有发送，但可根据此判断一个已知PID的进程是否仍然运行<br>
+kill(pid,0);如果函数返回值为-1就可根据errno判断：errno=ESRRCH说明不存在pid进程</li>
+</ul>
+<h2 id="系统调用与信号">系统调用与信号</h2>
+<ul>
+<li>进程睡眠<br>
+系统调用执行时会导致进程处于睡眠状态<br>
+如：scanf(),sleep(),msgrcv()，操作外设的read(),write()等等</li>
+<li>睡眠进程收到信号后处理<br>
+进程正在睡眠时收到信号，进程就会从睡眠中被惊醒，系统调用立即被半途终止，返回值为-1，errno一般被设置为EINTR<br>
+注意：有的系统调用在特殊情况（与内核中的代码相关尤其是驱动程序）下睡眠很深，信号到达也不能将它惊醒（有的进程用kill -9也杀不死）<br>
+例如：sleep(1000)返回，有可能只睡眠了10秒</li>
+</ul>
+<h2 id="pause与alarm系统调用">pause与alarm系统调用</h2>
+<ul>
+<li>pause()<br>
+等待信号，进程收到信号前一直处于睡眠状态</li>
+<li>设置进程报警时钟（闹钟）<br>
+int alarm(int secs)<br>
+进程报警时存储在它内核系统数据中，报警时钟到时，进程收到SIGALRM信号<br>
+子进程继承父进程的报警时钟值，报警时钟exec执行后保持这一设置<br>
+进程收到SIGALRM后的默认处理是终止进程<br>
+（可以利用这一功能，fork后exec前做设置，限制加载程序的执行时间）<br>
+alarm参数为secs<br>
+当secs&gt;0时，将时钟设置成secs指定的秒数<br>
+当secs=0时，关闭报警时钟<br>
+<img src="https://zjy98.github.io/post-images/1590920846887.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="全局跳转">全局跳转</h1>
+<p><img src="https://zjy98.github.io/post-images/1590920931109.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590920981726.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921013677.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921196135.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921258872.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921387846.png" alt="" loading="lazy"></p>
+<p>关于信号：<br>
+破坏了程序顺序执行的模型，导致重入<br>
+例如：程序中有printf,在信号处理程序中也有printf<br>
+sigaction()<br>
+signal()的升级版本，使用起来更复杂<br>
+其他编程语言中的try-catch-finally结构</p>
+<p>错题：<br>
+1.在一个普通函数中，goto语句可以实现函数内部语句之间的跳转。全局跳转可以实现跨函数之间的跳转，但是只能跳转到本函数或本函数调用嵌套之外层函数的某一执行过的位置恢复运行。之前程序运行从这一位置到全局跳转前的这段时间里新诞生的局部变量都被销毁，但对全局变量的修改无法恢复。（对）<br>
+2.在xsh2.c样例程序中，主循环结束前执行了close(fd[0])。如果省略了此操作，下面哪个说法正确？<br>
+A.<br>
+管道读写端子进程都能正常运行结束并且完成预定的功能，但父进程文件描述符资源不能正常回收，多轮循环以后资源耗尽程序将无法完成预期功能<br>
+3.进程设置捕获某信号后执行函数a，当进程处于阻塞状态时收到这个信号，进程将转去执行函数a，函数a执行完毕，进程将重返之前的阻塞状态，等待条件满足后退出阻塞状态。（错）</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[循环神经网络]]></title>
+        <id>https://zjy98.github.io/post/xun-huan-shen-jing-wang-luo/</id>
+        <link href="https://zjy98.github.io/post/xun-huan-shen-jing-wang-luo/">
+        </link>
+        <updated>2020-05-29T00:16:13.000Z</updated>
+        <content type="html"><![CDATA[<p>给定样本x,学习器为其赋予一个类别（label)y或推导出其在y上的概率分布<br>
+eg. hw(x)=w0+w1x或h(x)=argmaxkP(yk|x)<br>
+<img src="https://zjy98.github.io/post-images/1590711475192.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590711517764.png" alt="" loading="lazy"><br>
+特点：<br>
+不同于在样本上做多个独立预测，而是假设样本之间存在关联，进而在样本序列上做预测（或序列预测）<br>
+问题：<br>
+如何建模序列内部的关联？<br>
+如何从一个输入序列，预测对应的输出序列？</p>
+<h1 id="建模序列数据">建模序列数据</h1>
+<p>采用链式法则表示一个观测序列的联合概率？<br>
+<img src="https://zjy98.github.io/post-images/1590711659849.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590711664437.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590711668302.png" alt="" loading="lazy"></p>
+<p>如果考虑两个不同的序列，例如输入和输出序 列，如何采用Markov模型建模？<br>
+隐马尔可夫模型(Hidden Markov Model, HMM) – 一个经典的建模序列数据的模型：<br>
+<img src="https://zjy98.github.io/post-images/1590714787668.png" alt="" loading="lazy"></p>
+<h1 id="循环神经网络rnn">循环神经网络RNN</h1>
+<p><img src="https://zjy98.github.io/post-images/1590714779504.png" alt="" loading="lazy"><br>
+U：输入层到隐层<br>
+V：隐层到输出层<br>
+W：隐层到隐层</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[本周计划]]></title>
         <id>https://zjy98.github.io/post/ben-zhou-ji-hua/</id>
         <link href="https://zjy98.github.io/post/ben-zhou-ji-hua/">
         </link>
         <updated>2020-05-24T17:34:58.000Z</updated>
         <content type="html"><![CDATA[<ol>
-<li>交换原理的的课看完，作业写了（周一）</li>
-<li>计算机系统结构实验（周一/周二上午写了）</li>
-<li>机器学习实验3（周五前写完）</li>
-<li>Linux课看完，实验写了（周四周五周六周日）</li>
-<li>软工再继续写，能收发消息！（看情况周日前）</li>
+<li>交换原理的的课看完，作业写了（周一）√</li>
+<li>周一下午练车√</li>
+<li>计算机系统结构实验（周一/周二上午写了）√</li>
+<li>机器学习实验3（周五前写完）√</li>
+<li>Linux课看完，实验写了（周四周五周六周日）DDL：6月4</li>
+<li>软工再继续写，能收发消息！（看情况周日前）DDL：6月13 （下周三前写好初版）</li>
+<li>交换原理的实验代码准备（下周日前交）</li>
+<li>OS实验（周一开会）</li>
+<li>准备开始复习计算机系统结构：看书→作业→PPT<br>
+10.机器学习决策树实验DDL：6月15 循环神经网络DDL：6月19</li>
 </ol>
 ]]></content>
     </entry>
@@ -484,34 +707,37 @@ r:除了走到100是100其他都是-1</p>
 长度：字节为单位<br>
 访问：读写指针,通过穷举搜索的方式访问.</li>
 </ul>
-<p>读书笔记：<br>
-关于操作系统启动的最重要的一个概念就是Boot Sector，也就是引导扇区，通常指设备的第一个扇区，用于加载并转让处理器控制权给操作系统。</p>
-<p>硬盘的0柱面、0磁头、1扇区称为主引导扇区，也叫主引导记录MBR，该记录占用512个字节，它用于硬盘启动时将系统控制权转给用户指定的、在分区表中登记了某个操作系统分区。MBR的内容是在硬盘分区时由分区软件写入该扇区的，MBR不属于任何一个操作系统，不随操作系统的不同而不同，即使不同，MBR也不会夹带操作系统的性质，具有公共引导的特性。但安装某些多重引导功能的软件或LINUX的LILO时有可能改写它，它先于所有的操作系统被调入内存并发挥作用，然后才将控制权交给活动主分区内的操作系统</p>
-<p>MBR的功能<br>
-1．扫描分区表查找活动分区；<br>
-2．寻找活动分区的起始扇区；<br>
-3．将活动分区的引导扇区读到内存；<br>
-4．执行引导扇区的运行代码。</p>
-<p>使用 nasm os.asm -o os.img 命令将汇编代码转变为一个镜像文件，然后在虚拟机中使用了。</p>
-<p>在IA32下，CPU有两种工作模式：实模式和保护模式。当我们打开自己的PC，开始时CPU是工作在实模式下的，经过 某种机制之后，才进入保护模式。在保护模式下，CPU有着巨大的寻址能力，并为强大的32位操作系统提供了更好的硬件保障。</p>
-<p>参考代码：<br>
-支持进程工作目录 提供getcwd与chdir</p>
-<p>新的syscall</p>
-<p>SYS_env_set_workpath 修改工作路径<br>
-新的用户程序<br>
-ls 功能完善<br>
-pwd 输出当前工作目录<br>
-cat 接入工作目录<br>
-touch 由于文件属性没啥可改的，用于创建文件<br>
-mkdir 创建目录文件<br>
-msh 更高级的shell 还未完全完工 支持cd 支持默认二进制路径为 bin<br>
-调整目标磁盘生成工具</p>
-<p>底层与磁盘有关的丢给ide_xx来实现，因为要用到IO中断，要给对应的权限<br>
-通过bc_pgfault来实现缺页自己映射，利用flush_block来回写磁盘<br>
-然后通过分block利用block cache实现对于磁盘的数据读入内存或者写回磁盘<br>
-再上面一层的file_read与file_write，均是对于blk的操作。<br>
-再上面就是文件系统服务器，通过调用file_read实现功能了。<br>
-客户端通过对需求打包，发送IPC给文件系统服务器，即可实现读／写文件的功能。</p>
+<h1 id="引导知识">引导知识</h1>
+<p>引导程序在计算机启动时运行，按照我们的想法一步步加载真正的操作系统<br>
+硬件人员将第一个扇区作为引导扇区，当计算机上电时，BIOS完成电脑自身的加电自检，之后BIOS去寻找存储介质，在盘上寻找引导扇区，如果引导扇区的结尾是0xAA55的话，计算机就认为这一个是正确的引导扇区，一个扇区的大小为512字节。<br>
+一旦发现了正确的引导扇区，就会将这512字节的内容装载到内存的0000:7c00处。然后跳转到0000:7c00处将控制权完全交给这段代码。到此为止，计算机不再由BIOS控制而由引导扇区中代码控制。<br>
+我们只需要编写一段代码将其编译成机器能执行的二进制程序，然后将其写入到软盘或硬盘的引导扇区中，并将该介质设置为启动盘，那么计算机加电启动时就会自动去执行这一段代码，这样我们的计算机就从什么都没有到屏幕上的一行行输出，都是代码去控制的了。</p>
+<h1 id="fat12文件系统">FAT12文件系统</h1>
+<p>FAT12是DOS时代就开始使用的文件系统，现在仍然在软盘上使用，几乎所有的文件系统都会把磁盘划分为若干层次以方便组织和管理。这些层次包括：<br>
+扇区(Sector)磁盘上的最小数据单元<br>
+簇(Cluster)一个或多个扇区<br>
+分区(Partition)通常指整个文件系统<br>
+引导扇区是整个软盘的第0个扇区，在这个扇区有一个很重要的数据结构叫BPB。<br>
+紧接着引导扇区的是两个完全相同的FAT表，每个FAT占用9个扇区。第二个FAT之后是根目录区的第一个扇区，根目录区的后面是数据区。<br>
+我们是要把loader复制到软盘上并让引导扇区找到并加载它，那么久来看一下引导扇区通过怎样的步骤才能找到文件，以及如何能把文件内容全都读出来放在内存里。<br>
+为简单起见，我们规定Loader只能放在根目录中，而根目录信息放在FAT2后面的根目录中<br>
+<img src="https://zjy98.github.io/post-images/1590577734643.png" alt="" loading="lazy"><br>
+根目录区位于第二个FAT表之后，开始的扇区号为19它由若干个目录条目组成，条目最多由BPB_RootEntCnt个，由于根目录区的大小是依赖于BPB_RootEntCnt的，所以长度不固定。<br>
+<img src="https://zjy98.github.io/post-images/1590582655659.png" alt="" loading="lazy"><br>
+主要关注：文件名和文件大小。</p>
+<p>创建一个虚拟软盘，假设是FLOOPY.img，然后把它作为VituralPC的A盘，格式化后就可以方便地往其中添加文件和目录了，这样，当我们想查看它的格式时，只需要用二进制查看器打开FLOOPY.img就可以了<br>
+在虚拟软盘中添加以下几个文件：</p>
+<ul>
+<li>RIVER.txt 内容为riverriverriver</li>
+<li>FLOWER.txt 内容为30个单词flower，用来测试文件跨越扇区的情况（可以先建一个小文件，再改长，这样可以让他对应的簇不连续）</li>
+<li>TREE.txt 内容为treetreetree<br>
+再添加一个HOUSE目录，然后在\HOUSE下添加两个文本文件</li>
+<li>CAT.txt catcatcat</li>
+<li>DOG.txt dogdogdog<br>
+由于根目录从19扇区开始，每个扇区512字节，所以第一个字节位于偏移19*512=9728=0x2600</li>
+</ul>
+<p>文件在磁盘中没有存放在连续的扇区，这种情况被称为“磁盘碎片”。Windows 中的磁盘整理工具，就是用来将扇区内容重新排列，以减少磁盘碎片的程序。<br>
+程序的结构很简单。首先，由于压缩状态的FAT很难使用，因此我们先用file_readfat将其展 开到fat[]。 然后，在type命令中，我们先分配一块和文件大小相同的内存空间，用file_loadfile将文件的 内容读入内存。这样一来内存中的文件内容已经排列为正确的顺序，使用之前的程序来显示文件 内容即可。显示完成后，释放用于临时存放文件内容的内存空间。</p>
 ]]></content>
     </entry>
     <entry>
@@ -626,93 +852,6 @@ Group Average:优势：对噪音和极端值影响小 不足：偏好球形簇</
 <img src="https://zjy98.github.io/post-images/1588900698295.png" alt="" loading="lazy"><br>
 <img src="https://zjy98.github.io/post-images/1588900703815.png" alt="" loading="lazy"><br>
 <img src="https://zjy98.github.io/post-images/1588900708906.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[函数]]></title>
-        <id>https://zjy98.github.io/post/han-shu/</id>
-        <link href="https://zjy98.github.io/post/han-shu/">
-        </link>
-        <updated>2020-05-07T16:59:56.000Z</updated>
-        <content type="html"><![CDATA[<p>语法：<br>
-name() {list;}<br>
-函数定义完成之后，该函数名作为一个自定义内部命令执行，后面可以调用，调用时函数名后附加0到多个参数，在函数体内部以$1,$2...或$*,$@方式引用。函数体内用内部命令return使函数，0表示成功，非0表示失败。函数内部可以创建和修改变量</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[表达式运算 循环]]></title>
-        <id>https://zjy98.github.io/post/biao-da-shi-yun-suan-xun-huan/</id>
-        <link href="https://zjy98.github.io/post/biao-da-shi-yun-suan-xun-huan/">
-        </link>
-        <updated>2020-05-07T07:25:42.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="表达式运算">表达式运算</h1>
-<p>shell不支持除字符串外的数据类型，不支持加减乘除等算数运算和关于字符串的正则表达式运算<br>
-需要这些功能，借助于shell之外的可执行程序<br>
-/usr/bin/expr实现<br>
-有的shell（包括bash)为了提高执行效率，提供内部命令版本的echo,printf,expr,test,[等命令，但这仅仅是一种性能优化措施。只依赖外部命令完全可以实现</p>
-<h2 id="expr命令">expr命令</h2>
-<p><img src="https://zjy98.github.io/post-images/1588836535381.png" alt="" loading="lazy"><br>
-注意：应该有的空格的地方不允许漏掉<br>
-应该转义的地方必须加反斜线转义<br>
-<img src="https://zjy98.github.io/post-images/1588836695143.png" alt="" loading="lazy"><br>
-正则表达式运算：<br>
-用法：expr string : pattern<br>
-正则表达式pattern匹配字符串string,打印匹配长度<br>
-pattern中用\和)括起一部分，能匹配时打印括号内能匹配的部分，否则为空字符串<br>
-<img src="https://zjy98.github.io/post-images/1588850083889.png" alt="" loading="lazy"><br>
--w:限时1秒</p>
-<h1 id="while循环">while循环</h1>
-<p>while condition<br>
-do list<br>
-done<br>
-例如：等待文件 lockfile 消失：<br>
-while test -r lockfile<br>
-do<br>
-sleep 5<br>
-done<br>
-正确的写法：<br>
-while test -r lockfile; do<br>
-sleep 5<br>
-done<br>
-do要和while要加分号<br>
-或者全写1行 while test -r lockfile; do sleep 5;done</p>
-<h1 id="内部命令eval">内部命令eval</h1>
-<p>将程序中输入的或者加工出来的数据作为程序来执行</p>
-<ul>
-<li>解释和编译</li>
-<li>将数据（程序生成的数据或者外部输入的数据）当做程序来执行是只有解释型语言才可能具备的特点，类似C这样的编译型语言无法具备这样的功能（但可以通过动态链接的方式，在程序运行期间不停止程序的运行有限度地变换处理程序）<br>
-<img src="https://zjy98.github.io/post-images/1588853579915.png" alt="" loading="lazy"></li>
-</ul>
-<h1 id="for循环">for循环</h1>
-<p>for name in word1 word2...<br>
-do list<br>
-done<br>
-每次从表格里取一个词执行<br>
-for name<br>
-do list<br>
-done<br>
-相当于<br>
-for name in $1 $2<br>
-do list<br>
-done<br>
-每次取命令行参数1个<br>
-seq命令：<br>
-for i in <code>seq 1 254\</code><br>
-do<br>
-ping -c 1 -w 1 192.168.0$i<br>
-done<br>
-每次取i，1到254<br>
-可以直接写为一整行<br>
-<img src="https://zjy98.github.io/post-images/1588870464114.png" alt="" loading="lazy"><br>
-先判断目录是否存在，在etc这个目录下照rc.d这个子目录，二级目录执行完再执行一级目录，如果rc.d下还有子目录，再执行</p>
-<p>break,continue,exit 和C语言类似</p>
-<ul>
-<li>break:循环结构for/while中使用，中止循环<br>
-例：break break2(可以打破两层循环)</li>
-<li>continue 提前结束本轮循环</li>
-<li>exit:结束脚本程序的执行，退出。exit的参数为该进程执行结束后的返回码<br>
-例：exit 1</li>
-</ul>
 ]]></content>
     </entry>
 </feed>

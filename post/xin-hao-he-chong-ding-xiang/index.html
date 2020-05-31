@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>信号和重定向 | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590922441709">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590922441709" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">信号和重定向</h2>
+            <div class="post-date">2020-05-29</div>
+            
+            <div class="post-content">
+              <h1 id="管道">管道</h1>
+<ul>
+<li>
+<p>创建管道<br>
+int pipe(int pfd[2])<br>
+int pipe(int *pfd)<br>
+int pipe(int pfd[])<br>
+创建一个管道，pfd[0]和pfd[1]分别为管道两端的文件描述字，pfd[0]用于读，pfd[1]用于写</p>
+</li>
+<li>
+<p>管道写<br>
+ret = write(pfd[1],buf,n)<br>
+若管道已满，则被阻塞，直到管道另一端read将已进入管道的数据读走为止<br>
+管道容量：某一有限值，如8192字，与操作系统实现相关。</p>
+</li>
+<li>
+<p>管道读<br>
+ret = read(pfd[0],buf,n)<br>
+若管道写端已关闭，则返回0<br>
+若管道为空，且写端文件描述自未关闭，则被阻塞<br>
+若管道不为空（设管道中实际有m个字节）<br>
+n≥m 则读m个<br>
+n＜m则读n个<br>
+实际读取的数目作为read的返回值<br>
+注意：管道是无记录边界的字节流通信</p>
+<ul>
+<li>
+<p>关闭管道close<br>
+关闭写端则读端read调用返回0<br>
+关闭读端则写端write导致进程收到SIGPIPE信号（默认处理是终止进程，则信号可以被捕捉）<br>
+写端wirte返回-1 errno被设为EPIPE<br>
+<img src="https://zjy98.github.io/post-images/1590903131169.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590903228189.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590903944349.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>管道传输是一个无记录边界的字节流<br>
+写端一次write所发数据读端可能需多次read才能读取<br>
+写端多次write所发数据读端可能一次read就全部读出</p>
+</li>
+<li>
+<p>父子进程需要双向通信时，应采用两个管道<br>
+用一个管道，进程可能会受到自己刚写到管道取的数据<br>
+仅仅使用一个管道并增加其他同步方式也可以，太复杂</p>
+</li>
+<li>
+<p>父子进程使用两个管道传递数据，有可能死锁<br>
+父进程因输出管道满而写，导致被阻塞<br>
+子进程因需要向父进程写回足够多的数据而导致写也被阻塞，产生死锁<br>
+多进程通信问题必须仔细分析流量控制和死锁问题<br>
+** 管道的缺点：没有记录边界 **<br>
+在xshe2加入管道命令<br>
+<img src="https://zjy98.github.io/post-images/1590904371891.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590904423569.png" alt="" loading="lazy"><br>
+注意fork后，要关闭写端。close(fd[1])自己的进程没关闭，父进程已经死亡，还有人在写，会死锁。<br>
+不需要的文件描述符必须关闭，把资源留出来。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>命名管道<br>
+pipe创建的管道（匿名管道）的缺点：只限于同祖先进程间通信<br>
+命名管道：允许不相干的进程（没有共同的祖先）访问FIFO管道<br>
+命名管道的创建：<br>
+用命令 mknod pipe0 p<br>
+创建一个文件，名字为pipe0<br>
+用ls -l 列出时，文件类型为p<br>
+发送者：fd = open(&quot;pipe0&quot;,O_WRONLY);<br>
+write(fd,buf,len);<br>
+接收者：fd = open(&quot;pipe0&quot;,O_RDONLY);<br>
+read = (fd,buf,sizeof(buf));</p>
+</li>
+</ul>
+<h1 id="信号">信号</h1>
+<h2 id="信号的产生和类型">信号的产生和类型</h2>
+<ul>
+<li>命令kill<br>
+kill -signal PID-list<br>
+kill命令用于向进程发送一个信号<br>
+kill 1275 向进程1275的进程发送信号，默认信号为15，一般会导致进程死亡<br>
+kill -9 1326 向进程1326发送信号9，导致进程死亡</li>
+</ul>
+<h2 id="进程组">进程组</h2>
+<p>进程在其PCB结构中有p_pgrp域<br>
+p_pgrp都相同的进程构成一个进程组<br>
+如果p_pgrp=p_pid则该进程是组长<br>
+setsid()系统调用将PCB中的p_pgrp改为进程自己的PID，从而脱离原进程组，成为新进程组的组长<br>
+fork创建的进程继承父进程p_pgrp,与父进程同组<br>
+举例：kill命令的PID为0时，向与本进程同组的所有进程发送信号</p>
+<h2 id="信号机制">信号机制</h2>
+<p>信号是送到进程的“软件中断“，通知进程出现了非正常事件<br>
+信号的产生：<br>
+用户态进程：自己或者其他进程发出的 使用kill()或者alarm()调用<br>
+操作系统内核产生信号（往往由中断引发，也有软件触发）<br>
+段违例信号SIGSEGV：档进程试图存取它的地址空间以外的存储单元时，内核向进程发送段违例信号<br>
+浮点溢出信号SIGFPE:零做除数时，内核向进程发送浮点溢出信号<br>
+信号SIGPIPE:关闭管道读端则写端write导致进程收到信号SIGPIPE（纯粹软件产生）<br>
+<img src="https://zjy98.github.io/post-images/1590905582032.png" alt="" loading="lazy"></p>
+<h2 id="进程对信号的处理">进程对信号的处理</h2>
+<ul>
+<li>设置为缺省处理方式（大部分处理是程序中止，有的会产生core文件）</li>
+<li>信号被忽略</li>
+<li>信号被捕捉<br>
+用户事先注册好一个函数，当信号发生后就去执行这一函数<br>
+信号被设为缺省模式：signal(SIGINT,SIG_DFL)<br>
+信号被忽略：signal(SIGINT,SIG_IGN)<br>
+在执行了这个调用后，进程就不再收到SIGINT信号<br>
+注意：某信号被忽略，作为进程的一种属性被它的子进程继承<br>
+<img src="https://zjy98.github.io/post-images/1590910469169.png" alt="" loading="lazy"><br>
+信号的捕捉：<br>
+信号被捕捉并由一个用户函数来处理<br>
+信号到达时，这个函数将被调用来处理那个信号<br>
+<img src="https://zjy98.github.io/post-images/1590910630475.png" alt="" loading="lazy"><br>
+僵尸进程：</li>
+<li>僵尸子进程<br>
+子进程终止，将至进程（defunct或zombie）出现，父进程使用wait系统调用收尸后消除僵尸<br>
+僵尸进程不占用内存资源但占用内核proc表项，僵尸进程太多会导致proc表耗尽而无法再创建新进程</li>
+<li>子进程中止后的异步通知机制<br>
+子进程中止后，系统会向父进程发送信号SIGCLD</li>
+<li>不导致僵尸子进程出现的方法<br>
+忽略对SIGCLD信号的处理<br>
+signal(SIGCLD,SIG_IGN)<br>
+捕获SIGCLD信号，执行wait系统调用</li>
+</ul>
+<h2 id="发送信号">发送信号</h2>
+<ul>
+<li>系统调用kill<br>
+int kill(ind pid,int sig)<br>
+返回值：0--成功 1--失败</li>
+<li>kill调用分几种情况<br>
+当pid&gt;0时，向指定的进程发信号<br>
+当pid=0时，向与本进程同组的所有进程发信号<br>
+当pid&lt;\0时，向以-pid为组长的所有进程发信号<br>
+当sig=0时，则信号根本就没有发送，但可根据此判断一个已知PID的进程是否仍然运行<br>
+kill(pid,0);如果函数返回值为-1就可根据errno判断：errno=ESRRCH说明不存在pid进程</li>
+</ul>
+<h2 id="系统调用与信号">系统调用与信号</h2>
+<ul>
+<li>进程睡眠<br>
+系统调用执行时会导致进程处于睡眠状态<br>
+如：scanf(),sleep(),msgrcv()，操作外设的read(),write()等等</li>
+<li>睡眠进程收到信号后处理<br>
+进程正在睡眠时收到信号，进程就会从睡眠中被惊醒，系统调用立即被半途终止，返回值为-1，errno一般被设置为EINTR<br>
+注意：有的系统调用在特殊情况（与内核中的代码相关尤其是驱动程序）下睡眠很深，信号到达也不能将它惊醒（有的进程用kill -9也杀不死）<br>
+例如：sleep(1000)返回，有可能只睡眠了10秒</li>
+</ul>
+<h2 id="pause与alarm系统调用">pause与alarm系统调用</h2>
+<ul>
+<li>pause()<br>
+等待信号，进程收到信号前一直处于睡眠状态</li>
+<li>设置进程报警时钟（闹钟）<br>
+int alarm(int secs)<br>
+进程报警时存储在它内核系统数据中，报警时钟到时，进程收到SIGALRM信号<br>
+子进程继承父进程的报警时钟值，报警时钟exec执行后保持这一设置<br>
+进程收到SIGALRM后的默认处理是终止进程<br>
+（可以利用这一功能，fork后exec前做设置，限制加载程序的执行时间）<br>
+alarm参数为secs<br>
+当secs&gt;0时，将时钟设置成secs指定的秒数<br>
+当secs=0时，关闭报警时钟<br>
+<img src="https://zjy98.github.io/post-images/1590920846887.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="全局跳转">全局跳转</h1>
+<p><img src="https://zjy98.github.io/post-images/1590920931109.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590920981726.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921013677.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921196135.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921258872.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590921387846.png" alt="" loading="lazy"></p>
+<p>关于信号：<br>
+破坏了程序顺序执行的模型，导致重入<br>
+例如：程序中有printf,在信号处理程序中也有printf<br>
+sigaction()<br>
+signal()的升级版本，使用起来更复杂<br>
+其他编程语言中的try-catch-finally结构</p>
+<p>错题：<br>
+1.在一个普通函数中，goto语句可以实现函数内部语句之间的跳转。全局跳转可以实现跨函数之间的跳转，但是只能跳转到本函数或本函数调用嵌套之外层函数的某一执行过的位置恢复运行。之前程序运行从这一位置到全局跳转前的这段时间里新诞生的局部变量都被销毁，但对全局变量的修改无法恢复。（对）<br>
+2.在xsh2.c样例程序中，主循环结束前执行了close(fd[0])。如果省略了此操作，下面哪个说法正确？<br>
+A.<br>
+管道读写端子进程都能正常运行结束并且完成预定的功能，但父进程文件描述符资源不能正常回收，多轮循环以后资源耗尽程序将无法完成预期功能<br>
+3.进程设置捕获某信号后执行函数a，当进程处于阻塞状态时收到这个信号，进程将转去执行函数a，函数a执行完毕，进程将重返之前的阻塞状态，等待条件满足后退出阻塞状态。（错）</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/xun-huan-shen-jing-wang-luo/">
+                  <h3 class="post-title">
+                    循环神经网络
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

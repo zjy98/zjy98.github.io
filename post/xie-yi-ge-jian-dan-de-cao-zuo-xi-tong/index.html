@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590342170725">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1590922441709">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1590342170725" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1590922441709" class="site-logo">
         <h1 class="site-title">Just FOR 1998</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -148,34 +148,37 @@
 长度：字节为单位<br>
 访问：读写指针,通过穷举搜索的方式访问.</li>
 </ul>
-<p>读书笔记：<br>
-关于操作系统启动的最重要的一个概念就是Boot Sector，也就是引导扇区，通常指设备的第一个扇区，用于加载并转让处理器控制权给操作系统。</p>
-<p>硬盘的0柱面、0磁头、1扇区称为主引导扇区，也叫主引导记录MBR，该记录占用512个字节，它用于硬盘启动时将系统控制权转给用户指定的、在分区表中登记了某个操作系统分区。MBR的内容是在硬盘分区时由分区软件写入该扇区的，MBR不属于任何一个操作系统，不随操作系统的不同而不同，即使不同，MBR也不会夹带操作系统的性质，具有公共引导的特性。但安装某些多重引导功能的软件或LINUX的LILO时有可能改写它，它先于所有的操作系统被调入内存并发挥作用，然后才将控制权交给活动主分区内的操作系统</p>
-<p>MBR的功能<br>
-1．扫描分区表查找活动分区；<br>
-2．寻找活动分区的起始扇区；<br>
-3．将活动分区的引导扇区读到内存；<br>
-4．执行引导扇区的运行代码。</p>
-<p>使用 nasm os.asm -o os.img 命令将汇编代码转变为一个镜像文件，然后在虚拟机中使用了。</p>
-<p>在IA32下，CPU有两种工作模式：实模式和保护模式。当我们打开自己的PC，开始时CPU是工作在实模式下的，经过 某种机制之后，才进入保护模式。在保护模式下，CPU有着巨大的寻址能力，并为强大的32位操作系统提供了更好的硬件保障。</p>
-<p>参考代码：<br>
-支持进程工作目录 提供getcwd与chdir</p>
-<p>新的syscall</p>
-<p>SYS_env_set_workpath 修改工作路径<br>
-新的用户程序<br>
-ls 功能完善<br>
-pwd 输出当前工作目录<br>
-cat 接入工作目录<br>
-touch 由于文件属性没啥可改的，用于创建文件<br>
-mkdir 创建目录文件<br>
-msh 更高级的shell 还未完全完工 支持cd 支持默认二进制路径为 bin<br>
-调整目标磁盘生成工具</p>
-<p>底层与磁盘有关的丢给ide_xx来实现，因为要用到IO中断，要给对应的权限<br>
-通过bc_pgfault来实现缺页自己映射，利用flush_block来回写磁盘<br>
-然后通过分block利用block cache实现对于磁盘的数据读入内存或者写回磁盘<br>
-再上面一层的file_read与file_write，均是对于blk的操作。<br>
-再上面就是文件系统服务器，通过调用file_read实现功能了。<br>
-客户端通过对需求打包，发送IPC给文件系统服务器，即可实现读／写文件的功能。</p>
+<h1 id="引导知识">引导知识</h1>
+<p>引导程序在计算机启动时运行，按照我们的想法一步步加载真正的操作系统<br>
+硬件人员将第一个扇区作为引导扇区，当计算机上电时，BIOS完成电脑自身的加电自检，之后BIOS去寻找存储介质，在盘上寻找引导扇区，如果引导扇区的结尾是0xAA55的话，计算机就认为这一个是正确的引导扇区，一个扇区的大小为512字节。<br>
+一旦发现了正确的引导扇区，就会将这512字节的内容装载到内存的0000:7c00处。然后跳转到0000:7c00处将控制权完全交给这段代码。到此为止，计算机不再由BIOS控制而由引导扇区中代码控制。<br>
+我们只需要编写一段代码将其编译成机器能执行的二进制程序，然后将其写入到软盘或硬盘的引导扇区中，并将该介质设置为启动盘，那么计算机加电启动时就会自动去执行这一段代码，这样我们的计算机就从什么都没有到屏幕上的一行行输出，都是代码去控制的了。</p>
+<h1 id="fat12文件系统">FAT12文件系统</h1>
+<p>FAT12是DOS时代就开始使用的文件系统，现在仍然在软盘上使用，几乎所有的文件系统都会把磁盘划分为若干层次以方便组织和管理。这些层次包括：<br>
+扇区(Sector)磁盘上的最小数据单元<br>
+簇(Cluster)一个或多个扇区<br>
+分区(Partition)通常指整个文件系统<br>
+引导扇区是整个软盘的第0个扇区，在这个扇区有一个很重要的数据结构叫BPB。<br>
+紧接着引导扇区的是两个完全相同的FAT表，每个FAT占用9个扇区。第二个FAT之后是根目录区的第一个扇区，根目录区的后面是数据区。<br>
+我们是要把loader复制到软盘上并让引导扇区找到并加载它，那么久来看一下引导扇区通过怎样的步骤才能找到文件，以及如何能把文件内容全都读出来放在内存里。<br>
+为简单起见，我们规定Loader只能放在根目录中，而根目录信息放在FAT2后面的根目录中<br>
+<img src="https://zjy98.github.io/post-images/1590577734643.png" alt="" loading="lazy"><br>
+根目录区位于第二个FAT表之后，开始的扇区号为19它由若干个目录条目组成，条目最多由BPB_RootEntCnt个，由于根目录区的大小是依赖于BPB_RootEntCnt的，所以长度不固定。<br>
+<img src="https://zjy98.github.io/post-images/1590582655659.png" alt="" loading="lazy"><br>
+主要关注：文件名和文件大小。</p>
+<p>创建一个虚拟软盘，假设是FLOOPY.img，然后把它作为VituralPC的A盘，格式化后就可以方便地往其中添加文件和目录了，这样，当我们想查看它的格式时，只需要用二进制查看器打开FLOOPY.img就可以了<br>
+在虚拟软盘中添加以下几个文件：</p>
+<ul>
+<li>RIVER.txt 内容为riverriverriver</li>
+<li>FLOWER.txt 内容为30个单词flower，用来测试文件跨越扇区的情况（可以先建一个小文件，再改长，这样可以让他对应的簇不连续）</li>
+<li>TREE.txt 内容为treetreetree<br>
+再添加一个HOUSE目录，然后在\HOUSE下添加两个文本文件</li>
+<li>CAT.txt catcatcat</li>
+<li>DOG.txt dogdogdog<br>
+由于根目录从19扇区开始，每个扇区512字节，所以第一个字节位于偏移19*512=9728=0x2600</li>
+</ul>
+<p>文件在磁盘中没有存放在连续的扇区，这种情况被称为“磁盘碎片”。Windows 中的磁盘整理工具，就是用来将扇区内容重新排列，以减少磁盘碎片的程序。<br>
+程序的结构很简单。首先，由于压缩状态的FAT很难使用，因此我们先用file_readfat将其展 开到fat[]。 然后，在type命令中，我们先分配一块和文件大小相同的内存空间，用file_loadfile将文件的 内容读入内存。这样一来内存中的文件内容已经排列为正确的顺序，使用之前的程序来显示文件 内容即可。显示完成后，释放用于临时存放文件内容的内存空间。</p>
 
             </div>
             
