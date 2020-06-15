@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>牛客网错题 | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">牛客网错题</h2>
+            <div class="post-date">2020-06-10</div>
+            
+            <div class="post-content">
+              <h1 id="操作系统">操作系统</h1>
+<p>1.下列（静态页式管理）内存管理方法不能实现虚存<br>
+原因：<br>
+页式管理有：<br>
+静态页式管理；<br>
+动态页式管理；<br>
+其中，静态页式管理是在作业或进程执行前，把作业或进程全部装进内存中，如果内存中可用页面数小于请求页面数，该作业或进程等待。<br>
+动态页式管理不会把作业或进程一次性全部装进内存，只装入被反复调用或执行的部分，其他部分在执行过程中动态装入。</p>
+<p>2.流式文件是指无结构的文件，这种说法正确吗？<br>
+正确<br>
+原因：文件分为两大类：有结构文件（即记录式文件），无结构文件（即流式文件）。<br>
+大量的数据结构和数据库采用有结构文件，大量的源程序，可执行程序，库函数等采用无结构文件　其长度以字节为单位，对流式文件的访问是利用读写指针来指出下一个要访问的字符。<br>
+有结构的文件分为定长和不定长两类：<br>
+定长又分为：定长记录　变长记录两种<br>
+变长记录文件根据文件组织方式的不同又分为：<br>
+顺序文件，索引文件，索引顺序文件</p>
+<h1 id="数组">数组</h1>
+<p>1.数组元素的地址计算与数组的存储方式无关。请问这句话的说法是正确的吗？<br>
+错误<br>
+二维数组存储方式可以分为行优先和列优先俩种，所以数组的地址计算和数组的存储方式有关。</p>
+<h1 id="网络基础">网络基础</h1>
+<p>1.以下说法不正确的是（）<br>
+HTTP请求消息中Css表示初始URL中的主机和端口<br>
+原因： HTTP 请求消息中  Host  表示初始 URL 中的主机和端口 。</p>
+<p>2.下列哪个任务不是网络操作系统的基本任务？（    ）<br>
+明确本地资源与网络资源之间的差异<br>
+解析：网络操作系统的基本任务：<br>
+1.屏蔽本地资源与网络资源之间的差异<br>
+2.为用户提供基本的网络服务功能<br>
+3.管理网络系统的共享资源<br>
+4.提供网络系统的安全服务</p>
+<p>3.https协议默认端口号是8081，iptables既可以根据IP制定策略，也可以根据端口制定策略<br>
+0-1023是周知端口号</p>
+<p>4.网络接口卡是局域网组网需要的基本部件。网卡一端连接局域网中的计算机，另一端连接局域网的（传输介质）<br>
+原因：网卡是工作在链路层的网络组件，是局域网中连接计算机和传输介质的接口。-----百度百科<br>
+（其实网卡工作在一层和二层？</p>
+<p>5.在Web开发中，如何实现会话的跟踪？<br>
+四种方法实现会话跟踪：URL重写、隐藏表单域、Cookie、Session<br>
+A、隐藏表单域一般是在表单提交时在JSP中声明一个隐藏域，可携带数据到表单提交后的页面。如下：<br>
+&lt;input type=&quot;hidden&quot; name=&quot;token&quot; value=&quot;&lt;%=session.getAttribute(&quot;token&quot;) %&gt;&quot;&gt;<br>
+B、Http是无状态协议，cookie是客户端保存用户会话数据，用于保存用户会话记录。<br>
+C、当客户端浏览器禁用cookie时，只有采用URL复写的方式将sessionId携带在URL的末尾来保存会话记录。<br>
+D、session是服务端保存用户数据，生成Session时会默认设置一个cookie值为sessionId的cookie保存到客户端</p>
+<h1 id="并发-c">并发、C++</h1>
+<p>1.多个线程可同时操作一个数据，为了保证该数据的准确性，可将操作该数据的部分改为:<br>
+同步<br>
+原因：<br>
+同步可以理解为加锁</p>
+<h1 id="软件工程">软件工程</h1>
+<p>1.下列关于数据库设计的叙述中，正确的是（ ）。<br>
+在需求分析阶段建立数据字典<br>
+原因：按照规范的设计方法，一个完整的数据库设计一般分为以下六个阶段：<br>
+⑴需求分析：分析用户的需求，包括数据、功能和性能需求；<br>
+⑵概念结构设计：主要采用E-R模型进行设计，包括画E-R图；<br>
+⑶逻辑结构设计：通过将E-R图转换成表，实现从E-R模型到关系模型的转换；<br>
+⑷数据库物理设计：主要是为所设计的数据库选择合适的存储结构和存取路径；<br>
+⑸数据库的实施：包括编程、测试和试运行；<br>
+⑹数据库运行与维护：系统的运行与数据库的日常维护。</p>
+<p>2.下面哪些测试属于白盒测试 （ ）。<br>
+基本路径测试<br>
+逻辑覆盖测试<br>
+原因：白盒测试法主要有：逻辑覆盖（语句覆盖、路径覆盖、判定覆盖。判断-条件覆盖、条件-组合覆盖）、基本路径测试<br>
+黑盒测试主要的方法有：等价类划分法、边界值分析法、错误推测法、因果图法、决策表法、场景法等。</p>
+<p>3.下列关于策略处理规则描述正确的是（）<br>
+如果子容器的某个策略被配置，则此配置值会覆盖由其父容器所传递下来的配置值<br>
+组策略的配置值是有累加性的<br>
+系统是先处理计算机配置，再处理用户配置</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/wK-8SDdKv/" class="tag">
+                    杂七杂八
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/jin-cheng-jian-de-xie-zuo/">
+                  <h3 class="post-title">
+                    进程间的协作、Socket概述
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

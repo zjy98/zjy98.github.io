@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>进程间的协作、Socket概述 | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">进程间的协作、Socket概述</h2>
+            <div class="post-date">2020-06-10</div>
+            
+            <div class="post-content">
+              <h1 id="信号灯">信号灯</h1>
+<p>UNIX的IPC三样：信号灯、共享内存、消息队列（SEM、SHM、MSG)<br>
+信号灯：<br>
+控制多进程对共享资源的互斥性访问和进程间同步<br>
+策略和机制分离：<br>
+UNIX仅提供信号灯机制，访问共享资源的进程自身必须正确使用才能保证正确的互斥和同步<br>
+不正确的使用会导致信息访问的不安全和死锁<br>
+P操作和V操作：<br>
+信号灯机制实现了P操作和V操作，而且比简单的PV操作功能更强<br>
+<img src="https://zjy98.github.io/post-images/1591761777085.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591761855853.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591761884730.png" alt="" loading="lazy"></p>
+<h1 id="共享内存">共享内存</h1>
+<p>特点：</p>
+<ul>
+<li>多个进程共同使用同一段物理内存空间</li>
+<li>使用共享内存在多进程间传送数据，速度快，但进程必须自行解决对共享内存访问的互斥和同步问题（例如：使用信号灯通过P/V操作）<br>
+应用举例：</li>
+<li>数据交换：多进程使用共享内存交换数据（最快的进程间通信方式）</li>
+<li>运行监视：协议处理程序把有限状态机和统计信息放入共享内存中<br>
+协议处理程序运行过程中可随时启动监视程序，从共享内存中读取数据以窥视当前的状态，了解通信状况<br>
+监视程序的启动与终止不影响通信进程，而且这种机制不影响协议处理程序的效率。<br>
+<img src="https://zjy98.github.io/post-images/1592149253339.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592149367085.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="内存映射文件">内存映射文件</h1>
+<p>传统的访问磁盘文件的模式（磁盘到内存）</p>
+<ul>
+<li>打开一个文件，然后通过read和write访问文件</li>
+</ul>
+<p>内存映射（Mrmory Map)方式读写文件</p>
+<ul>
+<li>现代的Linux和Windows都提供了内存映射方式读写文件的方法</li>
+<li>将文件中的一部分连续的区域映射成一段进程虚拟地址空间中的内存<br>
+进程获取这段映射内存的指针后，就把这个指针当做普通的数据指针一样引用。修改其中的数据，实际修改了文件，引用其中的数据值，就是读取了文件</li>
+<li>访问文件跟内存中的数据访问一样</li>
+<li>系统不会为数据文件的内存映射区域分配相同大小的物理内存，而是由页面调度算法自动进行物理内存分配</li>
+<li>根据虚拟内存的页面调度算法，按需调入数据文件中的内容，必要时淘汰（可能需要写入）内存页面</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>比使用read和write方式速度更快<br>
+这两个系统调用的典型用法：<br>
+len=read(fd,buf,nbyte)<br>
+len=witr(fd,buf,nbyte)<br>
+read需要内核将磁盘数据读入到内核缓冲区，再复制到用户进程的缓冲区中，与write方法类似<br>
+内尺寸映射方式是访问文件速度最快的方法</li>
+<li>提供了多个独立启动的进程共享内存的一种手段<br>
+多个进程都通过指针映射同一个文件的相同区域，实际访问同一段内存区域，这段内存是同一文件区域的内存映射<br>
+某进程修改数据，就会导致另一个进程可以访问到的数据发生变化，实现多进程共享内存的另外一种方式<br>
+在Windows下就可以通过这种方式实现多进程共享内存<br>
+注意：多进程之间访问时的同步和互斥，必须通过信号量等机制保证</li>
+</ul>
+<h2 id="内存映射文件相关系统调用">内存映射文件相关系统调用</h2>
+<p>系统调用mmap<br>
+通知系统把哪个文件的哪个区域以何种方式映射<img src="https://zjy98.github.io/post-images/1592150498893.png" alt="" loading="lazy"><br>
+mmap的参数：<br>
+<img src="https://zjy98.github.io/post-images/1592150537596.png" alt="" loading="lazy"></p>
+<h1 id="文件和记录的锁定">文件和记录的锁定</h1>
+<p>类似读写者问题<br>
+<img src="https://zjy98.github.io/post-images/1592150594141.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592150714069.png" alt="" loading="lazy"><br>
+文件和记录锁定机制<br>
+文件可以同时被多个进程访问，需要互斥<br>
+（操作系统书中的读写者问题）<br>
+使用信号灯机制和共享内存等方法<br>
+非常复杂，Linux提供了对文件和记录的锁定机制，用于多进程间对文件的互斥性访问。<br>
+术语“记录”：<br>
+指的是一个文件中从某一位置开始的连续字节流，Linux提供了对记录锁定的机制，用于锁定文件中的某一部分<br>
+可以把一个记录定义为从文件首开始直至文件尾，所以文件锁定实际上是记录锁定的一种特例</p>
+<p>共享锁和互斥锁<br>
+共享锁（也叫读锁）<br>
+多进程读操作可以同时进行，即某一进程读记录时，不排斥其他进程也读该记录，但是排斥任何对该记录的写操作<br>
+互斥锁（也叫写锁）<br>
+当某进程写记录时，排斥所有其他进程对该记录的读和写<br>
+<img src="https://zjy98.github.io/post-images/1592151062717.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592157929867.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592157933873.png" alt="" loading="lazy"><br>
+用C语言写读写者</p>
+<p>错题：<br>
+1.使用cat打印出一个有100行数据的文本文件，但只能显示出前50行，后50行被阻塞而迟迟不能显示。出现这种现象的一种可能原因是：其他某进程使用fcntl()系统调用将这个文件的后50行数据上了“写锁”，因为写锁锁定时不允许读导致cat被阻塞，如果该进程上锁类型是“读锁”，那么，cat只是打开文件读，将不会被阻塞（错）<br>
+理由：fcntl执行的是“咨询式锁定”不是“强制性锁定”，cat读文件时直接read()并不做fcntl()，不做fcntl()就不会导致cat进程阻塞在“写锁”上</p>
+<p>2.Linux设计得非常健壮，一直以运行稳定而著称。当系统中多个进程因为对信号量操作出现不恰当的P操作和V操作将导致死锁时，semop()系统调用将直接返回-1，系统拒绝错误的操作，从而避免死锁的发生（错）<br>
+理由：A<br>
+“策略和机制相分离”是一个重要的设计思路，当系统不能大包大揽时，系统提供“机制”，把“策略”留给程序员，简化了操作系统的设计，程序员正确操作，应该完成的功能也都能实现。这是一个典型的合理的“甩锅”行为。因特网和Linux设计上都遵循了这样的理念。SUID，bash中的条件判断，四则运算，都是相同的理念，它们简化了自己，仅提供“机制”，把“策略”留给应用程序，不失必备功能。C语言也一样，printf在C语言里也只是个函数，与语言本身无关，你不高兴完全可以设计一个替换它。C语言自己设计得很简单，以至于常用C语言的程序员，不需要查阅任何手册，都能把语法全部准确记下来。C++，你试试？</p>
+<p>3.对信号量的P操作有可能导致进程进入阻塞状态，也有可能不进入阻塞状态，但是V操作确定不会导致当前进程进入阻塞状态。（对）<br>
+理由：V操作要让当前进程进入阻塞状态，阻塞起来有什么意义？等什么事件？都不需要。所以，V操作不会导致当前进程阻塞，但可以想象，在内核代码里，会导致相关联P操作的进程从“阻塞态”中解除。</p>
+<p>4.UDP提供了不可靠服务，所以通信线路误码导致的数据比特被翻转会传递到UDP之上的应用层程序，因此对于一些重要的应用使用UDP通信应增加类似CRC等校验机制。（错）<br>
+理由:链路层的校验已经很强了，有线以太网和WiFi都提供了CRC32校验，历数所有链路层协议，只有已被淘汰的SLIP协议没有校验，其他全部有校验。这个是协议体系结构中的安排，把强校验放到链路层，因为链路层一般是硬件实现的，硬件做校验比CPU软件实现开销要小，就算软件实现的PPP over serial line，也有软件查表法计算CRC。所以，链路层可以发现（算然不见得有自动重传来纠正误码）误码。退一步讲，UDP自己也有校验和。UDP校验和是选项，校验和域0，就是没有校验；校验和非零，就采用了算术和校验（这个CPU擅长，但CPU不擅长CRC），若凑巧算术和校验是0，就在校验域填写-1。你可以WireShark看一下，你的UDP都有校验和吗？</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/shen-du-shen-jing-wang-luo-dnn/">
+                  <h3 class="post-title">
+                    深度神经网络DNN
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Socket概述 | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Socket概述</h2>
+            <div class="post-date">2020-06-15</div>
+            
+            <div class="post-content">
+              <h1 id="socket">Socket</h1>
+<ul>
+<li>协议栈实现<br>
+传输层以上由用户态应用程序实现<br>
+传输层和网络互联层协议在内核中实现（路由协议由用户态进程实现）<br>
+第一第二层一般由硬件实现</li>
+<li>UNIX提供给应用程序使用网络功能的方法<br>
+BSD将设备和通信管道组织成文件方式，创建方式不同，访问方法相同<br>
+终端设备、管道、通信服务Socket</li>
+<li>Socket编程接口面向网络通信，不仅仅用于TCP/IP<br>
+利用虚拟loopback接口（127.0.0.1）可实现同台计算机进程间通信</li>
+</ul>
+<h1 id="tcp与udp">TCP与UDP</h1>
+<p>TCP：<br>
+面向连接，可靠（保证收到的数据是对的，不是保证一定能收到——，字节流传输，不保证报文边界<br>
+UDP:<br>
+面向数据报，不可靠（丢报，乱序，流量控制，数据报传输），广播和组播</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/niu-ke-wang-cuo-ti/">
+                  <h3 class="post-title">
+                    牛客网错题
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

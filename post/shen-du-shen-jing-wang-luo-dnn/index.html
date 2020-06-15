@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>深度神经网络DNN | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">深度神经网络DNN</h2>
+            <div class="post-date">2020-06-10</div>
+            
+            <div class="post-content">
+              <h1 id="深层神经网络deep-neural-networksdnn">深层神经网络（Deep Neural Networks,DNN)</h1>
+<ol>
+<li>深度学习定义：一类通过多层非线性变换对高复杂性数据建模算法的集合</li>
+<li>DNN定义：一种具备至少一个隐藏层的，利用激活函数去线性化，使用交叉熵作损失函数，利用反向传播优化算法（随机梯度下降算法、批量梯度下降算法）进行学习训练（调整并更新神经元之间的权重）的前馈神经网络。</li>
+<li>前向传播算法：利用我们的若干个权重系数矩阵W,偏倚向量b来和输入值向量x进行一系列线性运算和激活运算，从输入层开始，一层层的向后计算，一直到运算到输出层，得到输出结果为值。<br>
+<img src="https://zjy98.github.io/post-images/1591725082432.png" alt="" loading="lazy"></li>
+<li>激活函数：目的是去线性化，实现非线性分类任务；线性叠加永远是线性，无法处理非线性问题。<br>
+<img src="https://zjy98.github.io/post-images/1591725116000.png" alt="" loading="lazy"></li>
+<li>SoftMax回归：将神经网络的输出编程一个概率分布，实现交叉熵损失函数<br>
+<img src="https://zjy98.github.io/post-images/1591725136519.png" alt="" loading="lazy"></li>
+<li>损失函数：刻画前向传播输出与期望值的拟合程度<br>
+<img src="https://zjy98.github.io/post-images/1591725165893.png" alt="" loading="lazy"></li>
+<li>神经网络优化算法<br>
+<img src="https://zjy98.github.io/post-images/1591725187567.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591725198343.png" alt="" loading="lazy"></li>
+<li>学习率的优化：<br>
+<img src="https://zjy98.github.io/post-images/1591725224517.png" alt="" loading="lazy"></li>
+<li>交叉验证：简单交叉验证（70%-30%分裂数据集），K-折交叉验证，留一交叉验证。</li>
+<li>正则化（过拟合问题）：L2-正则化； Dropout；数据增强</li>
+<li>滑动平均模型：①滑动平均模型的作用是提高测试值上的健壮性，一个参数变化很大，那势必会影响到测试准确度问题，从他的公式看shadow_var = decay * shadow_var + (1 - decay)* var_new，decay控制着该shadow变量的更新速度，decay越大，那么很明显其值就会越倾向接近于旧值，而decay越小，那么var_new产生的叠加作用就会越强，其结果就会越倾向于远离旧值，那这样波动就很大，通常认为稳定性就不够好当然就不够健壮了<br>
+      ②通俗的理解就是“让参数有滑动效果，目的是让参数不是一个常数，而是一个可以变的参数，提高模型的稳定性”</li>
+<li>异或问题（XOR问题）:<br>
+①如果要利用单层感知器画出一条直线把0和1分开，如下所示的异或问题（分类问题）是做不到的。<br>
+②单层感知器无法找到一条直线作为决策边界使 (0,0) 和 (1,1) 在一个区域，而 (1,0) 和 (0,1) 在另一个区域。</li>
+<li>网络层数增加带来的问题：<br>
+神经网络层数加深，优化函数会越来越容易陷入局部最优解，这个局部最优解离全局最优解也可能会越来越远，同时“梯度消失”现象也会越来越严重。2006年Hinton利用预训练法缓解了局部最优解问题。为了克服“梯度消失”现象，用ReLu、maxout等激活函数代替了sigmoid函数。</li>
+<li>卷积神经网络和循环神经网络：CNN是空间上深度增加的神经网络，RNN是时间上深度增加的神经网络。</li>
+</ol>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/6VMQnRNce/" class="tag">
+                    机器学习
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/juan-ji-shen-jing-wang-luo/">
+                  <h3 class="post-title">
+                    卷积神经网络CNN
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

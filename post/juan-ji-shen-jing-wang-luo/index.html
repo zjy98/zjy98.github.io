@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>卷积神经网络CNN | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">卷积神经网络CNN</h2>
+            <div class="post-date">2020-06-10</div>
+            
+            <div class="post-content">
+              <h1 id="什么是神经网络">什么是神经网络</h1>
+<p>这里的神经网络也指人工神经网络（Artificial Neural Networks，简称ANNs），是一种模仿生物神经网络行为特征的算法数学模型，由神经元、节点与节点之间的连接（突触）所构成。<br>
+每个神经网络单元抽象出来的数学模型如下，也叫感知器，它接收多个输入（x1，x2，x3…），产生一个输出，这就好比是神经末梢感受各种外部环境的变化（外部刺激），然后产 生电信号，以便于转导到神经细胞（又叫神经元）。<br>
+<img src="https://zjy98.github.io/post-images/1591722598011.png" alt="" loading="lazy"><br>
+对应公式如下:<br>
+hW,b(x)=f(WTx)=f(∑3i=1Wixi+b)<br>
+单个的感知器就构成了一个简单的模型，但在现实世界中，实际的决策模型则要复杂得多，往往是由多个感知器组成的多层网络，如下图所示，这也是经典的神经网络模型，由输入层、隐含层、输出层构成。<br>
+<img src="https://zjy98.github.io/post-images/1591722721078.png" alt="" loading="lazy"></p>
+<h1 id="什么是卷积神经网络">什么是卷积神经网络</h1>
+<p>受Hubel和Wiesel对猫视觉皮层电生理研究启发，有人提出卷积神经网络（CNN），Yann Lecun 最早将CNN用于手写数字识别并一直保持了其在该问题的霸主地位。近年来卷积神经网络在多个方向持续发力，在语音识别、人脸识别、通用物体识别、运动分析、自然语言处理甚至脑电波分析方面均有突破。<br>
+卷积神经网络最主要的三层:卷积层、池化层、全连接神经网络 卷积神经网络的基本结构图:<br>
+<img src="https://zjy98.github.io/post-images/1591722809738.png" alt="" loading="lazy"><br>
+<strong>卷积神经网络与普通的神经网络的区别在于,卷积神经网络包含了一个由卷积层和池化层构成的特征抽取器</strong><br>
+在卷积神经网络的卷积层中通常包含若干个特征平面,每个特征平面由一些矩形排列的的神经元组成，同一特征平面的神经元共享权值，这里共享的权值就是卷积核。卷积核一般以随机小数矩阵的形式初始化,在网络的训练过程中卷积核将学习到合理的权值。通常采用卷积核的大小为3*3,也有5*5,7*7，但大多数为奇数.卷积核带来的好处是减少了网络各层之间的连接,参数减少，又降低了过拟合的风险。池化层也叫子采样,通常有max-pooling 和 average-pooling ,但通常我们使用max-pooling.卷积和池化大大简化了模型复杂度,减少了参数。</p>
+<h2 id="什么是卷积">什么是卷积？</h2>
+<p>当给定了一张新图时,CNN并不能准确的知道这些特征到底要匹配原图的哪些部分,所以它会在原图中把每一个可能的位置都进行尝试,相当于把这个特征(feature)变成了一个过滤器。这个用来匹配的过程就称为卷积操作。(特别注意,在卷积神经网络中进行的卷积操作其实本质上并不是严格的卷积,许多数学家把他们叫做互相关,但是在许多DL文献中我们把他看成卷积,真正的卷积是需要进行水平垂直的镜像) 卷积操作如图:<br>
+<img src="https://zjy98.github.io/post-images/1591723238883.gif" alt="" loading="lazy"></p>
+<p>说白了要计算一个feature和其在原图上对应的某一小块的结果,只需要将两个小块对应位置的像素值进行乘法运算,然后将整个小块内的乘法运算的结果累加起来。如下是一个6x6的灰度图像，构造一个3x3的矩阵，在卷积神经网络中通常称之为filter，对这个6x6的图像进行卷积运算，以左上角的-5计算为例 其它的以此类推，让过滤器在图像上逐步滑动，对整个图像进行卷积计算得到一幅4x4的图像。<br>
+<img src="https://zjy98.github.io/post-images/1591723303966.png" alt="" loading="lazy"></p>
+<h3 id="卷积步长">卷积步长</h3>
+<p>卷积步长是指过滤器在图像上滑动的距离，前两部分步长都默认为1，如果卷积步长为2，卷积运算过程为：<br>
+<img src="https://zjy98.github.io/post-images/1591723347508.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591723358264.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591723368865.png" alt="" loading="lazy"></p>
+<h3 id="卷积是如何提取特征的">卷积是如何提取特征的？</h3>
+<p>假如你有一张如下的图像，你想让计算机搞清楚图像上有什么物体，你可以做的事情是检测图像的垂直边缘和水平边缘。<br>
+<img src="https://zjy98.github.io/post-images/1591723469929.png" alt="" loading="lazy"><br>
+为什么这种卷积计算可以得到图像的边缘，下图0表示图像暗色区域，10为图像比较亮的区域，同样用一个3x3过滤器，对图像进行卷积，得到的图像中间亮，两边暗，亮色区域就对应图像边缘。<br>
+<img src="https://zjy98.github.io/post-images/1591723523985.png" alt="" loading="lazy"><br>
+注意:这里由于我们图片大小仅仅是6x6所以可以发现中间的亮色区域是很宽的,当我们的图很大的时候是不会发生这种情况的。 通过以下的水平过滤器和垂直过滤器，可以实现图像水平和垂直边缘检测。<br>
+<img src="https://zjy98.github.io/post-images/1591723725655.png" alt="" loading="lazy"></p>
+<h3 id="pading">pading</h3>
+<p>在上部分中，通过一个3x3的过滤器来对6x6的图像进行卷积，得到了一幅4x4的图像，假设输入图像大小nxn，过滤器filter大小为fxf，步长为s,那么输出图像大小为 (⌊n−fs⌋+1) x (⌊n−fs⌋+1) 这样做卷积运算的缺点是卷积图像的大小会不断缩小,另外图像的左上角元素只被一个输出所使用,而下图中红色阴影部分的像素却被多个输出使用了,所以图像的边缘像素在输出中采用较少,这也就意味着你会丢掉许多图像边缘信息,为了引入这两个问题我们引入padding操作,也就是在图像做卷积操作之前,沿着图像边缘用0进行填充对于3x3的过滤器，我们填充宽度为1时，就可以保证输出图像和输入图像一样大。如下图<br>
+<img src="https://zjy98.github.io/post-images/1591724481841.png" alt="" loading="lazy"></p>
+<h3 id="彩色图像的卷积">彩色图像的卷积</h3>
+<p>以上我们所说的卷积都是灰度值图像的,也就是一维的。我们知道彩色图像在计算机中都是按照RGB来存的,所以如果我们想要在彩色图像上进行卷一那么过滤器的大小就不能使3x3 而应该是3x3x3（RGB三通道,通道数）卷积生成图像中每个像素值为 3∗3∗3 过滤器对应位置和图像对应位置相乘累加,过滤器依次再RGB图像上滑动,最终生成图像大小为4x4<br>
+<img src="https://zjy98.github.io/post-images/1591724046264.png" alt="" loading="lazy"><br>
+另外一个问题是，如果我们在不仅仅在图像总检测一种类型的特征，而是要同时检测垂直边缘、水平边缘、45度边缘等等，也就是多个过滤器的问题。如果有两个过滤器，最终生成图像为4x4x2的立方体，这里的2来源于我们采用了两个过滤器。如果有10个过滤器那么输出图像就是4x4x10的立方体。<br>
+<img src="https://zjy98.github.io/post-images/1591724151273.png" alt="" loading="lazy"></p>
+<h3 id="池化pooling">池化Pooling</h3>
+<p>为了有效减少计算,CNN使用另一个有效的工具被称为&quot;池化&quot;。池化就是将输入图像进行缩小,减少像素信息,保留重要的信息。<br>
+<strong>Max-pooling最大值池化</strong><br>
+最大池化思想很简单，以下图为例，把4x4的图像分割成4个不同的区域，然后输出每个区域的最大值，这就是最大池化所做的事情。其实这里我们选择了2<em>2的过滤器，步长为2。在一幅真正的图像中提取最大值可能意味着提取了某些特定特征，比如垂直边缘、一只眼睛等等。<br>
+<img src="https://zjy98.github.io/post-images/1591724211509.png" alt="" loading="lazy"><br>
+以下是一个过滤器大小为3</em>3，步长为1的池化过程，具体计算和上面相同，最大池化中输出图像的大小计算方式和卷积网络中计算方法一致，如果有多个通道需要做池化操作，那么就分通道计算池化操作。<br>
+<img src="https://zjy98.github.io/post-images/1591724245973.png" alt="" loading="lazy"><br>
+最大池化（max-pooling）因为对于每一个filter,它其实就是一个特征提取器,专门用来提取某种特征,所以对于特定区域内,最后的结果越大表示匹配的越好。也就是说，它不会具体关注窗口内到底是哪一个地方匹配了，而只关注是不是有某个地方匹配上了。<br>
+<strong>average polling平均池化</strong><br>
+平均池化和最大池化唯一的不同是，它计算的是区域内的平均值而最大池化计算的是最大值。在日常应用使用最多的还是最大池化。<br>
+<img src="https://zjy98.github.io/post-images/1591724289444.png" alt="" loading="lazy"><br>
+池化的超参数:filter的大小,步长,池化的类型. 虽然这里池化层的参数我们也叫超参数,但是一般情况下她其实就是固定的,是不需要CNN进行学习的,一般我们采用最大值池化,过滤器大小为2,步长为2.</p>
+<h3 id="激活函数relu">激活函数Relu</h3>
+<p>上面介绍卷积神经网络CNN结构时用的那个图大家可以看到,卷积层我们一般用CONV来表示,RELU就是我们激活函数的一种,POOL就是我们的池化层，FC就是全连接神经网络。这里需要注意的是池化层的多少没有很明确的规定,需要我们自己进行交叉验证或者调参来决定。而每一个卷积层后都是要跟着激活函数的RELU的。 常用的激活函数有sigmod,tanh,relu等，其中sigmod,tanh主要用于全连接fc层,而Relu主要用于卷积层。回顾一下我们前面讲的神经网络中,单个神经元在接受到和输入计算wx+b后,求和经过一个函数f,输出得到h(x).这里的f就是我们的激活函数。 激活函数的主要作用是加入非线性因素,把卷积层输出结果做非线性映射。这也是我们引入神经网络的目的,如果不加入激活函数那么对wx+b的计算还是线性的<br>
+<img src="https://zjy98.github.io/post-images/1591724341103.png" alt="" loading="lazy"><br>
+在卷积神经网络中激活函数一般使用Relu(The Rectified Linear Unit，修正线性单元),他的主要特点是收敛速度快,求梯度简单,公式简单max(0,s)，即对于输入的负值输出全为0,正值输出其本身。</p>
+<h3 id="全连接层fully-connected-layers">全连接层(Fully connected layers)</h3>
+<p>全连接层在整个神经网络中期到分类器的作用,即通过卷积、激活函数、池化等深度网络后,再经过全连接层对结果进行分类。这里我们还是要将得到的图像拉伸成一个一维向量,就像前面我们使用fc对图像(像素较小的)进行分类一样，由于神经网络是属于监督学习，在模型训练时，根据训练样本对模型进行训练，从而得到全连接层的权重(在每个分类的得分)。<br>
+<img src="https://zjy98.github.io/post-images/1591724433485.png" alt="" loading="lazy"></p>
+<h1 id="为什么需要cnn">为什么需要CNN</h1>
+<p>全连接神经网络参数过于庞大,例如:假设我们有一张1000x1000的图像,隐藏层我们有100万个神经元,由于每个隐藏层的神经元都要与图像的每个像素点连接,所以这里我们就有1000000∗1000000=10^12 个连接,也就需要10^12个参数,那么这个参数是过于庞大的。 卷积神经网络有两个神器可以用来降低参数,一个叫局部感受野,一叫交权值共享。</p>
+<h2 id="局部感受野">局部感受野</h2>
+<p>我们一般认为人对外界的认知是从局部到全局的,而图像的空间联系也是局部的像素联系较为紧密,而距离较远的像素相关性较弱。因而,每个神经元其实没必要对全局图像进行感知,只需要对局部进行感知,然后在更高层将局部的信息综合起来就得到了全局的信息。这种思想也是受启发与生物学里面的系统结构，视觉皮层的神经元就是局部接受信息的（即这些神经元只响应某些特定区域的刺激） 如下图所示：左图为全连接，右图为局部连接。<br>
+<img src="https://zjy98.github.io/post-images/1591724562762.png" alt="" loading="lazy"><br>
+这个图就是描述上面的例子,这里如果我们采用局部感受野的话可以知道,每个像素不需要和所有神经元都连接,假设局部感受野的大小为10x10,隐藏层的神经元都只和每个感受野连接,此时我们的参数个数为 1000000∗10∗10=10^8. 这样的话我们的参数个数就变为了原来的万分之一,但是还是很多啊,所以就出现了权值共享</p>
+<h2 id="权值共享">权值共享</h2>
+<p>上面当中每个隐藏层神经元都连接不同的局部感受野,那么如果每个局部感受野的参数都相同,那么我的参数就变为 10*10 = 100.我们可以把这100参数对应的卷积操作看成是提取特征的一种方式,与位置无关。这是CNN的亮点之一,但是有一个问题就是说如果所有的参数都相同,也就是说我们只是提取了特定的某种特征,那么如果我们想要提取多种特征怎么办,这时候我们就需要多增加几个滤波器,每个filter对应提取不同的特征(参数不一样)。</p>
+<p>例子：区分X和O<br>
+<img src="https://zjy98.github.io/post-images/1591724674567.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1591724717113.png" alt="" loading="lazy"></p>
+<p>再回顾总结一下，卷积神经网络主要由两部分组成，一部分是特征提取（卷积、激活函数、池化），另一部分是分类识别（全连接层），下图便是著名的手写文字识别卷积神经网络结构图：<br>
+<img src="https://zjy98.github.io/post-images/1591724754183.png" alt="" loading="lazy"><br>
+具体来源：https://statusrank.xyz/articles/a0a72429.html</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/6VMQnRNce/" class="tag">
+                    机器学习
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/jue-ce-shu/">
+                  <h3 class="post-title">
+                    决策树
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
