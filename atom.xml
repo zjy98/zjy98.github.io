@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>Just FOR 1998</title>
-    <updated>2021-12-02T06:34:04.511Z</updated>
+    <updated>2021-12-02T06:37:43.856Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Just FOR 1998</rights>
+    <entry>
+        <title type="html"><![CDATA[测试]]></title>
+        <id>https://zjy98.github.io/post/ce-shi/</id>
+        <link href="https://zjy98.github.io/post/ce-shi/">
+        </link>
+        <updated>2021-12-02T06:37:21.000Z</updated>
+        <content type="html"><![CDATA[<p>测试</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[教学设计]]></title>
         <id>https://zjy98.github.io/post/jiao-xue-she-ji/</id>
@@ -692,42 +701,6 @@ mmap的参数：<br>
 理由：V操作要让当前进程进入阻塞状态，阻塞起来有什么意义？等什么事件？都不需要。所以，V操作不会导致当前进程阻塞，但可以想象，在内核代码里，会导致相关联P操作的进程从“阻塞态”中解除。</p>
 <p>4.UDP提供了不可靠服务，所以通信线路误码导致的数据比特被翻转会传递到UDP之上的应用层程序，因此对于一些重要的应用使用UDP通信应增加类似CRC等校验机制。（错）<br>
 理由:链路层的校验已经很强了，有线以太网和WiFi都提供了CRC32校验，历数所有链路层协议，只有已被淘汰的SLIP协议没有校验，其他全部有校验。这个是协议体系结构中的安排，把强校验放到链路层，因为链路层一般是硬件实现的，硬件做校验比CPU软件实现开销要小，就算软件实现的PPP over serial line，也有软件查表法计算CRC。所以，链路层可以发现（算然不见得有自动重传来纠正误码）误码。退一步讲，UDP自己也有校验和。UDP校验和是选项，校验和域0，就是没有校验；校验和非零，就采用了算术和校验（这个CPU擅长，但CPU不擅长CRC），若凑巧算术和校验是0，就在校验域填写-1。你可以WireShark看一下，你的UDP都有校验和吗？</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[深度神经网络DNN]]></title>
-        <id>https://zjy98.github.io/post/shen-du-shen-jing-wang-luo-dnn/</id>
-        <link href="https://zjy98.github.io/post/shen-du-shen-jing-wang-luo-dnn/">
-        </link>
-        <updated>2020-06-09T17:48:47.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="深层神经网络deep-neural-networksdnn">深层神经网络（Deep Neural Networks,DNN)</h1>
-<ol>
-<li>深度学习定义：一类通过多层非线性变换对高复杂性数据建模算法的集合</li>
-<li>DNN定义：一种具备至少一个隐藏层的，利用激活函数去线性化，使用交叉熵作损失函数，利用反向传播优化算法（随机梯度下降算法、批量梯度下降算法）进行学习训练（调整并更新神经元之间的权重）的前馈神经网络。</li>
-<li>前向传播算法：利用我们的若干个权重系数矩阵W,偏倚向量b来和输入值向量x进行一系列线性运算和激活运算，从输入层开始，一层层的向后计算，一直到运算到输出层，得到输出结果为值。<br>
-<img src="https://zjy98.github.io/post-images/1591725082432.png" alt="" loading="lazy"></li>
-<li>激活函数：目的是去线性化，实现非线性分类任务；线性叠加永远是线性，无法处理非线性问题。<br>
-<img src="https://zjy98.github.io/post-images/1591725116000.png" alt="" loading="lazy"></li>
-<li>SoftMax回归：将神经网络的输出编程一个概率分布，实现交叉熵损失函数<br>
-<img src="https://zjy98.github.io/post-images/1591725136519.png" alt="" loading="lazy"></li>
-<li>损失函数：刻画前向传播输出与期望值的拟合程度<br>
-<img src="https://zjy98.github.io/post-images/1591725165893.png" alt="" loading="lazy"></li>
-<li>神经网络优化算法<br>
-<img src="https://zjy98.github.io/post-images/1591725187567.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1591725198343.png" alt="" loading="lazy"></li>
-<li>学习率的优化：<br>
-<img src="https://zjy98.github.io/post-images/1591725224517.png" alt="" loading="lazy"></li>
-<li>交叉验证：简单交叉验证（70%-30%分裂数据集），K-折交叉验证，留一交叉验证。</li>
-<li>正则化（过拟合问题）：L2-正则化； Dropout；数据增强</li>
-<li>滑动平均模型：①滑动平均模型的作用是提高测试值上的健壮性，一个参数变化很大，那势必会影响到测试准确度问题，从他的公式看shadow_var = decay * shadow_var + (1 - decay)* var_new，decay控制着该shadow变量的更新速度，decay越大，那么很明显其值就会越倾向接近于旧值，而decay越小，那么var_new产生的叠加作用就会越强，其结果就会越倾向于远离旧值，那这样波动就很大，通常认为稳定性就不够好当然就不够健壮了<br>
-      ②通俗的理解就是“让参数有滑动效果，目的是让参数不是一个常数，而是一个可以变的参数，提高模型的稳定性”</li>
-<li>异或问题（XOR问题）:<br>
-①如果要利用单层感知器画出一条直线把0和1分开，如下所示的异或问题（分类问题）是做不到的。<br>
-②单层感知器无法找到一条直线作为决策边界使 (0,0) 和 (1,1) 在一个区域，而 (1,0) 和 (0,1) 在另一个区域。</li>
-<li>网络层数增加带来的问题：<br>
-神经网络层数加深，优化函数会越来越容易陷入局部最优解，这个局部最优解离全局最优解也可能会越来越远，同时“梯度消失”现象也会越来越严重。2006年Hinton利用预训练法缓解了局部最优解问题。为了克服“梯度消失”现象，用ReLu、maxout等激活函数代替了sigmoid函数。</li>
-<li>卷积神经网络和循环神经网络：CNN是空间上深度增加的神经网络，RNN是时间上深度增加的神经网络。</li>
-</ol>
 ]]></content>
     </entry>
 </feed>
