@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1638417679119">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1638417679119" class="site-logo">
         <h1 class="site-title">Just FOR 1998</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -117,6 +117,141 @@ BSD将设备和通信管道组织成文件方式，创建方式不同，访问�
 面向连接，可靠（保证收到的数据是对的，不是保证一定能收到——，字节流传输，不保证报文边界<br>
 UDP:<br>
 面向数据报，不可靠（丢报，乱序，流量控制，数据报传输），广播和组播</p>
+<h1 id="客户端程序">客户端程序</h1>
+<ul>
+<li>创建文件描述符socket</li>
+<li>建立连接socket<br>
+进程阻塞，等待TCP连接建立</li>
+<li>端点名的概念：IP地址+端口号<br>
+本地端点名 远端端点名</li>
+<li>发送数据<br>
+发送速率大于通信速率，进程会被阻塞</li>
+<li>关闭连接</li>
+</ul>
+<h1 id="服务端程序">服务端程序</h1>
+<p>bind(admin_sock,(struct sockaddr*)&amp;name,sizeof(name));指定了端口号<br>
+listen(admin_sock,5);监听等待 参数用处不大<br>
+accept(admin_sock,0,0)真正建立连接（三次握手）<br>
+建立一个socket（新获得的）</p>
+<h1 id="socket系统调用">socket系统调用</h1>
+<ul>
+<li>socket<br>
+创建文件描述符socket,端点名未指定</li>
+<li>bind<br>
+设定本地端点名，也可以用在用户端程序</li>
+<li>listen<br>
+开始监听到达的连接请求</li>
+<li>accept<br>
+接受一个连接请求，TCP三次握手结束accept返回，返回值是另一个socket</li>
+<li>connect<br>
+建立连接，设定远端端点名，TCP连接建立，函数返回</li>
+<li>close<br>
+关闭连接，释放文件描述符<br>
+创建新进程是的文件描述符处理：<br>
+问题：不能同时接纳多个连接<br>
+多进程并发处理，单进程并发处理</li>
+</ul>
+<h1 id="多进程并发处理">多进程并发处理</h1>
+<p>服务器端肯定不能用一个socket<br>
+<img src="https://zjy98.github.io/post-images/1592279710910.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592279731796.png" alt="" loading="lazy"><br>
+父进程：负责close(data_sock)<br>
+（必须执行：1.每个进程能打开的文件数目有限。2.子进程TCP已经关闭了，父进程还没关，无法中断连接）<br>
+子进程：负责读取<br>
+<img src="https://zjy98.github.io/post-images/1592280031537.png" alt="" loading="lazy"></p>
+<h2 id="readwrite系统调用">read/write系统调用</h2>
+<p>与TCP通信的时序<br>
+主机A用write()通过TCP连接向B发送数据，B接受数据用read()<br>
+<img src="https://zjy98.github.io/post-images/1592280622178.png" alt="" loading="lazy"><br>
+read()在什么时候解除阻塞<br>
+write()在t1就返回了（系统调用成功，即把数据放在发送缓冲区了，不一定发送成功了）<br>
+read()在 t3返回 接收到DATA就返回，在发ACK之前</p>
+<ul>
+<li>read/write与TCP通信故障和流控<br>
+流控问题<br>
+断线<br>
+对方重启动<br>
+keepalive(默认2小时)<br>
+getsockopt/setsoclopt可以设置保活间隔，重传次数，重传时间</li>
+<li>粘连问题</li>
+<li>read/write与UDP通信<br>
+网络故障<br>
+没有数据粘连<br>
+没有流控功能<br>
+不可靠<br>
+<img src="https://zjy98.github.io/post-images/1592281005864.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="shutdown系统调用">shutdown系统调用</h2>
+<p>int shutdown(int sockfd,int howto)<br>
+禁止发送活接收，socket提供全双工通信，两个方向上都可以收发数据，shutdown提供了对于一个方向的通信控制。<br>
+参数howto取值：<br>
+SHUT_RD：不能再接收数据，随后read均返回0<br>
+SHUT_WR：不能再发送数据，本方向再次write会导致SIGPIP信号<br>
+SHUT_RDWR：禁止这个sockfd上的任何收发<br>
+shutdown是通用的套接字上的操作<br>
+TCP协议：<br>
+1.允许关闭发送方向的半个连接<br>
+2.没有一种机制让对方关闭它的发送，但TCP协议的流量控制机制，可以通知对方自己的接收窗口W为0，对方的write会继续，并将数据堆积在发送缓冲区<br>
+UDP协议：<br>
+UDP关闭接收方向内核仅记下一个标记，不再提供数据，但无法阻止对方的发送而导致的网络上数据<br>
+即使套接字关闭也不影响对方发出无人接收的数据报</p>
+<h2 id="socket控制">socket控制</h2>
+<p>getsockopt、setsockopt、ioctl<br>
+无阻塞I/O<br>
+执行read/write立即返回，不会导致进程阻塞<br>
+<img src="https://zjy98.github.io/post-images/1592281451503.png" alt="" loading="lazy"></p>
+<h1 id="单进程并发处理">单进程并发处理</h1>
+<h1 id="select多路io">select:多路I/O</h1>
+<p>引入select系统调用的原因：<br>
+使得用户进程可同时等待多个事件发生<br>
+用户进程告知内核多个事件，某一个或多个事件发生时select返回<br>
+用户进程告知内核多个事件，某一个或多个事件发生是select返回，否则进程睡眠等待<br>
+<img src="https://zjy98.github.io/post-images/1592287141170.png" alt="" loading="lazy"><br>
+什么叫准备好：<br>
+rfds中某文件描述符的read不会阻塞<br>
+wdfs中某文件描述符的write不会阻塞<br>
+efds中某文件描述符发生了异常情况<br>
+TCP协议，只有加急数据到达才算异常情况<br>
+对方连接关闭或网络故障，不算异常情况</p>
+<p>准备好后可以进行的操作<br>
+当读准备好时，调用read会立刻返回-1<br>
+当写准备好时，调用write可以写多少字节？</p>
+<blockquote>
+<p>=1个字节，无阻塞I/O方式</p>
+</blockquote>
+<p>集合操作：<br>
+<img src="https://zjy98.github.io/post-images/1592287419141.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592287435926.png" alt="" loading="lazy"></p>
+<p><img src="https://zjy98.github.io/post-images/1592287518969.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592287560770.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592288038330.png" alt="" loading="lazy"><br>
+比多进程效率要高<br>
+select：面向事件的编程模式</p>
+<h1 id="udp通信">UDP通信</h1>
+<p><img src="https://zjy98.github.io/post-images/1592292583357.png" alt="" loading="lazy"><br>
+connect：<br>
+不产生网络流量，内核记下远端端点名<br>
+之前未用bind指定本地端点名，系统自动分配本地端点名<br>
+write:<br>
+使用前面connect调用指定的端点名<br>
+UDP不是面向连接的协议，可在sendto参数中指定对方端点名，而且允许对方端点名不同<br>
+每次都使用sendto发送数据，前面的connect调用没必要<br>
+connect/第一次sendto可使得socket获得系统动态分配的本地端点名，未获得本地端点名之前不该执行read或recv以及recvfrom<br>
+<img src="https://zjy98.github.io/post-images/1592292804526.png" alt="" loading="lazy"><br>
+没办法支持多个并发数据，改造如下<br>
+<img src="https://zjy98.github.io/post-images/1592292841552.png" alt="" loading="lazy"></p>
+<ul>
+<li>接收<br>
+没有数据到达时，read调用会使得进程睡眠等待，<br>
+一般需要区分数据来自何处，常用recvfrom获得对方的端点名</li>
+<li>发送<br>
+服务器端发送数据常用sendto，指定远端端点名<br>
+对接收来的数据作应答，sendto引用的对方端点名利用recvfrom返回得到的端点名</li>
+<li>select定时<br>
+select可实现同时等待两个事件：收到数据和定时器超时<br>
+用time(0)或者gettimefday()获得时间坐标，计算时间间隔 决定是否执行超时后的动作</li>
+<li>死锁问题</li>
+</ul>
 
             </div>
             

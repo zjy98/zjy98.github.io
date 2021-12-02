@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1638417679119">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1638417679119" class="site-logo">
         <h1 class="site-title">Just FOR 1998</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -113,9 +113,10 @@
 more shudu.c 指定一个文件 more *.[ch] 指定多个文件 ls -l | more 指定0个文件<br>
 less 回退浏览的功能更强，可直接使键盘的上下箭头键，或j,k类似vi的光标定位件，以及Pgup Pgdn Home End键<br>
 cat与od:列出文件内容 cat串结，文本格式打印 选项-n :行号 od 逐字节打印<br>
+cat -n file1 file2(将file1和file2的内容都显示在屏幕上)<br>
 head与tail：显示文件的头部或者尾部 tail -f msg.c：试试打印文件尾部被追加的内容<br>
 tee：三通 功能：将从标准输入stdin得到的数据抄送到标准输入stdout显示，同时存入磁盘文件中<br>
-wc：字计数<br>
+wc：字计数 选项-l 只列出行计数<br>
 sort：对文件内容排序 -n：按照算数值排序<br>
 tr：翻译字符 将标准输入拷贝到标准输出，string1中出现的字符替换为string2中的对应字符或者用中括号来指定一个集合例：把小写字母改成大写字母 tr'[a-z]' '[A-Z]'<br>
 用\加三个八进制数字（类似C语言）表示一字符<br>

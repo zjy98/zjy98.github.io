@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1638417679119">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1638417679119" class="site-logo">
         <h1 class="site-title">Just FOR 1998</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -116,6 +116,74 @@
 定长又分为：定长记录　变长记录两种<br>
 变长记录文件根据文件组织方式的不同又分为：<br>
 顺序文件，索引文件，索引顺序文件</p>
+<h1 id="linux">Linux</h1>
+<p>1.cat -n file1file2 命令的意思是？<br>
+把文件file1和file2连在一起，然后输出到屏幕上。-n:合并两个文件</p>
+<p>2.下列提法中，不属于ifconfig命令作用范围的是 。<br>
+加载网卡到内核中<br>
+解答：ifconfig<br>
+1.作用：ifconfig用于查看和更改网络接口的地址和参数，包括IP地址、网络掩码、广播地址，使用权限是超级用户。<br>
+2.格式    ifconfig -interface [options] address<br>
+3.主要参数如下：<br>
+-interface：指定的网络接口名，如eth0和eth1。<br>
+up：激活指定的网络接口卡。<br>
+down：关闭指定的网络接口。<br>
+broadcast address：设置接口的广播地址。<br>
+pointopoint：启用点对点方式。<br>
+address：设置指定接口设备的IP地址。<br>
+netmask address：设置接口的子网掩码。</p>
+<p>3.文件操作的唯一依据是？<br>
+文件句柄（文件描述符）</p>
+<p>4.建立动态路由需要用到的文件有（）<br>
+/etc/gateways<br>
+解析：/etc/hosts 设定用户自已的IP与名字的对应表<br>
+/etc/gateways 设定路由器<br>
+/etc/resolv.conf    设置DNS</p>
+<p>5.假如你想计划让系统自动在每个月的第一天早上4点钟执行一个维护工作，以下哪个cron是正确的？<br>
+00 4 1 1-12 * /maintenance.pl<br>
+解析：计划任务内容格式：分 时 日 月 周  命令/脚本</p>
+<p>6.crontab文件由6个域组成，每个域之间用空格分隔，下列哪个排列方式是正确的？<br>
+MIN HOUR DAY MONTH DAYOFWEEK COMMAND</p>
+<p>7.Linux系统大致启动流程是（）<br>
+uEFI-&gt; MBR -&gt; grub -&gt; initrd</p>
+<p>8.不算 main 这个进程自身，到底创建了多少个进程啊？19</p>
+<pre><code class="language-c">int main(int argc, char* argv[])
+{
+   fork();
+   fork() &amp;&amp; fork() || fork();
+   fork();
+}
+</code></pre>
+<p>解析：fork()是一个分叉函数， 返回值： 若成功调用一次则返回两个值，子进程返回0，父进程   返回子进程标记；否则，出错返回-1<br>
+每一次fork（）就翻倍；<br>
+fork();<br>
+fork() &amp;&amp; fork() || fork();<br>
+fork();<br>
+第一条和第三条分别X2；关键在第二条语句。第二条有 5个分支；<br>
+A&amp;&amp;B||C<br>
+A为假，跳过B，判断C-----------------------2<br>
+A为真，判断B，若B为真，跳过C-----------1<br>
+若B为假，判断C  ------------2</p>
+<p>故总数为2*（2+1+2）*2=20；减去自己就是19.</p>
+<p>9.现在将/目录下的www文件权限改为只有主用户有执行的权限的有<br>
+chmod 100 /www<br>
+chmod u+x ,g-x,o-x /www<br>
+解析：题目要求是只有所有者具有x权限<br>
+chmod u+x ,g-x,o-x /www是把go的x权限取代哦，为u增加x权限。原有的权限不变<br>
+chmod 100 /www会清空原有权限，只给u一个x权限，也符合题意。</p>
+<p>10.在RHEL5系统中使用vi编辑文件时，要将某文本文件第1行到5行的内容复制到文件中的指定位置，以下（  ）操作能实现该功能。（选择二项）<br>
+将光标移到第1行，在vi命令模式下输入5yy,然后将光标移到制定位置，按p键<br>
+使用末行命令1，5y，然后将光标移到制定位置，按p键<br>
+解析：nyy：复制以下n行<br>
+n,my：指定n到m行复制<br>
+p：在光标下一行粘贴<br>
+P（大写）：在光标上一行粘贴（插入）</p>
+<p>11.使用useradd创建用户时和主目录相关的参数是()<br>
+d.m.n<br>
+-p 设定帐号的密码<br>
+-d 指定用户的主目录<br>
+-m 自动建立用户的主目录<br>
+-M 不要自动建立用户的主目录</p>
 <h1 id="数组">数组</h1>
 <p>1.数组元素的地址计算与数组的存储方式无关。请问这句话的说法是正确的吗？<br>
 错误<br>

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1592204999141">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1638417679119">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://zjy98.github.io">
-        <img src="https://zjy98.github.io/images/avatar.png?v=1592204999141" class="site-logo">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1638417679119" class="site-logo">
         <h1 class="site-title">Just FOR 1998</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -122,6 +122,13 @@ eg. hw(x)=w0+w1x或h(x)=argmaxkP(yk|x)<br>
 U：输入层到隐层<br>
 V：隐层到输出层<br>
 W：隐层到隐层</p>
+<h1 id="one-hot编码">One-hot编码</h1>
+<p>什么是one-hot编码？one-hot编码，又称独热编码、一位有效编码。其方法是使用N位状态寄存器来对N个状态进行编码，每个状态都有它独立的寄存器位，并且在任意时候，其中只有一位有效。举个例子，假设我们有四个样本（行），每个样本有三个特征（列），如图：<br>
+<img src="https://zjy98.github.io/post-images/1592570832626.png" alt="" loading="lazy"><br>
+上图中我们已经对每个特征进行了普通的数字编码：我们的feature_1有两种可能的取值，比如是男/女，这里男用1表示，女用2表示。那么one-hot编码是怎么搞的呢？我们再拿feature_2来说明：<br>
+<img src="https://zjy98.github.io/post-images/1592570859684.png" alt="" loading="lazy"><br>
+这里feature_2 有4种取值（状态），我们就用4个状态位来表示这个特征，one-hot编码就是保证每个样本中的单个特征只有1位处于状态1，其他的都是0。<br>
+对于2种状态、三种状态、甚至更多状态都是这样表示，所以我们可以得到这些样本特征的新表示：</p>
 
             </div>
             

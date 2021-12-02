@@ -2,14 +2,298 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zjy98.github.io</id>
     <title>Just FOR 1998</title>
-    <updated>2020-06-15T07:10:02.067Z</updated>
+    <updated>2021-12-02T04:03:25.617Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zjy98.github.io"/>
     <link rel="self" href="https://zjy98.github.io/atom.xml"/>
     <subtitle>LOVE YOURSELF</subtitle>
     <logo>https://zjy98.github.io/images/avatar.png</logo>
     <icon>https://zjy98.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Just FOR 1998</rights>
+    <rights>All rights reserved 2021, Just FOR 1998</rights>
+    <entry>
+        <title type="html"><![CDATA[教学设计]]></title>
+        <id>https://zjy98.github.io/post/jiao-xue-she-ji/</id>
+        <link href="https://zjy98.github.io/post/jiao-xue-she-ji/">
+        </link>
+        <updated>2021-02-19T14:56:34.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>教学设计万能模板</strong><br>
+一、教学目标<br>
+1、知识与技能<br>
+2、过程与方法<br>
+3、情感态度与价值观<br>
+二、教学的重点和难点<br>
+三、教学方法<br>
+四、教学过程<br>
+1、导入新课<br>
+2、讲授新课<br>
+3、巩固练习<br>
+4、课堂小结<br>
+5、布置作业<br>
+五、板书设计<br>
+六、教学反思</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[毕业设计]]></title>
+        <id>https://zjy98.github.io/post/bi-ye-she-ji/</id>
+        <link href="https://zjy98.github.io/post/bi-ye-she-ji/">
+        </link>
+        <updated>2021-02-16T15:40:40.000Z</updated>
+        <content type="html"><![CDATA[<p>一、E-R图<br>
+学生（学号 姓名 课程ID 课程成绩 排名 考勤）<br>
+课程（课程ID 课程名 学分 上课地点）<br>
+老师（姓名 教师ID 课程ID）<br>
+二、Flask<br>
+Flask构造函数使用当前模块（<strong>name</strong>)的名称作为参数<br>
+Flask类的route()函数是一个装饰器，告诉应用程序哪个URL应该调用相关的函数<br>
+app.route(rule,options)</p>
+<ul>
+<li>rule参数表示与该函数的URL绑定</li>
+<li>options是要转发给基础Rule对象的参数列表。</li>
+</ul>
+<p>app.run(host,port,debug,options)</p>
+<p>'/'URL与hello_world()函数绑定<br>
+Flask中的route()装饰器用于将URL绑定到函数。<br>
+@app.route('/hello')<br>
+def hello_world():<br>
+return 'hello world'</p>
+<p>在这里，URL'/hello'规则绑定到hello_world()函数。因此，如果用户访问http://localhost:5000/hello URL,hello_world()函数的输出将在浏览器中呈现。</p>
+<p>返回模板：用render_template（index.html）<br>
+重定向：redirect</p>
+<p>app.route('/login',methods=['GET','POST'],endpoint = 11)<br>
+第一个参数是路径<br>
+methods 请求方式<br>
+endpoint 别名，如果不写，用函数名作别名</p>
+<p>路由的本质：self.add_url_rule</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[考研复习]]></title>
+        <id>https://zjy98.github.io/post/kao-yan-fu-xi/</id>
+        <link href="https://zjy98.github.io/post/kao-yan-fu-xi/">
+        </link>
+        <updated>2020-07-26T15:51:13.000Z</updated>
+        <content type="html"><![CDATA[<p>8:00-8:40 复习碎片化知识：英语单词、政治背诵、作文背诵<br>
+8:50-11:50 复习教育综合333<br>
+13::30-14:00: 复习碎片化知识<br>
+14:00-17:00 复习专业课<br>
+17:10-18:00 复习碎片化知识<br>
+20:00-22:00 复习专业课<br>
+22:30-23:30 归纳总结</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[产品面试宝典]]></title>
+        <id>https://zjy98.github.io/post/chan-pin-mian-shi-bao-dian/</id>
+        <link href="https://zjy98.github.io/post/chan-pin-mian-shi-bao-dian/">
+        </link>
+        <updated>2020-07-23T03:49:36.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="专业名词">专业名词</h1>
+<p><strong>TO C类</strong>：面向消费者的产品<br>
+<strong>TO B类</strong>：面向企业的产品<br>
+2类产品在品牌营销上方式的区别：<br>
+1.线下：</p>
+<ul>
+<li>TO C类的市场推广目的是<strong>拉新</strong>，提升GMV（成交总额）等，推广手段大多是扫楼、展台、易拉宝、传单、条幅、灯箱、刷墙广告等。</li>
+<li>TO B类目的是提升品牌的知名度和美誉度，一般通过自己或联合举办，参加座谈会，分享会，论坛，奖项评比等方式。<br>
+2.线上：</li>
+<li>TO C类产品的内容营销目的是增加用户粘性，通过策划、生产、发布与用户相关的内容，刺激用户购买，使用产品和服务，在内容选题上，因为大部分普通用户是年轻群体，需求是生活中的某个具体需求，所以内容题材较为广泛，风格多样化。</li>
+<li>TO B类产品的内容营销目的是增强品牌知名度和美誉度，通过撰写企业服务案例、市场活动报道、产品新功能等内容，让目标用户对产品产生好感，进而试用体验。而且由于用户一般是企业CEO或高管，所以题材更注重专业性，较为狭窄。<br>
+3.PR宣传方式维度</li>
+<li>TO C类产品的PR稿件更多的涉及到平台活动，联合活动，融资信息，供应商等方面，目的是增强品牌在用户群体中的知名度，进而提升GMV</li>
+<li>TO B类产品的PR宣传更多涉及到企业用户的服务案例、企业市场活动报道（论坛、峰会、分享会等）融资信息、产品更新等，让用户感知到产品的专业性，提升用户信任感。</li>
+</ul>
+<p><strong>微博曾经一度衰落又再次兴起的原因 未来微博该如何发展</strong><br>
+1.过度的明星运营<br>
+在微博发展早期，通过明星效应拉动用户的运营手法确实有效，建立起的资源优势让其他竞品无法追赶，但到产品中后期，微博已经普遍但缺乏转变思路，还是大量的大V掌控话语权和影响力，没有回归普通用户，用户在微博逐渐失去存在感和兴趣。大量的营销公司微博刷粉刷转发对普通用户发表和获取信息也造成伤害。<br>
+2.没有根据用户需求的变化而迭代<br>
+微博一开始最基本的需求是获取资讯，但很多重复的心灵鸡汤出现，当出现体验更优秀的深度阅读产品时，微博这种快消式的资讯产品就显得不足。其次，发微博这个功能点并不需要满足用户需要潜在观众的需求，而微信朋友圈更精准。<br>
+3.产品定位不明确<br>
+社交平台还是媒体平台，产品初心不明确。</p>
+<p>再次兴起的原因：<br>
+微信朋友圈产生蒸发式降温的社交效应后（即一个社交圈的群组人数越多、时间越长，就会出现蒸发式降温），许多人选择屏蔽朋友圈，回归另一个树洞（尤其是微博）。<br>
+用户的社交需求是动态性的，随着用户的年龄增长或者常住地迁移，用户的朋友圈会不断迭代和扩大，用户会基于不同圈内好友的身份构建一套特定的范畴、经验和特定的社交语境。回顾微信朋友圈的使用经验，最开始什么都愿意分享，到后来微信好友里加入越来越多的家人、同事‘有工作需要对接的人等等，用户的朋友圈变得单调乏味，只表现最基础的自己，或者发工作需要的广告。反而微博的语境更符合用户的需求，更多用户更愿意将有趣的图片分享到微博，不用去刻意维护人设。</p>
+<p>未来微博的发展方向：<br>
+1.巩固公共社交的广场属性<br>
+不同于微信朋友圈的会议室模式，微博是热点事件讨论传播平台，加上独特的“热点源IP”即明星名人资源，自然就称为热点事件的发酵讨论传播平台。用户让微博“多备服务器&quot;的说法就是微博在热点事件中独特价值的佐证。源源不断的热点代表流量，活跃和时长。所以微博应该强化热点事件的相关功能和运营<br>
+2.深度运营社交资产<br>
+粉丝就是社交资产，常坐着诞生，走红于不同的平台，但他们一般会将微博作为沉淀粉丝的平台，以推动原有平台和全行业的影响力进一步提升。而公众号创作成本和门槛较高，仅是部分优秀创作者的选项。算法类平台（例如今日头条）的粉丝属性不同，微博分发主要基于粉丝，粉丝量与影响力正相关，因此微博的粉丝更具价值，需要深度细化运营。</p>
+<p><strong>物联网</strong><br>
+就是把实物联入网络，最终实现物品与物品，人与物品之间的全面的信息交互<br>
+物与物的连接指向智能化和自动化，计算机采集数据进行计算，并控制各种物品自动解决问题，解放劳动力。人与物的连接拓宽人们接触和使用信息的渠道，人可以做到信息共享、远程感知与操控等。<br>
+通过RFID、条码、二维码等信息传感设备，将物品信息采集入计算机，实现智能化识别与管理，是现在也是未来物联网的重要实现方式。无论是给房子贴个二维码，扫一下就能知道其布局、历史、人文内涵，还是干脆对其进行3D建模，在地图上表现出来，都是将其信息传到网上的方式，也是将其联入物联网的方式。</p>
+<p><strong>互联网领域，云计算、大数据、人工智能是发展的未来</strong><br>
+1.互联网通过计算机可以大规模地收集、存储人类的行为，即应用大数据。所以，当计算机大量积累人类在网络上的行为，我们有可能再通过算法，处理这些积累下来的行为数据，即应用云计算。<br>
+2.即把人类的大脑当用作CPU的逻辑门来看，只要你有能力把足够多的大脑连结起来，就有可能让你的系统产生群体智慧。群体智慧中的个体并不了解自己成了一个逻辑门，他们只是为了自己的某个目标行事。但最终，他们的行为被汇总成一个帮助别人决策的结论。 通过这样的方式去解决生活中的问题，越来越多的服务是基于结构化的信息+结构化的人类行为。</p>
+<p><strong>广告展示，广告点击，广告转化率</strong><br>
+广告展示：该广告在设定时间范围内的展示数量，也可以理解为曝光，广告在页面上曝光显示的次数，显示一次记录为一个pv，被一个用户看到记录为一个uv<br>
+广告点击：该广告在设定时间范围内的点击数量，广告被点击一次即为一个pv，被一个用户点击一次即为一个uv<br>
+广告转化率=广告点击/广告展示 * 100%，具体是pv还是uv做除法，看实际应用时的衡量维度。</p>
+<p><strong>ASO,UGC,PGC,SAAS,NFC</strong><br>
+ASO:App Store Optimization 应用商店优化。利用app store的搜索规则和排名规则，提升app的排名和被搜索到的概率，可类比SEO-普通网站针对搜索引擎的优化<br>
+UGC:User Generated Content 用户原创内容，用户将自己的原创内容在互联网平台向其他用户进行展示，例如微博、小红书、B站等<br>
+PGC（Professional Generated Content），指专业生产内容。经由传统广电业者按照几乎与电视节目无异的方式进行制作，但在内容的传播层面，却必须按照互联网的传播特性进行调整<br>
+SAAS:Sofrware-as-a-Service 软件即服务。厂商将应用软件统一部署在自己的服务器上，客户可以根据自己的实际需求，通过互联网向厂商订购自己所需的应用软件服务，按订购的服务多少和时间长短向厂商支付费用，并通过互联网获得厂商提供的服务，类似于集成软件和服务的外包，一些中小型企业可通过购买SAAS系统节约硬件软件服务和相关开发维护人员的高额成本，并可像积木一样在系统上购买搭建延伸服务。一般属于TO B的业务<br>
+NFC:Near field communication 近场通讯。非接触的在彼此靠近的情况下可进行数据交换的技术，例如apple pay 手机地铁过闸，门禁，手机识别卡片，等</p>
+<p><strong>feed流</strong><br>
+feed是将用户主动订阅的若干消息源组合在一起形成内容聚合器，帮助用户持续地获得最新的订阅源内容<br>
+严格从定义上来说通常说的搜索结果，排序列表都不能算作feed流<br>
+feed流的展现形式有很多种，主要的有timeline和rank，订阅源不再是某个内容，而是生产内容的人/团体。订阅中通常夹杂非订阅内容，比如热门推荐，广告<br>
+内容也不再严格按照timeline，广泛使用智能feed排序，新的feed流刻意不再需要主动搜搜，而是主动呈现琳琅满目的内容，它对我们了如指掌，让我们不停刷新。微博、知乎、今日头条、微信朋友圈都是feed流的展示模式。</p>
+<p><strong>目前互联网盈利的模式</strong><br>
+1.内置商城：销售虚拟道具等，与传统的游戏盈利模式类似。<br>
+2.App Store付费下载：刷榜竞争严重，一般配合限时免费做推广，由于国内用户付费习惯差，做国外用户优势大很多<br>
+3.增值业务：与一些SP渠道合作，扣手机费分成<br>
+4.移动广告：以Banner为主，插屏、全屏、视频和富媒体等形式也有，开发者易受到各移动广告平台的剪刀差价和运营影响，包括扣量，数据核实不标准，Epcm低等。<br>
+5.应用墙和积分墙：无积分和有积分模式，CPA计费。<br>
+另有交叉补贴，三方市场，开源捐赠，上市收购等“免费”盈利模式。</p>
+<p><strong>优酷、腾讯视频、爱奇艺的对比</strong><br>
+1.优酷<br>
+界面主色调是蓝色。slogan是“这世界很酷”，推崇的是一种文娱酷体验。本着“世界都在看”的目标以及“快者为王”的产品理念，打造快速播放、快速发布、快速搜索的视频数据库，致力于让用户“看得爽、找得快、传得广、比得酷”。欢迎一切以微视频形式出现的视频收藏、自创与分享，建立优酷原创拍客联盟。始终围绕视频核心，没有过多的增值业务。<br>
+2.腾讯视频<br>
+界面主色调是橙色。slogan是“不负好时光”，强调是一种场景体验。秉承“内容为王，用户为本”的价值观，以更加年轻化、更能引起用户情感共鸣的定位亮相，着力凸显优质内容的差异化竞争优势，深化与消费者的情感沟通。作为HBO中国独家官方播放平台，腾讯视频拥有丰富的美剧阵容。<br>
+3.爱奇艺<br>
+界面主色调是绿色。slogan是“悦享品质”，体现的是一种高度追求细节品质的经营理念。通过“爱奇艺出品”战略的持续推动，逐步降低版权投入，重点发力自制内容，推出了很多网上大火的自制剧和自制综艺；“品质、青春、时尚”的品牌调性深入人心，网罗了广大的年轻用户群体。从功能架构和设计上来看，爱奇艺已经由一个视频平台转型到泛娱乐开放平台，发展了“乐活”、“泡泡圈”等增值业务，“乐活”中包括了文学、电影票、商城、奇秀直播等，“泡泡圈”围绕明星、IP、综艺节目主打社交功能，引入了更多的用户流量，带动收入增长。</p>
+<p>总的来说，如果一个视频网站能做到包揽一切内容资源，那自然所向披靡。但在做不到的情况下，就必须延续差异化政策，继续深化平台定位。例如：不断争取独家版权，放映独家影视内容；整合资源，强化自身优势，让用户对平台有标签化的印象；自己打造精品偶像剧、综艺、直播节目等，生产优质内容等。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[产品知识]]></title>
+        <id>https://zjy98.github.io/post/chan-pin-zhi-shi/</id>
+        <link href="https://zjy98.github.io/post/chan-pin-zhi-shi/">
+        </link>
+        <updated>2020-07-23T03:49:36.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="专业名词">专业名词</h1>
+<p><strong>TO C类</strong>：面向消费者的产品<br>
+<strong>TO B类</strong>：面向企业的产品<br>
+2类产品在品牌营销上方式的区别：<br>
+1.线下：</p>
+<ul>
+<li>TO C类的市场推广目的是<strong>拉新</strong>，提升GMV（成交总额）等，推广手段大多是扫楼、展台、易拉宝、传单、条幅、灯箱、刷墙广告等。</li>
+<li>TO B类目的是提升品牌的知名度和美誉度，一般通过自己或联合举办，参加座谈会，分享会，论坛，奖项评比等方式。<br>
+2.线上：</li>
+<li>TO C类产品的内容营销目的是增加用户粘性，通过策划、生产、发布与用户相关的内容，刺激用户购买，使用产品和服务，在内容选题上，因为大部分普通用户是年轻群体，需求是生活中的某个具体需求，所以内容题材较为广泛，风格多样化。</li>
+<li>TO B类产品的内容营销目的是增强品牌知名度和美誉度，通过撰写企业服务案例、市场活动报道、产品新功能等内容，让目标用户对产品产生好感，进而试用体验。而且由于用户一般是企业CEO或高管，所以题材更注重专业性，较为狭窄。<br>
+3.PR宣传方式维度</li>
+<li>TO C类产品的PR稿件更多的涉及到平台活动，联合活动，融资信息，供应商等方面，目的是增强品牌在用户群体中的知名度，进而提升GMV</li>
+<li>TO B类产品的PR宣传更多涉及到企业用户的服务案例、企业市场活动报道（论坛、峰会、分享会等）融资信息、产品更新等，让用户感知到产品的专业性，提升用户信任感。</li>
+</ul>
+<p><strong>微博曾经一度衰落又再次兴起的原因 未来微博该如何发展</strong><br>
+1.过度的明星运营<br>
+在微博发展早期，通过明星效应拉动用户的运营手法确实有效，建立起的资源优势让其他竞品无法追赶，但到产品中后期，微博已经普遍但缺乏转变思路，还是大量的大V掌控话语权和影响力，没有回归普通用户，用户在微博逐渐失去存在感和兴趣。大量的营销公司微博刷粉刷转发对普通用户发表和获取信息也造成伤害。<br>
+2.没有根据用户需求的变化而迭代<br>
+微博一开始最基本的需求是获取资讯，但很多重复的心灵鸡汤出现，当出现体验更优秀的深度阅读产品时，微博这种快消式的资讯产品就显得不足。其次，发微博这个功能点并不需要满足用户需要潜在观众的需求，而微信朋友圈更精准。<br>
+3.产品定位不明确<br>
+社交平台还是媒体平台，产品初心不明确。</p>
+<p>再次兴起的原因：<br>
+微信朋友圈产生蒸发式降温的社交效应后（即一个社交圈的群组人数越多、时间越长，就会出现蒸发式降温），许多人选择屏蔽朋友圈，回归另一个树洞（尤其是微博）。<br>
+用户的社交需求是动态性的，随着用户的年龄增长或者常住地迁移，用户的朋友圈会不断迭代和扩大，用户会基于不同圈内好友的身份构建一套特定的范畴、经验和特定的社交语境。回顾微信朋友圈的使用经验，最开始什么都愿意分享，到后来微信好友里加入越来越多的家人、同事‘有工作需要对接的人等等，用户的朋友圈变得单调乏味，只表现最基础的自己，或者发工作需要的广告。反而微博的语境更符合用户的需求，更多用户更愿意将有趣的图片分享到微博，不用去刻意维护人设。</p>
+<p>未来微博的发展方向：<br>
+1.巩固公共社交的广场属性<br>
+不同于微信朋友圈的会议室模式，微博是热点事件讨论传播平台，加上独特的“热点源IP”即明星名人资源，自然就称为热点事件的发酵讨论传播平台。用户让微博“多备服务器&quot;的说法就是微博在热点事件中独特价值的佐证。源源不断的热点代表流量，活跃和时长。所以微博应该强化热点事件的相关功能和运营<br>
+2.深度运营社交资产<br>
+粉丝就是社交资产，常坐着诞生，走红于不同的平台，但他们一般会将微博作为沉淀粉丝的平台，以推动原有平台和全行业的影响力进一步提升。而公众号创作成本和门槛较高，仅是部分优秀创作者的选项。算法类平台（例如今日头条）的粉丝属性不同，微博分发主要基于粉丝，粉丝量与影响力正相关，因此微博的粉丝更具价值，需要深度细化运营。</p>
+<p><strong>物联网</strong><br>
+就是把实物联入网络，最终实现物品与物品，人与物品之间的全面的信息交互<br>
+物与物的连接指向智能化和自动化，计算机采集数据进行计算，并控制各种物品自动解决问题，解放劳动力。人与物的连接拓宽人们接触和使用信息的渠道，人可以做到信息共享、远程感知与操控等。<br>
+通过RFID、条码、二维码等信息传感设备，将物品信息采集入计算机，实现智能化识别与管理，是现在也是未来物联网的重要实现方式。无论是给房子贴个二维码，扫一下就能知道其布局、历史、人文内涵，还是干脆对其进行3D建模，在地图上表现出来，都是将其信息传到网上的方式，也是将其联入物联网的方式。</p>
+<p><strong>互联网领域，云计算、大数据、人工智能是发展的未来</strong><br>
+1.互联网通过计算机可以大规模地收集、存储人类的行为，即应用大数据。所以，当计算机大量积累人类在网络上的行为，我们有可能再通过算法，处理这些积累下来的行为数据，即应用云计算。<br>
+2.即把人类的大脑当用作CPU的逻辑门来看，只要你有能力把足够多的大脑连结起来，就有可能让你的系统产生群体智慧。群体智慧中的个体并不了解自己成了一个逻辑门，他们只是为了自己的某个目标行事。但最终，他们的行为被汇总成一个帮助别人决策的结论。 通过这样的方式去解决生活中的问题，越来越多的服务是基于结构化的信息+结构化的人类行为。</p>
+<p><strong>广告展示，广告点击，广告转化率</strong><br>
+广告展示：该广告在设定时间范围内的展示数量，也可以理解为曝光，广告在页面上曝光显示的次数，显示一次记录为一个pv，被一个用户看到记录为一个uv<br>
+广告点击：该广告在设定时间范围内的点击数量，广告被点击一次即为一个pv，被一个用户点击一次即为一个uv<br>
+广告转化率=广告点击/广告展示 * 100%，具体是pv还是uv做除法，看实际应用时的衡量维度。</p>
+<p><strong>ASO,UGC,PGC,SAAS,NFC</strong><br>
+ASO:App Store Optimization 应用商店优化。利用app store的搜索规则和排名规则，提升app的排名和被搜索到的概率，可类比SEO-普通网站针对搜索引擎的优化<br>
+UGC:User Generated Content 用户原创内容，用户将自己的原创内容在互联网平台向其他用户进行展示，例如微博、小红书、B站等<br>
+PGC（Professional Generated Content），指专业生产内容。经由传统广电业者按照几乎与电视节目无异的方式进行制作，但在内容的传播层面，却必须按照互联网的传播特性进行调整<br>
+SAAS:Sofrware-as-a-Service 软件即服务。厂商将应用软件统一部署在自己的服务器上，客户可以根据自己的实际需求，通过互联网向厂商订购自己所需的应用软件服务，按订购的服务多少和时间长短向厂商支付费用，并通过互联网获得厂商提供的服务，类似于集成软件和服务的外包，一些中小型企业可通过购买SAAS系统节约硬件软件服务和相关开发维护人员的高额成本，并可像积木一样在系统上购买搭建延伸服务。一般属于TO B的业务<br>
+NFC:Near field communication 近场通讯。非接触的在彼此靠近的情况下可进行数据交换的技术，例如apple pay 手机地铁过闸，门禁，手机识别卡片，等</p>
+<p><strong>feed流</strong><br>
+feed是将用户主动订阅的若干消息源组合在一起形成内容聚合器，帮助用户持续地获得最新的订阅源内容<br>
+严格从定义上来说通常说的搜索结果，排序列表都不能算作feed流<br>
+feed流的展现形式有很多种，主要的有timeline和rank，订阅源不再是某个内容，而是生产内容的人/团体。订阅中通常夹杂非订阅内容，比如热门推荐，广告<br>
+内容也不再严格按照timeline，广泛使用智能feed排序，新的feed流刻意不再需要主动搜搜，而是主动呈现琳琅满目的内容，它对我们了如指掌，让我们不停刷新。微博、知乎、今日头条、微信朋友圈都是feed流的展示模式。</p>
+<p><strong>BRD</strong><br>
+Bussiness Requirement Document商业需求文档，回答的是产品价值是什么？也就是这个产品解决了什么问题。<br>
+受众是：老板、投资人、股东，目的是让他们知道这个产品如何给公司盈利，侧重需求描述，盈利模式。</p>
+<p><strong>MRD</strong><br>
+Market Requirement Document市场需求文旦<br>
+<strong>目前互联网盈利的模式</strong><br>
+1.内置商城：销售虚拟道具等，与传统的游戏盈利模式类似。<br>
+2.App Store付费下载：刷榜竞争严重，一般配合限时免费做推广，由于国内用户付费习惯差，做国外用户优势大很多<br>
+3.增值业务：与一些SP渠道合作，扣手机费分成<br>
+4.移动广告：以Banner为主，插屏、全屏、视频和富媒体等形式也有，开发者易受到各移动广告平台的剪刀差价和运营影响，包括扣量，数据核实不标准，Epcm低等。<br>
+5.应用墙和积分墙：无积分和有积分模式，CPA计费。<br>
+另有交叉补贴，三方市场，开源捐赠，上市收购等“免费”盈利模式。</p>
+<p><strong>优酷、腾讯视频、爱奇艺的对比</strong><br>
+1.优酷<br>
+界面主色调是蓝色。slogan是“这世界很酷”，推崇的是一种文娱酷体验。本着“世界都在看”的目标以及“快者为王”的产品理念，打造快速播放、快速发布、快速搜索的视频数据库，致力于让用户“看得爽、找得快、传得广、比得酷”。欢迎一切以微视频形式出现的视频收藏、自创与分享，建立优酷原创拍客联盟。始终围绕视频核心，没有过多的增值业务。<br>
+2.腾讯视频<br>
+界面主色调是橙色。slogan是“不负好时光”，强调是一种场景体验。秉承“内容为王，用户为本”的价值观，以更加年轻化、更能引起用户情感共鸣的定位亮相，着力凸显优质内容的差异化竞争优势，深化与消费者的情感沟通。作为HBO中国独家官方播放平台，腾讯视频拥有丰富的美剧阵容。<br>
+3.爱奇艺<br>
+界面主色调是绿色。slogan是“悦享品质”，体现的是一种高度追求细节品质的经营理念。通过“爱奇艺出品”战略的持续推动，逐步降低版权投入，重点发力自制内容，推出了很多网上大火的自制剧和自制综艺；“品质、青春、时尚”的品牌调性深入人心，网罗了广大的年轻用户群体。从功能架构和设计上来看，爱奇艺已经由一个视频平台转型到泛娱乐开放平台，发展了“乐活”、“泡泡圈”等增值业务，“乐活”中包括了文学、电影票、商城、奇秀直播等，“泡泡圈”围绕明星、IP、综艺节目主打社交功能，引入了更多的用户流量，带动收入增长。</p>
+<p>总的来说，如果一个视频网站能做到包揽一切内容资源，那自然所向披靡。但在做不到的情况下，就必须延续差异化政策，继续深化平台定位。例如：不断争取独家版权，放映独家影视内容；整合资源，强化自身优势，让用户对平台有标签化的印象；自己打造精品偶像剧、综艺、直播节目等，生产优质内容等。</p>
+<h1 id="面试典型问题">面试典型问题</h1>
+<p>1.产品经理最应该具备什么样的能力<br>
+答：执行能力、沟通能力、自学能力、逻辑思维能力、创新力<br>
+2.产品经理需要做什么工作<br>
+答：产品规划（包括用户调研、数据分析等需求分析手段）<br>
+产品设计（竞品分析、产品脑图、产品流程图、产品原型图、产品说明文档）<br>
+产品落地（需求评审、需求排期、项目跟进、上线走查等项目管理）</p>
+<h1 id="需求金字塔">需求金字塔</h1>
+<p>狩野纪昭(Noriaki Kano)将影响满意度的因素划分为五个类型：（1）基本型需求；（2）期望型需求；（3）魅力型需求；（4）无差异型需求；（5）反向型需求。<br>
+（1）基本型需求：就是用户不说却必须存在的理所当然的需求，即痛点。当需求满足时，用户不会感到满意，但当不被满足时，用户会很不满意。就好比一个手机却通话质量不好，直接就可以go die了。<br>
+（2）期望型需求：与用户满意度成正相关的需求，也叫用户需求的痒处。当需求满足时，用户会很满意，当不被满足时，用户会很不满意。就好比手机的拍照功能。<br>
+（3）魅力型需求：也称为兴奋型需求，是企业给用户提供的惊喜型需求。该需求大大超出了用户对产品本来的期望，使得用户的满意度急剧上升，所以即使表现的不太完善，用户的满意程度也非常高。而即使该期望没有被满足，用户也不会感到不满意。这就好像iPhone X的面部识别，即使识别速度有时慢或者不准，也有一大批用户蜂拥购买。<br>
+（4）无差异型需求：就是说该需求被满足或未被满足，都不会对用户的满意度造成影响。<br>
+（5）反向型需求：该需求刚好与用户的满意度呈反向相关，满足该要求，反而会使用户的满意度下降。</p>
+<h1 id="做竞品分析的常用方法">做竞品分析的常用方法：</h1>
+<p>体验法：深度体验，截图保存<br>
+对比法：功能对比法，编制表格<br>
+回溯法：关注功能上线时间和消失时间<br>
+SWTO：优劣势分析<br>
+MECE：互相独立，完全穷尽<br>
+空雨伞：麦肯锡分析方法，现状、意义、解决方案</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[测试题]]></title>
+        <id>https://zjy98.github.io/post/ce-shi-ti/</id>
+        <link href="https://zjy98.github.io/post/ce-shi-ti/">
+        </link>
+        <updated>2020-06-16T12:11:46.000Z</updated>
+        <content type="html"><![CDATA[<p>1.在同一台Linux上的两个进程之间交换数据可以通过下列两种方式。一，使用TCP Socket完成；二，两进程共享内存，并使用信号量(semaphore)的P/V操作操作完成。两种方式各有那些利弊？<br>
+2.使用Linux与进程管理有关的系统调用，编写 C语言程序，使用与下列shell命令相同的机制完成同样的功能。</p>
+<p>ps -ef &gt; proc.list; grep root &lt; proc.list</p>
+<p>为简化编程，假设系统调用执行均能成功，不考虑失败的情况。</p>
+<p>提示：相关的系统调用如下：</p>
+<p>创建新进程用fork()<br>
+exec系统调用可以用execlp(file，argv0, argv1, …, 0);<br>
+创建匿名管道pipe(int fd[2]); 其中fd[0]为读端，fd[1]为写端<br>
+dup2系统调用用法为 dup2(srcfd, dstfd); srcfd覆盖掉dstfd<br>
+打开文件读 fd = open(filename, O_RDONLY);<br>
+打开文件写 fd=open(filename, O_CREAT | O_WRONLY, 0666);</p>
+<pre><code class="language-c">    int fd, sv;
+    if (fork() == 0) {
+        fd = open(&quot;proc.list&quot;, O_CREAT | O_WRONLY, 0666);
+        dup2(fd, 1);
+        close(fd);
+        execlp(&quot;ps&quot;, &quot;ps&quot;, &quot;-ef&quot;, 0);
+    } else {
+        wait(&amp;sv);
+        fd = open(&quot;proc.list&quot;, O_RDONLY);
+        dup2(fd, 0);
+        close(fd);
+        execlp(&quot;grep&quot;, &quot;grep&quot;, &quot;root&quot;, 0);
+    }
+}
+</code></pre>
+<p>3.字符终端上执行cat /usr/bin/bash之后屏幕开始显示乱码，按下Ctrl-C中止后，无论从键盘输入什么内容，屏幕回显的内容都是各种线条等制表符号。解释产生这一现象的原因。<br>
+4.在Windows下输入命令名，系统首先检索当前目录下是否有这个可执行文件，检索不到，会逐个检查PATH环境变量列出的各目录。Linux不自动检索当前目录，而且环境变量PATH中一般不含当前目录./，为什么？</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Socket概述]]></title>
         <id>https://zjy98.github.io/post/socket-gai-shu/</id>
@@ -33,6 +317,141 @@ BSD将设备和通信管道组织成文件方式，创建方式不同，访问�
 面向连接，可靠（保证收到的数据是对的，不是保证一定能收到——，字节流传输，不保证报文边界<br>
 UDP:<br>
 面向数据报，不可靠（丢报，乱序，流量控制，数据报传输），广播和组播</p>
+<h1 id="客户端程序">客户端程序</h1>
+<ul>
+<li>创建文件描述符socket</li>
+<li>建立连接socket<br>
+进程阻塞，等待TCP连接建立</li>
+<li>端点名的概念：IP地址+端口号<br>
+本地端点名 远端端点名</li>
+<li>发送数据<br>
+发送速率大于通信速率，进程会被阻塞</li>
+<li>关闭连接</li>
+</ul>
+<h1 id="服务端程序">服务端程序</h1>
+<p>bind(admin_sock,(struct sockaddr*)&amp;name,sizeof(name));指定了端口号<br>
+listen(admin_sock,5);监听等待 参数用处不大<br>
+accept(admin_sock,0,0)真正建立连接（三次握手）<br>
+建立一个socket（新获得的）</p>
+<h1 id="socket系统调用">socket系统调用</h1>
+<ul>
+<li>socket<br>
+创建文件描述符socket,端点名未指定</li>
+<li>bind<br>
+设定本地端点名，也可以用在用户端程序</li>
+<li>listen<br>
+开始监听到达的连接请求</li>
+<li>accept<br>
+接受一个连接请求，TCP三次握手结束accept返回，返回值是另一个socket</li>
+<li>connect<br>
+建立连接，设定远端端点名，TCP连接建立，函数返回</li>
+<li>close<br>
+关闭连接，释放文件描述符<br>
+创建新进程是的文件描述符处理：<br>
+问题：不能同时接纳多个连接<br>
+多进程并发处理，单进程并发处理</li>
+</ul>
+<h1 id="多进程并发处理">多进程并发处理</h1>
+<p>服务器端肯定不能用一个socket<br>
+<img src="https://zjy98.github.io/post-images/1592279710910.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592279731796.png" alt="" loading="lazy"><br>
+父进程：负责close(data_sock)<br>
+（必须执行：1.每个进程能打开的文件数目有限。2.子进程TCP已经关闭了，父进程还没关，无法中断连接）<br>
+子进程：负责读取<br>
+<img src="https://zjy98.github.io/post-images/1592280031537.png" alt="" loading="lazy"></p>
+<h2 id="readwrite系统调用">read/write系统调用</h2>
+<p>与TCP通信的时序<br>
+主机A用write()通过TCP连接向B发送数据，B接受数据用read()<br>
+<img src="https://zjy98.github.io/post-images/1592280622178.png" alt="" loading="lazy"><br>
+read()在什么时候解除阻塞<br>
+write()在t1就返回了（系统调用成功，即把数据放在发送缓冲区了，不一定发送成功了）<br>
+read()在 t3返回 接收到DATA就返回，在发ACK之前</p>
+<ul>
+<li>read/write与TCP通信故障和流控<br>
+流控问题<br>
+断线<br>
+对方重启动<br>
+keepalive(默认2小时)<br>
+getsockopt/setsoclopt可以设置保活间隔，重传次数，重传时间</li>
+<li>粘连问题</li>
+<li>read/write与UDP通信<br>
+网络故障<br>
+没有数据粘连<br>
+没有流控功能<br>
+不可靠<br>
+<img src="https://zjy98.github.io/post-images/1592281005864.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="shutdown系统调用">shutdown系统调用</h2>
+<p>int shutdown(int sockfd,int howto)<br>
+禁止发送活接收，socket提供全双工通信，两个方向上都可以收发数据，shutdown提供了对于一个方向的通信控制。<br>
+参数howto取值：<br>
+SHUT_RD：不能再接收数据，随后read均返回0<br>
+SHUT_WR：不能再发送数据，本方向再次write会导致SIGPIP信号<br>
+SHUT_RDWR：禁止这个sockfd上的任何收发<br>
+shutdown是通用的套接字上的操作<br>
+TCP协议：<br>
+1.允许关闭发送方向的半个连接<br>
+2.没有一种机制让对方关闭它的发送，但TCP协议的流量控制机制，可以通知对方自己的接收窗口W为0，对方的write会继续，并将数据堆积在发送缓冲区<br>
+UDP协议：<br>
+UDP关闭接收方向内核仅记下一个标记，不再提供数据，但无法阻止对方的发送而导致的网络上数据<br>
+即使套接字关闭也不影响对方发出无人接收的数据报</p>
+<h2 id="socket控制">socket控制</h2>
+<p>getsockopt、setsockopt、ioctl<br>
+无阻塞I/O<br>
+执行read/write立即返回，不会导致进程阻塞<br>
+<img src="https://zjy98.github.io/post-images/1592281451503.png" alt="" loading="lazy"></p>
+<h1 id="单进程并发处理">单进程并发处理</h1>
+<h1 id="select多路io">select:多路I/O</h1>
+<p>引入select系统调用的原因：<br>
+使得用户进程可同时等待多个事件发生<br>
+用户进程告知内核多个事件，某一个或多个事件发生时select返回<br>
+用户进程告知内核多个事件，某一个或多个事件发生是select返回，否则进程睡眠等待<br>
+<img src="https://zjy98.github.io/post-images/1592287141170.png" alt="" loading="lazy"><br>
+什么叫准备好：<br>
+rfds中某文件描述符的read不会阻塞<br>
+wdfs中某文件描述符的write不会阻塞<br>
+efds中某文件描述符发生了异常情况<br>
+TCP协议，只有加急数据到达才算异常情况<br>
+对方连接关闭或网络故障，不算异常情况</p>
+<p>准备好后可以进行的操作<br>
+当读准备好时，调用read会立刻返回-1<br>
+当写准备好时，调用write可以写多少字节？</p>
+<blockquote>
+<p>=1个字节，无阻塞I/O方式</p>
+</blockquote>
+<p>集合操作：<br>
+<img src="https://zjy98.github.io/post-images/1592287419141.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592287435926.png" alt="" loading="lazy"></p>
+<p><img src="https://zjy98.github.io/post-images/1592287518969.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592287560770.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1592288038330.png" alt="" loading="lazy"><br>
+比多进程效率要高<br>
+select：面向事件的编程模式</p>
+<h1 id="udp通信">UDP通信</h1>
+<p><img src="https://zjy98.github.io/post-images/1592292583357.png" alt="" loading="lazy"><br>
+connect：<br>
+不产生网络流量，内核记下远端端点名<br>
+之前未用bind指定本地端点名，系统自动分配本地端点名<br>
+write:<br>
+使用前面connect调用指定的端点名<br>
+UDP不是面向连接的协议，可在sendto参数中指定对方端点名，而且允许对方端点名不同<br>
+每次都使用sendto发送数据，前面的connect调用没必要<br>
+connect/第一次sendto可使得socket获得系统动态分配的本地端点名，未获得本地端点名之前不该执行read或recv以及recvfrom<br>
+<img src="https://zjy98.github.io/post-images/1592292804526.png" alt="" loading="lazy"><br>
+没办法支持多个并发数据，改造如下<br>
+<img src="https://zjy98.github.io/post-images/1592292841552.png" alt="" loading="lazy"></p>
+<ul>
+<li>接收<br>
+没有数据到达时，read调用会使得进程睡眠等待，<br>
+一般需要区分数据来自何处，常用recvfrom获得对方的端点名</li>
+<li>发送<br>
+服务器端发送数据常用sendto，指定远端端点名<br>
+对接收来的数据作应答，sendto引用的对方端点名利用recvfrom返回得到的端点名</li>
+<li>select定时<br>
+select可实现同时等待两个事件：收到数据和定时器超时<br>
+用time(0)或者gettimefday()获得时间坐标，计算时间间隔 决定是否执行超时后的动作</li>
+<li>死锁问题</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
@@ -57,6 +476,74 @@ UDP:<br>
 定长又分为：定长记录　变长记录两种<br>
 变长记录文件根据文件组织方式的不同又分为：<br>
 顺序文件，索引文件，索引顺序文件</p>
+<h1 id="linux">Linux</h1>
+<p>1.cat -n file1file2 命令的意思是？<br>
+把文件file1和file2连在一起，然后输出到屏幕上。-n:合并两个文件</p>
+<p>2.下列提法中，不属于ifconfig命令作用范围的是 。<br>
+加载网卡到内核中<br>
+解答：ifconfig<br>
+1.作用：ifconfig用于查看和更改网络接口的地址和参数，包括IP地址、网络掩码、广播地址，使用权限是超级用户。<br>
+2.格式    ifconfig -interface [options] address<br>
+3.主要参数如下：<br>
+-interface：指定的网络接口名，如eth0和eth1。<br>
+up：激活指定的网络接口卡。<br>
+down：关闭指定的网络接口。<br>
+broadcast address：设置接口的广播地址。<br>
+pointopoint：启用点对点方式。<br>
+address：设置指定接口设备的IP地址。<br>
+netmask address：设置接口的子网掩码。</p>
+<p>3.文件操作的唯一依据是？<br>
+文件句柄（文件描述符）</p>
+<p>4.建立动态路由需要用到的文件有（）<br>
+/etc/gateways<br>
+解析：/etc/hosts 设定用户自已的IP与名字的对应表<br>
+/etc/gateways 设定路由器<br>
+/etc/resolv.conf    设置DNS</p>
+<p>5.假如你想计划让系统自动在每个月的第一天早上4点钟执行一个维护工作，以下哪个cron是正确的？<br>
+00 4 1 1-12 * /maintenance.pl<br>
+解析：计划任务内容格式：分 时 日 月 周  命令/脚本</p>
+<p>6.crontab文件由6个域组成，每个域之间用空格分隔，下列哪个排列方式是正确的？<br>
+MIN HOUR DAY MONTH DAYOFWEEK COMMAND</p>
+<p>7.Linux系统大致启动流程是（）<br>
+uEFI-&gt; MBR -&gt; grub -&gt; initrd</p>
+<p>8.不算 main 这个进程自身，到底创建了多少个进程啊？19</p>
+<pre><code class="language-c">int main(int argc, char* argv[])
+{
+   fork();
+   fork() &amp;&amp; fork() || fork();
+   fork();
+}
+</code></pre>
+<p>解析：fork()是一个分叉函数， 返回值： 若成功调用一次则返回两个值，子进程返回0，父进程   返回子进程标记；否则，出错返回-1<br>
+每一次fork（）就翻倍；<br>
+fork();<br>
+fork() &amp;&amp; fork() || fork();<br>
+fork();<br>
+第一条和第三条分别X2；关键在第二条语句。第二条有 5个分支；<br>
+A&amp;&amp;B||C<br>
+A为假，跳过B，判断C-----------------------2<br>
+A为真，判断B，若B为真，跳过C-----------1<br>
+若B为假，判断C  ------------2</p>
+<p>故总数为2*（2+1+2）*2=20；减去自己就是19.</p>
+<p>9.现在将/目录下的www文件权限改为只有主用户有执行的权限的有<br>
+chmod 100 /www<br>
+chmod u+x ,g-x,o-x /www<br>
+解析：题目要求是只有所有者具有x权限<br>
+chmod u+x ,g-x,o-x /www是把go的x权限取代哦，为u增加x权限。原有的权限不变<br>
+chmod 100 /www会清空原有权限，只给u一个x权限，也符合题意。</p>
+<p>10.在RHEL5系统中使用vi编辑文件时，要将某文本文件第1行到5行的内容复制到文件中的指定位置，以下（  ）操作能实现该功能。（选择二项）<br>
+将光标移到第1行，在vi命令模式下输入5yy,然后将光标移到制定位置，按p键<br>
+使用末行命令1，5y，然后将光标移到制定位置，按p键<br>
+解析：nyy：复制以下n行<br>
+n,my：指定n到m行复制<br>
+p：在光标下一行粘贴<br>
+P（大写）：在光标上一行粘贴（插入）</p>
+<p>11.使用useradd创建用户时和主目录相关的参数是()<br>
+d.m.n<br>
+-p 设定帐号的密码<br>
+-d 指定用户的主目录<br>
+-m 自动建立用户的主目录<br>
+-M 不要自动建立用户的主目录</p>
 <h1 id="数组">数组</h1>
 <p>1.数组元素的地址计算与数组的存储方式无关。请问这句话的说法是正确的吗？<br>
 错误<br>
@@ -241,491 +728,6 @@ mmap的参数：<br>
 神经网络层数加深，优化函数会越来越容易陷入局部最优解，这个局部最优解离全局最优解也可能会越来越远，同时“梯度消失”现象也会越来越严重。2006年Hinton利用预训练法缓解了局部最优解问题。为了克服“梯度消失”现象，用ReLu、maxout等激活函数代替了sigmoid函数。</li>
 <li>卷积神经网络和循环神经网络：CNN是空间上深度增加的神经网络，RNN是时间上深度增加的神经网络。</li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[卷积神经网络CNN]]></title>
-        <id>https://zjy98.github.io/post/juan-ji-shen-jing-wang-luo/</id>
-        <link href="https://zjy98.github.io/post/juan-ji-shen-jing-wang-luo/">
-        </link>
-        <updated>2020-06-09T17:08:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="什么是神经网络">什么是神经网络</h1>
-<p>这里的神经网络也指人工神经网络（Artificial Neural Networks，简称ANNs），是一种模仿生物神经网络行为特征的算法数学模型，由神经元、节点与节点之间的连接（突触）所构成。<br>
-每个神经网络单元抽象出来的数学模型如下，也叫感知器，它接收多个输入（x1，x2，x3…），产生一个输出，这就好比是神经末梢感受各种外部环境的变化（外部刺激），然后产 生电信号，以便于转导到神经细胞（又叫神经元）。<br>
-<img src="https://zjy98.github.io/post-images/1591722598011.png" alt="" loading="lazy"><br>
-对应公式如下:<br>
-hW,b(x)=f(WTx)=f(∑3i=1Wixi+b)<br>
-单个的感知器就构成了一个简单的模型，但在现实世界中，实际的决策模型则要复杂得多，往往是由多个感知器组成的多层网络，如下图所示，这也是经典的神经网络模型，由输入层、隐含层、输出层构成。<br>
-<img src="https://zjy98.github.io/post-images/1591722721078.png" alt="" loading="lazy"></p>
-<h1 id="什么是卷积神经网络">什么是卷积神经网络</h1>
-<p>受Hubel和Wiesel对猫视觉皮层电生理研究启发，有人提出卷积神经网络（CNN），Yann Lecun 最早将CNN用于手写数字识别并一直保持了其在该问题的霸主地位。近年来卷积神经网络在多个方向持续发力，在语音识别、人脸识别、通用物体识别、运动分析、自然语言处理甚至脑电波分析方面均有突破。<br>
-卷积神经网络最主要的三层:卷积层、池化层、全连接神经网络 卷积神经网络的基本结构图:<br>
-<img src="https://zjy98.github.io/post-images/1591722809738.png" alt="" loading="lazy"><br>
-<strong>卷积神经网络与普通的神经网络的区别在于,卷积神经网络包含了一个由卷积层和池化层构成的特征抽取器</strong><br>
-在卷积神经网络的卷积层中通常包含若干个特征平面,每个特征平面由一些矩形排列的的神经元组成，同一特征平面的神经元共享权值，这里共享的权值就是卷积核。卷积核一般以随机小数矩阵的形式初始化,在网络的训练过程中卷积核将学习到合理的权值。通常采用卷积核的大小为3*3,也有5*5,7*7，但大多数为奇数.卷积核带来的好处是减少了网络各层之间的连接,参数减少，又降低了过拟合的风险。池化层也叫子采样,通常有max-pooling 和 average-pooling ,但通常我们使用max-pooling.卷积和池化大大简化了模型复杂度,减少了参数。</p>
-<h2 id="什么是卷积">什么是卷积？</h2>
-<p>当给定了一张新图时,CNN并不能准确的知道这些特征到底要匹配原图的哪些部分,所以它会在原图中把每一个可能的位置都进行尝试,相当于把这个特征(feature)变成了一个过滤器。这个用来匹配的过程就称为卷积操作。(特别注意,在卷积神经网络中进行的卷积操作其实本质上并不是严格的卷积,许多数学家把他们叫做互相关,但是在许多DL文献中我们把他看成卷积,真正的卷积是需要进行水平垂直的镜像) 卷积操作如图:<br>
-<img src="https://zjy98.github.io/post-images/1591723238883.gif" alt="" loading="lazy"></p>
-<p>说白了要计算一个feature和其在原图上对应的某一小块的结果,只需要将两个小块对应位置的像素值进行乘法运算,然后将整个小块内的乘法运算的结果累加起来。如下是一个6x6的灰度图像，构造一个3x3的矩阵，在卷积神经网络中通常称之为filter，对这个6x6的图像进行卷积运算，以左上角的-5计算为例 其它的以此类推，让过滤器在图像上逐步滑动，对整个图像进行卷积计算得到一幅4x4的图像。<br>
-<img src="https://zjy98.github.io/post-images/1591723303966.png" alt="" loading="lazy"></p>
-<h3 id="卷积步长">卷积步长</h3>
-<p>卷积步长是指过滤器在图像上滑动的距离，前两部分步长都默认为1，如果卷积步长为2，卷积运算过程为：<br>
-<img src="https://zjy98.github.io/post-images/1591723347508.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1591723358264.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1591723368865.png" alt="" loading="lazy"></p>
-<h3 id="卷积是如何提取特征的">卷积是如何提取特征的？</h3>
-<p>假如你有一张如下的图像，你想让计算机搞清楚图像上有什么物体，你可以做的事情是检测图像的垂直边缘和水平边缘。<br>
-<img src="https://zjy98.github.io/post-images/1591723469929.png" alt="" loading="lazy"><br>
-为什么这种卷积计算可以得到图像的边缘，下图0表示图像暗色区域，10为图像比较亮的区域，同样用一个3x3过滤器，对图像进行卷积，得到的图像中间亮，两边暗，亮色区域就对应图像边缘。<br>
-<img src="https://zjy98.github.io/post-images/1591723523985.png" alt="" loading="lazy"><br>
-注意:这里由于我们图片大小仅仅是6x6所以可以发现中间的亮色区域是很宽的,当我们的图很大的时候是不会发生这种情况的。 通过以下的水平过滤器和垂直过滤器，可以实现图像水平和垂直边缘检测。<br>
-<img src="https://zjy98.github.io/post-images/1591723725655.png" alt="" loading="lazy"></p>
-<h3 id="pading">pading</h3>
-<p>在上部分中，通过一个3x3的过滤器来对6x6的图像进行卷积，得到了一幅4x4的图像，假设输入图像大小nxn，过滤器filter大小为fxf，步长为s,那么输出图像大小为 (⌊n−fs⌋+1) x (⌊n−fs⌋+1) 这样做卷积运算的缺点是卷积图像的大小会不断缩小,另外图像的左上角元素只被一个输出所使用,而下图中红色阴影部分的像素却被多个输出使用了,所以图像的边缘像素在输出中采用较少,这也就意味着你会丢掉许多图像边缘信息,为了引入这两个问题我们引入padding操作,也就是在图像做卷积操作之前,沿着图像边缘用0进行填充对于3x3的过滤器，我们填充宽度为1时，就可以保证输出图像和输入图像一样大。如下图<br>
-<img src="https://zjy98.github.io/post-images/1591724481841.png" alt="" loading="lazy"></p>
-<h3 id="彩色图像的卷积">彩色图像的卷积</h3>
-<p>以上我们所说的卷积都是灰度值图像的,也就是一维的。我们知道彩色图像在计算机中都是按照RGB来存的,所以如果我们想要在彩色图像上进行卷一那么过滤器的大小就不能使3x3 而应该是3x3x3（RGB三通道,通道数）卷积生成图像中每个像素值为 3∗3∗3 过滤器对应位置和图像对应位置相乘累加,过滤器依次再RGB图像上滑动,最终生成图像大小为4x4<br>
-<img src="https://zjy98.github.io/post-images/1591724046264.png" alt="" loading="lazy"><br>
-另外一个问题是，如果我们在不仅仅在图像总检测一种类型的特征，而是要同时检测垂直边缘、水平边缘、45度边缘等等，也就是多个过滤器的问题。如果有两个过滤器，最终生成图像为4x4x2的立方体，这里的2来源于我们采用了两个过滤器。如果有10个过滤器那么输出图像就是4x4x10的立方体。<br>
-<img src="https://zjy98.github.io/post-images/1591724151273.png" alt="" loading="lazy"></p>
-<h3 id="池化pooling">池化Pooling</h3>
-<p>为了有效减少计算,CNN使用另一个有效的工具被称为&quot;池化&quot;。池化就是将输入图像进行缩小,减少像素信息,保留重要的信息。<br>
-<strong>Max-pooling最大值池化</strong><br>
-最大池化思想很简单，以下图为例，把4x4的图像分割成4个不同的区域，然后输出每个区域的最大值，这就是最大池化所做的事情。其实这里我们选择了2<em>2的过滤器，步长为2。在一幅真正的图像中提取最大值可能意味着提取了某些特定特征，比如垂直边缘、一只眼睛等等。<br>
-<img src="https://zjy98.github.io/post-images/1591724211509.png" alt="" loading="lazy"><br>
-以下是一个过滤器大小为3</em>3，步长为1的池化过程，具体计算和上面相同，最大池化中输出图像的大小计算方式和卷积网络中计算方法一致，如果有多个通道需要做池化操作，那么就分通道计算池化操作。<br>
-<img src="https://zjy98.github.io/post-images/1591724245973.png" alt="" loading="lazy"><br>
-最大池化（max-pooling）因为对于每一个filter,它其实就是一个特征提取器,专门用来提取某种特征,所以对于特定区域内,最后的结果越大表示匹配的越好。也就是说，它不会具体关注窗口内到底是哪一个地方匹配了，而只关注是不是有某个地方匹配上了。<br>
-<strong>average polling平均池化</strong><br>
-平均池化和最大池化唯一的不同是，它计算的是区域内的平均值而最大池化计算的是最大值。在日常应用使用最多的还是最大池化。<br>
-<img src="https://zjy98.github.io/post-images/1591724289444.png" alt="" loading="lazy"><br>
-池化的超参数:filter的大小,步长,池化的类型. 虽然这里池化层的参数我们也叫超参数,但是一般情况下她其实就是固定的,是不需要CNN进行学习的,一般我们采用最大值池化,过滤器大小为2,步长为2.</p>
-<h3 id="激活函数relu">激活函数Relu</h3>
-<p>上面介绍卷积神经网络CNN结构时用的那个图大家可以看到,卷积层我们一般用CONV来表示,RELU就是我们激活函数的一种,POOL就是我们的池化层，FC就是全连接神经网络。这里需要注意的是池化层的多少没有很明确的规定,需要我们自己进行交叉验证或者调参来决定。而每一个卷积层后都是要跟着激活函数的RELU的。 常用的激活函数有sigmod,tanh,relu等，其中sigmod,tanh主要用于全连接fc层,而Relu主要用于卷积层。回顾一下我们前面讲的神经网络中,单个神经元在接受到和输入计算wx+b后,求和经过一个函数f,输出得到h(x).这里的f就是我们的激活函数。 激活函数的主要作用是加入非线性因素,把卷积层输出结果做非线性映射。这也是我们引入神经网络的目的,如果不加入激活函数那么对wx+b的计算还是线性的<br>
-<img src="https://zjy98.github.io/post-images/1591724341103.png" alt="" loading="lazy"><br>
-在卷积神经网络中激活函数一般使用Relu(The Rectified Linear Unit，修正线性单元),他的主要特点是收敛速度快,求梯度简单,公式简单max(0,s)，即对于输入的负值输出全为0,正值输出其本身。</p>
-<h3 id="全连接层fully-connected-layers">全连接层(Fully connected layers)</h3>
-<p>全连接层在整个神经网络中期到分类器的作用,即通过卷积、激活函数、池化等深度网络后,再经过全连接层对结果进行分类。这里我们还是要将得到的图像拉伸成一个一维向量,就像前面我们使用fc对图像(像素较小的)进行分类一样，由于神经网络是属于监督学习，在模型训练时，根据训练样本对模型进行训练，从而得到全连接层的权重(在每个分类的得分)。<br>
-<img src="https://zjy98.github.io/post-images/1591724433485.png" alt="" loading="lazy"></p>
-<h1 id="为什么需要cnn">为什么需要CNN</h1>
-<p>全连接神经网络参数过于庞大,例如:假设我们有一张1000x1000的图像,隐藏层我们有100万个神经元,由于每个隐藏层的神经元都要与图像的每个像素点连接,所以这里我们就有1000000∗1000000=10^12 个连接,也就需要10^12个参数,那么这个参数是过于庞大的。 卷积神经网络有两个神器可以用来降低参数,一个叫局部感受野,一叫交权值共享。</p>
-<h2 id="局部感受野">局部感受野</h2>
-<p>我们一般认为人对外界的认知是从局部到全局的,而图像的空间联系也是局部的像素联系较为紧密,而距离较远的像素相关性较弱。因而,每个神经元其实没必要对全局图像进行感知,只需要对局部进行感知,然后在更高层将局部的信息综合起来就得到了全局的信息。这种思想也是受启发与生物学里面的系统结构，视觉皮层的神经元就是局部接受信息的（即这些神经元只响应某些特定区域的刺激） 如下图所示：左图为全连接，右图为局部连接。<br>
-<img src="https://zjy98.github.io/post-images/1591724562762.png" alt="" loading="lazy"><br>
-这个图就是描述上面的例子,这里如果我们采用局部感受野的话可以知道,每个像素不需要和所有神经元都连接,假设局部感受野的大小为10x10,隐藏层的神经元都只和每个感受野连接,此时我们的参数个数为 1000000∗10∗10=10^8. 这样的话我们的参数个数就变为了原来的万分之一,但是还是很多啊,所以就出现了权值共享</p>
-<h2 id="权值共享">权值共享</h2>
-<p>上面当中每个隐藏层神经元都连接不同的局部感受野,那么如果每个局部感受野的参数都相同,那么我的参数就变为 10*10 = 100.我们可以把这100参数对应的卷积操作看成是提取特征的一种方式,与位置无关。这是CNN的亮点之一,但是有一个问题就是说如果所有的参数都相同,也就是说我们只是提取了特定的某种特征,那么如果我们想要提取多种特征怎么办,这时候我们就需要多增加几个滤波器,每个filter对应提取不同的特征(参数不一样)。</p>
-<p>例子：区分X和O<br>
-<img src="https://zjy98.github.io/post-images/1591724674567.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1591724717113.png" alt="" loading="lazy"></p>
-<p>再回顾总结一下，卷积神经网络主要由两部分组成，一部分是特征提取（卷积、激活函数、池化），另一部分是分类识别（全连接层），下图便是著名的手写文字识别卷积神经网络结构图：<br>
-<img src="https://zjy98.github.io/post-images/1591724754183.png" alt="" loading="lazy"><br>
-具体来源：https://statusrank.xyz/articles/a0a72429.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[决策树]]></title>
-        <id>https://zjy98.github.io/post/jue-ce-shu/</id>
-        <link href="https://zjy98.github.io/post/jue-ce-shu/">
-        </link>
-        <updated>2020-06-03T14:43:20.000Z</updated>
-        <content type="html"><![CDATA[<p>决策树其实就是按节点分类数据集的一种方法。在本文中，我将讨论数学上如何使用信息论划分数据集，并编写代码构建决策树（本文使用ID3算法构建决策树，ID3算法可以用来划分标称型数据集）。</p>
-<p>创建决策树进行分类的流程如下：</p>
-<p>（1）    创建数据集</p>
-<p>（2）    计算数据集的信息熵</p>
-<p>（3）    遍历所有特征，选择信息熵最小的特征，即为最好的分类特征</p>
-<p>（4）    根据上一步得到的分类特征分割数据集，并将该特征从列表中移除</p>
-<p>（5）    执行递归函数，返回第三步，不断分割数据集，直到分类结束</p>
-<p>（6）    使用决策树执行分类，返回分类结果</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[信号和重定向]]></title>
-        <id>https://zjy98.github.io/post/xin-hao-he-chong-ding-xiang/</id>
-        <link href="https://zjy98.github.io/post/xin-hao-he-chong-ding-xiang/">
-        </link>
-        <updated>2020-05-29T10:27:10.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="管道">管道</h1>
-<ul>
-<li>
-<p>创建管道<br>
-int pipe(int pfd[2])<br>
-int pipe(int *pfd)<br>
-int pipe(int pfd[])<br>
-创建一个管道，pfd[0]和pfd[1]分别为管道两端的文件描述字，pfd[0]用于读，pfd[1]用于写</p>
-</li>
-<li>
-<p>管道写<br>
-ret = write(pfd[1],buf,n)<br>
-若管道已满，则被阻塞，直到管道另一端read将已进入管道的数据读走为止<br>
-管道容量：某一有限值，如8192字，与操作系统实现相关。</p>
-</li>
-<li>
-<p>管道读<br>
-ret = read(pfd[0],buf,n)<br>
-若管道写端已关闭，则返回0<br>
-若管道为空，且写端文件描述自未关闭，则被阻塞<br>
-若管道不为空（设管道中实际有m个字节）<br>
-n≥m 则读m个<br>
-n＜m则读n个<br>
-实际读取的数目作为read的返回值<br>
-注意：管道是无记录边界的字节流通信</p>
-<ul>
-<li>
-<p>关闭管道close<br>
-关闭写端则读端read调用返回0<br>
-关闭读端则写端write导致进程收到SIGPIPE信号（默认处理是终止进程，则信号可以被捕捉）<br>
-写端wirte返回-1 errno被设为EPIPE<br>
-<img src="https://zjy98.github.io/post-images/1590903131169.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590903228189.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590903944349.png" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>管道传输是一个无记录边界的字节流<br>
-写端一次write所发数据读端可能需多次read才能读取<br>
-写端多次write所发数据读端可能一次read就全部读出</p>
-</li>
-<li>
-<p>父子进程需要双向通信时，应采用两个管道<br>
-用一个管道，进程可能会受到自己刚写到管道取的数据<br>
-仅仅使用一个管道并增加其他同步方式也可以，太复杂</p>
-</li>
-<li>
-<p>父子进程使用两个管道传递数据，有可能死锁<br>
-父进程因输出管道满而写，导致被阻塞<br>
-子进程因需要向父进程写回足够多的数据而导致写也被阻塞，产生死锁<br>
-多进程通信问题必须仔细分析流量控制和死锁问题<br>
-** 管道的缺点：没有记录边界 **<br>
-在xshe2加入管道命令<br>
-<img src="https://zjy98.github.io/post-images/1590904371891.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590904423569.png" alt="" loading="lazy"><br>
-注意fork后，要关闭写端。close(fd[1])自己的进程没关闭，父进程已经死亡，还有人在写，会死锁。<br>
-不需要的文件描述符必须关闭，把资源留出来。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>命名管道<br>
-pipe创建的管道（匿名管道）的缺点：只限于同祖先进程间通信<br>
-命名管道：允许不相干的进程（没有共同的祖先）访问FIFO管道<br>
-命名管道的创建：<br>
-用命令 mknod pipe0 p<br>
-创建一个文件，名字为pipe0<br>
-用ls -l 列出时，文件类型为p<br>
-发送者：fd = open(&quot;pipe0&quot;,O_WRONLY);<br>
-write(fd,buf,len);<br>
-接收者：fd = open(&quot;pipe0&quot;,O_RDONLY);<br>
-read = (fd,buf,sizeof(buf));</p>
-</li>
-</ul>
-<h1 id="信号">信号</h1>
-<h2 id="信号的产生和类型">信号的产生和类型</h2>
-<ul>
-<li>命令kill<br>
-kill -signal PID-list<br>
-kill命令用于向进程发送一个信号<br>
-kill 1275 向进程1275的进程发送信号，默认信号为15，一般会导致进程死亡<br>
-kill -9 1326 向进程1326发送信号9，导致进程死亡</li>
-</ul>
-<h2 id="进程组">进程组</h2>
-<p>进程在其PCB结构中有p_pgrp域<br>
-p_pgrp都相同的进程构成一个进程组<br>
-如果p_pgrp=p_pid则该进程是组长<br>
-setsid()系统调用将PCB中的p_pgrp改为进程自己的PID，从而脱离原进程组，成为新进程组的组长<br>
-fork创建的进程继承父进程p_pgrp,与父进程同组<br>
-举例：kill命令的PID为0时，向与本进程同组的所有进程发送信号</p>
-<h2 id="信号机制">信号机制</h2>
-<p>信号是送到进程的“软件中断“，通知进程出现了非正常事件<br>
-信号的产生：<br>
-用户态进程：自己或者其他进程发出的 使用kill()或者alarm()调用<br>
-操作系统内核产生信号（往往由中断引发，也有软件触发）<br>
-段违例信号SIGSEGV：档进程试图存取它的地址空间以外的存储单元时，内核向进程发送段违例信号<br>
-浮点溢出信号SIGFPE:零做除数时，内核向进程发送浮点溢出信号<br>
-信号SIGPIPE:关闭管道读端则写端write导致进程收到信号SIGPIPE（纯粹软件产生）<br>
-<img src="https://zjy98.github.io/post-images/1590905582032.png" alt="" loading="lazy"></p>
-<h2 id="进程对信号的处理">进程对信号的处理</h2>
-<ul>
-<li>设置为缺省处理方式（大部分处理是程序中止，有的会产生core文件）</li>
-<li>信号被忽略</li>
-<li>信号被捕捉<br>
-用户事先注册好一个函数，当信号发生后就去执行这一函数<br>
-信号被设为缺省模式：signal(SIGINT,SIG_DFL)<br>
-信号被忽略：signal(SIGINT,SIG_IGN)<br>
-在执行了这个调用后，进程就不再收到SIGINT信号<br>
-注意：某信号被忽略，作为进程的一种属性被它的子进程继承<br>
-<img src="https://zjy98.github.io/post-images/1590910469169.png" alt="" loading="lazy"><br>
-信号的捕捉：<br>
-信号被捕捉并由一个用户函数来处理<br>
-信号到达时，这个函数将被调用来处理那个信号<br>
-<img src="https://zjy98.github.io/post-images/1590910630475.png" alt="" loading="lazy"><br>
-僵尸进程：</li>
-<li>僵尸子进程<br>
-子进程终止，将至进程（defunct或zombie）出现，父进程使用wait系统调用收尸后消除僵尸<br>
-僵尸进程不占用内存资源但占用内核proc表项，僵尸进程太多会导致proc表耗尽而无法再创建新进程</li>
-<li>子进程中止后的异步通知机制<br>
-子进程中止后，系统会向父进程发送信号SIGCLD</li>
-<li>不导致僵尸子进程出现的方法<br>
-忽略对SIGCLD信号的处理<br>
-signal(SIGCLD,SIG_IGN)<br>
-捕获SIGCLD信号，执行wait系统调用</li>
-</ul>
-<h2 id="发送信号">发送信号</h2>
-<ul>
-<li>系统调用kill<br>
-int kill(ind pid,int sig)<br>
-返回值：0--成功 1--失败</li>
-<li>kill调用分几种情况<br>
-当pid&gt;0时，向指定的进程发信号<br>
-当pid=0时，向与本进程同组的所有进程发信号<br>
-当pid&lt;\0时，向以-pid为组长的所有进程发信号<br>
-当sig=0时，则信号根本就没有发送，但可根据此判断一个已知PID的进程是否仍然运行<br>
-kill(pid,0);如果函数返回值为-1就可根据errno判断：errno=ESRRCH说明不存在pid进程</li>
-</ul>
-<h2 id="系统调用与信号">系统调用与信号</h2>
-<ul>
-<li>进程睡眠<br>
-系统调用执行时会导致进程处于睡眠状态<br>
-如：scanf(),sleep(),msgrcv()，操作外设的read(),write()等等</li>
-<li>睡眠进程收到信号后处理<br>
-进程正在睡眠时收到信号，进程就会从睡眠中被惊醒，系统调用立即被半途终止，返回值为-1，errno一般被设置为EINTR<br>
-注意：有的系统调用在特殊情况（与内核中的代码相关尤其是驱动程序）下睡眠很深，信号到达也不能将它惊醒（有的进程用kill -9也杀不死）<br>
-例如：sleep(1000)返回，有可能只睡眠了10秒</li>
-</ul>
-<h2 id="pause与alarm系统调用">pause与alarm系统调用</h2>
-<ul>
-<li>pause()<br>
-等待信号，进程收到信号前一直处于睡眠状态</li>
-<li>设置进程报警时钟（闹钟）<br>
-int alarm(int secs)<br>
-进程报警时存储在它内核系统数据中，报警时钟到时，进程收到SIGALRM信号<br>
-子进程继承父进程的报警时钟值，报警时钟exec执行后保持这一设置<br>
-进程收到SIGALRM后的默认处理是终止进程<br>
-（可以利用这一功能，fork后exec前做设置，限制加载程序的执行时间）<br>
-alarm参数为secs<br>
-当secs&gt;0时，将时钟设置成secs指定的秒数<br>
-当secs=0时，关闭报警时钟<br>
-<img src="https://zjy98.github.io/post-images/1590920846887.png" alt="" loading="lazy"></li>
-</ul>
-<h1 id="全局跳转">全局跳转</h1>
-<p><img src="https://zjy98.github.io/post-images/1590920931109.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590920981726.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590921013677.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590921196135.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590921258872.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590921387846.png" alt="" loading="lazy"></p>
-<p>关于信号：<br>
-破坏了程序顺序执行的模型，导致重入<br>
-例如：程序中有printf,在信号处理程序中也有printf<br>
-sigaction()<br>
-signal()的升级版本，使用起来更复杂<br>
-其他编程语言中的try-catch-finally结构</p>
-<p>错题：<br>
-1.在一个普通函数中，goto语句可以实现函数内部语句之间的跳转。全局跳转可以实现跨函数之间的跳转，但是只能跳转到本函数或本函数调用嵌套之外层函数的某一执行过的位置恢复运行。之前程序运行从这一位置到全局跳转前的这段时间里新诞生的局部变量都被销毁，但对全局变量的修改无法恢复。（对）<br>
-2.在xsh2.c样例程序中，主循环结束前执行了close(fd[0])。如果省略了此操作，下面哪个说法正确？<br>
-A.<br>
-管道读写端子进程都能正常运行结束并且完成预定的功能，但父进程文件描述符资源不能正常回收，多轮循环以后资源耗尽程序将无法完成预期功能<br>
-3.进程设置捕获某信号后执行函数a，当进程处于阻塞状态时收到这个信号，进程将转去执行函数a，函数a执行完毕，进程将重返之前的阻塞状态，等待条件满足后退出阻塞状态。（错）</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[循环神经网络RNN]]></title>
-        <id>https://zjy98.github.io/post/xun-huan-shen-jing-wang-luo/</id>
-        <link href="https://zjy98.github.io/post/xun-huan-shen-jing-wang-luo/">
-        </link>
-        <updated>2020-05-29T00:16:13.000Z</updated>
-        <content type="html"><![CDATA[<p>给定样本x,学习器为其赋予一个类别（label)y或推导出其在y上的概率分布<br>
-eg. hw(x)=w0+w1x或h(x)=argmaxkP(yk|x)<br>
-<img src="https://zjy98.github.io/post-images/1590711475192.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590711517764.png" alt="" loading="lazy"><br>
-特点：<br>
-不同于在样本上做多个独立预测，而是假设样本之间存在关联，进而在样本序列上做预测（或序列预测）<br>
-问题：<br>
-如何建模序列内部的关联？<br>
-如何从一个输入序列，预测对应的输出序列？</p>
-<h1 id="建模序列数据">建模序列数据</h1>
-<p>采用链式法则表示一个观测序列的联合概率？<br>
-<img src="https://zjy98.github.io/post-images/1590711659849.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590711664437.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590711668302.png" alt="" loading="lazy"></p>
-<p>如果考虑两个不同的序列，例如输入和输出序 列，如何采用Markov模型建模？<br>
-隐马尔可夫模型(Hidden Markov Model, HMM) – 一个经典的建模序列数据的模型：<br>
-<img src="https://zjy98.github.io/post-images/1590714787668.png" alt="" loading="lazy"></p>
-<h1 id="循环神经网络rnn">循环神经网络RNN</h1>
-<p><img src="https://zjy98.github.io/post-images/1590714779504.png" alt="" loading="lazy"><br>
-U：输入层到隐层<br>
-V：隐层到输出层<br>
-W：隐层到隐层</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[学习计划]]></title>
-        <id>https://zjy98.github.io/post/ben-zhou-ji-hua/</id>
-        <link href="https://zjy98.github.io/post/ben-zhou-ji-hua/">
-        </link>
-        <updated>2020-05-24T17:34:58.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>交换原理的的课看完，作业写了（周一）√</li>
-<li>周一下午练车√</li>
-<li>计算机系统结构实验√</li>
-<li>机器学习聚类实验√</li>
-<li>Linux实验4√</li>
-<li>软工小程序√</li>
-<li>软工文档  √</li>
-<li>交换原理的实验 √</li>
-<li>OS实验（周一开会）写硬盘操作√</li>
-<li>智慧树题刷完√</li>
-<li>机器学习决策树实验√</li>
-<li>大创结题报告 √</li>
-<li>DNN实验 DDL√</li>
-<li>RNN实验 DDL：6月19</li>
-<li>复习软件工程(6.15)、计算机系统结构（6.24)、交换原理(6.18)、Linux(6.19)</li>
-</ol>
-<p>1.RNN输入维度</p>
-<p>2.模型构建好，有输入处理，中间RNN，全连接层，输出概率</p>
-<p>3.损失函数定义 交叉熵</p>
-<p>4.训练的写好</p>
-<p>准备开始复习计算机系统结构：看书→作业→PPT</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[进程的创建和重定向]]></title>
-        <id>https://zjy98.github.io/post/jin-cheng-de-chuang-jian-he-chong-ding-xiang/</id>
-        <link href="https://zjy98.github.io/post/jin-cheng-de-chuang-jian-he-chong-ding-xiang/">
-        </link>
-        <updated>2020-05-21T16:16:52.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="进程的生命周期从生到死">进程的生命周期：从生到死</h1>
-<p>程序运行起来：产生了一个进程。<br>
-<img src="https://zjy98.github.io/post-images/1590077907649.png" alt="" loading="lazy"></p>
-<h2 id="fork创建新进程">fork:创建新进程</h2>
-<ul>
-<li>功能<br>
-fork系统调用时创建新进程的唯一方式<br>
-原先的进程叫做父进程，新进程被称作子进程<br>
-完全复制：新进程的指令，用户数据段，堆栈段<br>
-部分复制：系统数据段</li>
-<li>fork返回值：父子进程都收到返回值，但不相同<br>
-返回值很关键，它是区分父进程（返回值&gt;0是子进程的PID）和子进程（返回值=0），失败时返回-1</li>
-<li>内核实现<br>
-创建新的PCB，复制父进程环境（包括PCB和内存资源）给子进程<br>
-父子进程可以共享程序和数据（如copy-on-write技术，COW）但是这些系统核心的安排，对程序员透明<br>
-<img src="https://zjy98.github.io/post-images/1590078682173.png" alt="" loading="lazy"><br>
-最后两行，可能是父进程先执行，也可能是子进程<br>
-<img src="https://zjy98.github.io/post-images/1590078789026.png" alt="" loading="lazy"><br>
-一边父进程，一边子进程<br>
-执行fork(),两个阶段，1执行fork调用，2恢复运行 给ret赋值两个进程都要赋值<br>
-父子进程有区别，父进程赋值的是大于0的值，子进程是==0的值（父子进程的程序一样）<br>
-<img src="https://zjy98.github.io/post-images/1590078911802.png" alt="" loading="lazy"><br>
-这个执行结果来看，子进程先结束</li>
-</ul>
-<p><img src="https://zjy98.github.io/post-images/1590079147167.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590079162563.png" alt="" loading="lazy"></p>
-<h2 id="exec系统调用">exec系统调用</h2>
-<ul>
-<li>功能<br>
-用一个指定的程序文件，重新初始化一个进程<br>
-可指定新的命令行参数和环境参数（初始化堆栈底部）<br>
-exec不创建新进程，只是将当前进程重新初始化了指令段和用户端段，堆栈段以及CPU的PC指针</li>
-<li>6种格式exec系统调用<br>
-exec前缀，后跟一至两个字母<br>
-l-list, v-vector, e-env, p-path<br>
-l与v:指定命令行参数的两种方式，l以表的形式，v要事先组织成一个指针数组<br>
-e:需要指定环境变量PATH查找可执行文件<br>
-p:使用环境变量PATH查找可执行文件<br>
-六种格式的区别：不同的参数方式初始化堆栈底部</li>
-</ul>
-<h2 id="僵尸进程zombie或defunct">僵尸进程（zombie或defunct)</h2>
-<ul>
-<li>进程生命期结束时的特殊状态<br>
-系统已经释放了进程占用的包括内存在内的系统资源，但仍在内核中保留进程的部分数据结构，记录进程的终止态，等待父进程来收尸。<br>
-父进程的收尸动作完成后，僵尸进程不再存在。</li>
-<li>僵尸进程占用资源很少，仅占用内核进程表资源<br>
-过多的僵尸进程会导致有限地进程表用完</li>
-<li>孤儿进程：父进程死了，子进程都变成1号进程的子进程</li>
-</ul>
-<h2 id="wait系统调用收尸">wait系统调用（收尸）</h2>
-<ul>
-<li>功能<br>
-等待进程的子进程终止<br>
-如果已有子进程终止，则立即返回<br>
-<img src="https://zjy98.github.io/post-images/1590080061781.png" alt="" loading="lazy"></li>
-</ul>
-<h1 id="写一个简单的shell">写一个简单的shell</h1>
-<h2 id="字符串库函数strtok">字符串库函数strtok</h2>
-<p><img src="https://zjy98.github.io/post-images/1590337219763.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590337409218.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590337794150.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590337763764.png" alt="" loading="lazy"></p>
-<h2 id="库函数system运行一个命令">库函数system：运行一个命令</h2>
-<p>int system(char *string)<br>
-执行字符串传递的shell命令，可使用管道符和重定向<br>
-库函数system(),是利用系统调用fork,exec,wait实现的<br>
-<img src="https://zjy98.github.io/post-images/1590338359341.png" alt="" loading="lazy"></p>
-<h1 id="进程与文件描述符">进程与文件描述符</h1>
-<h2 id="活动文件目录afd">活动文件目录AFD</h2>
-<ul>
-<li>磁盘文件目录（分2级）<br>
-文件名，i节点</li>
-<li>活动文件目录（分3级）<br>
-文件描述符表FDT：每个进程一张，PCB的user结构中<br>
-user结构中整型数组u_ofile记录进程打开的文件<br>
-文件描述符fd是u_ofile数组的下标<br>
-系统文件表SFT：整个核心一张，file结构</li>
-</ul>
-<pre><code class="language-c">struct file{
-    char f_flag; //读写操作要求
-    char f_count;//引用计数
-    long f_offset;//文件读写位置指针
-    int f_inode;//内核中inode数组的下标
-}
-</code></pre>
-<p>活动i节点表：整个核心一张，inode结构<br>
-内存中inode表是外存中inode的缓冲<br>
-内存inode表里也有个专用的引用计数<br>
-<img src="https://zjy98.github.io/post-images/1590338772959.png" alt="" loading="lazy"></p>
-<h2 id="文件描述符的继承和关闭">文件描述符的继承和关闭</h2>
-<p>fork创建的子进程继承父进程的文件描述符表<br>
-父进程在fork前打开的文件，父子进程有相同的文件偏移<br>
-<img src="https://zjy98.github.io/post-images/1590339425330.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590339445517.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590339714460.png" alt="" loading="lazy"></p>
-<h1 id="重定向">重定向</h1>
-<p>类似文件描述符的复制</p>
-<ul>
-<li>系统调用<br>
-int dup2(int fd1,int fd2)</li>
-<li>功能<br>
-复制文件描述符fd1到fd2<br>
-fd2可以是空闲的文件描述符<br>
-如果fd2是已打开文件，则关闭已打开文件<br>
-<img src="https://zjy98.github.io/post-images/1590339931448.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590340733716.png" alt="" loading="lazy"><br>
-<img src="https://zjy98.github.io/post-images/1590340790365.png" alt="" loading="lazy"></li>
-</ul>
-<h1 id="错题">错题：</h1>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;unistd.h&gt;
-int main(void)
-{
-    int i = 0;
-    printf(&quot;PID=%d\n&quot;, getpid());
-    for (;;) {
-        if (!fork())
-            return 0;
-        sleep(1);
-        printf(&quot;%d\n&quot;, ++i);
-    }
-}
-</code></pre>
-<p>编译链接后生成的可执行程序为foo，运行./foo得到的第一行输出为：</p>
-<p>PID=7812</p>
-<p>然后程序继续运行，一段时间以后，在其他终端上执行vi bar.c失败，得到的提示信息为：</p>
-<p>-bash: fork: retry: Resource temporarily unavailable</p>
-<p>A.<br>
-**在另外一个终端上执行kill 7812之后，系统恢复正常 **</p>
-<p>程序中第9行if  (!fork())应该修改为if (fork() == 0)。尽管语义相同，但可读性不好，前者容易误导别人是判断fork失败，fork失败将不创建子进程，实际上是fork成功且自身是子进程。<br>
-fork()后子进程直接终止，就是产生了僵尸，但是父进程没有执行wait消除僵尸。kill是内部命令，不需要创建新的进程，Ctrl-C也不需要创建进程，所以可以把foo进程杀死，foo的所有子进程（尽管都是僵尸状态），不会成为foo的父进程的子进程，而是成为操作系统进程1的子进程，1号进程会删除僵尸子进程，系统恢复正常，可以创建新的进程。reboot和killall都是外部命令，需要启动新的进程，当僵尸进程把操作系统内核中的全部进程槽占满了之后，启动失败。<br>
-如果foo进程是一个网络服务后台进程，脱离终端在后台运行，出现这样的问题，任何用户也不可能再完成登录，因为登录就需要创建shell进程，就算知道了PID连执行kill命令的机会都没有。执行关机命令的机会都没有，就麻烦了。<br>
-如果foo进程是后台进程没有机会Ctrl-C，即使有一个已登录的终端，若不知道进程的PID号，ps运行不了，也没法完成kill</p>
 ]]></content>
     </entry>
 </feed>
