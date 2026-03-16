@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>进程的创建和重定向 | Just FOR 1998</title>
+<meta name="description" content="LOVE YOURSELF">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zjy98.github.io/favicon.ico?v=1773641169215">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zjy98.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zjy98.github.io">
+        <img src="https://zjy98.github.io/images/avatar.png?v=1773641169215" class="site-logo">
+        <h1 class="site-title">Just FOR 1998</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/zjy98" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      LOVE YOURSELF
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zjy98.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">进程的创建和重定向</h2>
+            <div class="post-date">2020-05-22</div>
+            
+            <div class="post-content">
+              <h1 id="进程的生命周期从生到死">进程的生命周期：从生到死</h1>
+<p>程序运行起来：产生了一个进程。<br>
+<img src="https://zjy98.github.io/post-images/1590077907649.png" alt="" loading="lazy"></p>
+<h2 id="fork创建新进程">fork:创建新进程</h2>
+<ul>
+<li>功能<br>
+fork系统调用时创建新进程的唯一方式<br>
+原先的进程叫做父进程，新进程被称作子进程<br>
+完全复制：新进程的指令，用户数据段，堆栈段<br>
+部分复制：系统数据段</li>
+<li>fork返回值：父子进程都收到返回值，但不相同<br>
+返回值很关键，它是区分父进程（返回值&gt;0是子进程的PID）和子进程（返回值=0），失败时返回-1</li>
+<li>内核实现<br>
+创建新的PCB，复制父进程环境（包括PCB和内存资源）给子进程<br>
+父子进程可以共享程序和数据（如copy-on-write技术，COW）但是这些系统核心的安排，对程序员透明<br>
+<img src="https://zjy98.github.io/post-images/1590078682173.png" alt="" loading="lazy"><br>
+最后两行，可能是父进程先执行，也可能是子进程<br>
+<img src="https://zjy98.github.io/post-images/1590078789026.png" alt="" loading="lazy"><br>
+一边父进程，一边子进程<br>
+执行fork(),两个阶段，1执行fork调用，2恢复运行 给ret赋值两个进程都要赋值<br>
+父子进程有区别，父进程赋值的是大于0的值，子进程是==0的值（父子进程的程序一样）<br>
+<img src="https://zjy98.github.io/post-images/1590078911802.png" alt="" loading="lazy"><br>
+这个执行结果来看，子进程先结束</li>
+</ul>
+<p><img src="https://zjy98.github.io/post-images/1590079147167.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590079162563.png" alt="" loading="lazy"></p>
+<h2 id="exec系统调用">exec系统调用</h2>
+<ul>
+<li>功能<br>
+用一个指定的程序文件，重新初始化一个进程<br>
+可指定新的命令行参数和环境参数（初始化堆栈底部）<br>
+exec不创建新进程，只是将当前进程重新初始化了指令段和用户端段，堆栈段以及CPU的PC指针</li>
+<li>6种格式exec系统调用<br>
+exec前缀，后跟一至两个字母<br>
+l-list, v-vector, e-env, p-path<br>
+l与v:指定命令行参数的两种方式，l以表的形式，v要事先组织成一个指针数组<br>
+e:需要指定环境变量PATH查找可执行文件<br>
+p:使用环境变量PATH查找可执行文件<br>
+六种格式的区别：不同的参数方式初始化堆栈底部</li>
+</ul>
+<h2 id="僵尸进程zombie或defunct">僵尸进程（zombie或defunct)</h2>
+<ul>
+<li>进程生命期结束时的特殊状态<br>
+系统已经释放了进程占用的包括内存在内的系统资源，但仍在内核中保留进程的部分数据结构，记录进程的终止态，等待父进程来收尸。<br>
+父进程的收尸动作完成后，僵尸进程不再存在。</li>
+<li>僵尸进程占用资源很少，仅占用内核进程表资源<br>
+过多的僵尸进程会导致有限地进程表用完</li>
+<li>孤儿进程：父进程死了，子进程都变成1号进程的子进程</li>
+</ul>
+<h2 id="wait系统调用收尸">wait系统调用（收尸）</h2>
+<ul>
+<li>功能<br>
+等待进程的子进程终止<br>
+如果已有子进程终止，则立即返回<br>
+<img src="https://zjy98.github.io/post-images/1590080061781.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="写一个简单的shell">写一个简单的shell</h1>
+<h2 id="字符串库函数strtok">字符串库函数strtok</h2>
+<p><img src="https://zjy98.github.io/post-images/1590337219763.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337409218.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337794150.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590337763764.png" alt="" loading="lazy"></p>
+<h2 id="库函数system运行一个命令">库函数system：运行一个命令</h2>
+<p>int system(char *string)<br>
+执行字符串传递的shell命令，可使用管道符和重定向<br>
+库函数system(),是利用系统调用fork,exec,wait实现的<br>
+<img src="https://zjy98.github.io/post-images/1590338359341.png" alt="" loading="lazy"></p>
+<h1 id="进程与文件描述符">进程与文件描述符</h1>
+<h2 id="活动文件目录afd">活动文件目录AFD</h2>
+<ul>
+<li>磁盘文件目录（分2级）<br>
+文件名，i节点</li>
+<li>活动文件目录（分3级）<br>
+文件描述符表FDT：每个进程一张，PCB的user结构中<br>
+user结构中整型数组u_ofile记录进程打开的文件<br>
+文件描述符fd是u_ofile数组的下标<br>
+系统文件表SFT：整个核心一张，file结构</li>
+</ul>
+<pre><code class="language-c">struct file{
+    char f_flag; //读写操作要求
+    char f_count;//引用计数
+    long f_offset;//文件读写位置指针
+    int f_inode;//内核中inode数组的下标
+}
+</code></pre>
+<p>活动i节点表：整个核心一张，inode结构<br>
+内存中inode表是外存中inode的缓冲<br>
+内存inode表里也有个专用的引用计数<br>
+<img src="https://zjy98.github.io/post-images/1590338772959.png" alt="" loading="lazy"></p>
+<h2 id="文件描述符的继承和关闭">文件描述符的继承和关闭</h2>
+<p>fork创建的子进程继承父进程的文件描述符表<br>
+父进程在fork前打开的文件，父子进程有相同的文件偏移<br>
+<img src="https://zjy98.github.io/post-images/1590339425330.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590339445517.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590339714460.png" alt="" loading="lazy"></p>
+<h1 id="重定向">重定向</h1>
+<p>类似文件描述符的复制</p>
+<ul>
+<li>系统调用<br>
+int dup2(int fd1,int fd2)</li>
+<li>功能<br>
+复制文件描述符fd1到fd2<br>
+fd2可以是空闲的文件描述符<br>
+如果fd2是已打开文件，则关闭已打开文件<br>
+<img src="https://zjy98.github.io/post-images/1590339931448.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590340733716.png" alt="" loading="lazy"><br>
+<img src="https://zjy98.github.io/post-images/1590340790365.png" alt="" loading="lazy"></li>
+</ul>
+<h1 id="错题">错题：</h1>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+int main(void)
+{
+    int i = 0;
+    printf(&quot;PID=%d\n&quot;, getpid());
+    for (;;) {
+        if (!fork())
+            return 0;
+        sleep(1);
+        printf(&quot;%d\n&quot;, ++i);
+    }
+}
+</code></pre>
+<p>编译链接后生成的可执行程序为foo，运行./foo得到的第一行输出为：</p>
+<p>PID=7812</p>
+<p>然后程序继续运行，一段时间以后，在其他终端上执行vi bar.c失败，得到的提示信息为：</p>
+<p>-bash: fork: retry: Resource temporarily unavailable</p>
+<p>A.<br>
+**在另外一个终端上执行kill 7812之后，系统恢复正常 **</p>
+<p>程序中第9行if  (!fork())应该修改为if (fork() == 0)。尽管语义相同，但可读性不好，前者容易误导别人是判断fork失败，fork失败将不创建子进程，实际上是fork成功且自身是子进程。<br>
+fork()后子进程直接终止，就是产生了僵尸，但是父进程没有执行wait消除僵尸。kill是内部命令，不需要创建新的进程，Ctrl-C也不需要创建进程，所以可以把foo进程杀死，foo的所有子进程（尽管都是僵尸状态），不会成为foo的父进程的子进程，而是成为操作系统进程1的子进程，1号进程会删除僵尸子进程，系统恢复正常，可以创建新的进程。reboot和killall都是外部命令，需要启动新的进程，当僵尸进程把操作系统内核中的全部进程槽占满了之后，启动失败。<br>
+如果foo进程是一个网络服务后台进程，脱离终端在后台运行，出现这样的问题，任何用户也不可能再完成登录，因为登录就需要创建shell进程，就算知道了PID连执行kill命令的机会都没有。执行关机命令的机会都没有，就麻烦了。<br>
+如果foo进程是后台进程没有机会Ctrl-C，即使有一个已登录的终端，若不知道进程的PID号，ps运行不了，也没法完成kill</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zjy98.github.io/tag/dMPwcEgSv/" class="tag">
+                    Linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zjy98.github.io/post/php-ji-zhu/">
+                  <h3 class="post-title">
+                    PHP技术
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
